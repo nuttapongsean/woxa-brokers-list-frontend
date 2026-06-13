@@ -31,12 +31,34 @@
   --color-filter-inactive: #1A2B41;
   --color-submit-broker-form: #203754;
   --color-submit-broker-type: #68788B;
+  --color-register-form: #000E23;
 
   /* Accent */
   --color-accent: #4a9eff;
   --color-accent-dark: #2563eb;
   --color-positive: #34d399;
   --color-warning: #f59e0b;
+}
+
+/* Custom checkbox for register/agreement */
+@layer components {
+  .checkbox-custom {
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.125rem;
+    border: 1px solid #25354D;
+    background-color: #25354D;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .checkbox-custom:checked {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
 }
 
 /* Button gradient utility */
@@ -72,6 +94,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-p {
+/* p {
   font-size: 14px;
-}
+} */
