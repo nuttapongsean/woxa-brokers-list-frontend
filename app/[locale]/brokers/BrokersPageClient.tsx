@@ -40,7 +40,7 @@ export function BrokersPageClient({ locale }: BrokersPageClientProps) {
       {/* Header */}
       <header className="mb-6 sm:mb-8">
         <h1
-          className="font-display font-bold text-[32px] leading-[36px] sm:text-[48px] sm:leading-[52px] lg:text-[60px] lg:leading-[60px] text-ink-bright flex items-center mb-3"
+          className="text-ink-title font-display font-bold text-[32px] leading-[36px] sm:text-[48px] sm:leading-[52px] lg:text-[60px] lg:leading-[60px] text-ink-bright flex items-center mb-3"
         >
           {t('title')}
         </h1>
