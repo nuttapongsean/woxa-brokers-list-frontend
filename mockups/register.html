@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Woxa – Institutional Onboarding</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #060c18;
+      --bg-panel: #08111f;
+      --bg-form: #080f1e;
+      --bg-input: #0f1e33;
+      --bg-input-focus: #122240;
+      --border: #1b2f4e;
+      --border-light: #243d60;
+      --border-focus: #3b6ea0;
+      --text: #e8f0fe;
+      --text-muted: #7a9cc0;
+      --text-dim: #4a6a8a;
+      --accent: #4a9eff;
+      --accent-dark: #2563eb;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 60px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo { font-size: 22px; font-weight: 700; color: var(--text); text-decoration: none; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 14px; font-weight: 500; }
+    .nav-links a.active { color: var(--text); border-bottom: 2px solid var(--accent); padding-bottom: 2px; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-actions { display: flex; align-items: center; gap: 20px; }
+    .nav-icon { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border-light); display: flex; align-items: center; justify-content: center; color: var(--text-muted); cursor: pointer; }
+
+    /* SPLIT LAYOUT */
+    .split-layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* LEFT PANEL */
+    .left-panel {
+      position: relative;
+      overflow: hidden;
+      background: var(--bg-panel);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 52px 56px;
+    }
+
+    .left-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, #060e1a 0%, #0c1e38 45%, #040c18 100%);
+    }
+
+    .left-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(20,45,80,0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(20,45,80,0.12) 1px, transparent 1px);
+      background-size: 70px 70px;
+    }
+
+    /* Building perspective lines */
+    .left-lines {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(175deg, transparent 35%, rgba(12,35,65,0.4) 50%, transparent 65%),
+        linear-gradient(185deg, transparent 35%, rgba(12,35,65,0.3) 50%, transparent 65%);
+    }
+
+    .left-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(6,12,24,0.92) 0%, rgba(6,12,24,0.3) 50%, rgba(6,12,24,0.1) 100%);
+    }
+
+    .left-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      color: var(--accent);
+    }
+
+    .brand-name {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .left-content h2 {
+      font-size: 52px;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .left-content p {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 380px;
+      margin-bottom: 40px;
+    }
+
+    .stats-row {
+      display: flex;
+      gap: 40px;
+    }
+
+    .stat {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .stat-value {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.5px;
+    }
+
+    .stat-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    /* RIGHT PANEL (FORM) */
+    .right-panel {
+      background: var(--bg-form);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 52px 56px;
+      border-left: 1px solid var(--border);
+    }
+
+    .form-header {
+      margin-bottom: 32px;
+    }
+
+    .form-header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .form-header p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* FORM FIELDS */
+    .form-body {
+      flex: 1;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 13px 16px;
+      color: var(--text-muted);
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+      font-family: inherit;
+    }
+
+    input:focus {
+      border-color: var(--border-focus);
+      background: var(--bg-input-focus);
+      color: var(--text);
+    }
+
+    input::placeholder { color: var(--text-dim); }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    /* CHECKBOX */
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 20px 0 24px;
+    }
+
+    .checkbox-group input[type="checkbox"] {
+      width: 15px;
+      height: 15px;
+      margin-top: 2px;
+      accent-color: var(--accent);
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 0;
+    }
+
+    .checkbox-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    .checkbox-label a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .checkbox-label a:hover { color: #7ac2ff; }
+
+    /* SUBMIT BUTTON */
+    .btn-register {
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(135deg, #3b8ef0 0%, #5ba8ff 100%);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: opacity 0.2s;
+      margin-bottom: 20px;
+    }
+
+    .btn-register:hover { opacity: 0.9; }
+
+    .login-prompt {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .login-prompt a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .login-prompt a:hover { color: #7ac2ff; }
+
+    /* FOOTER BADGES */
+    .form-footer-badges {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .security-badge {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .form-copyright {
+      text-align: center;
+      font-size: 10px;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 12px;
+    }
+
+    /* PAGE FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo { font-size: 16px; font-weight: 700; color: var(--text); }
+    .footer-links { display: flex; gap: 28px; list-style: none; }
+    .footer-links a { text-decoration: none; color: var(--text-dim); font-size: 12px; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; }
+    .footer-copy { font-size: 11px; color: var(--text-dim); letter-spacing: 0.05em; text-transform: uppercase; }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="brokers-list.html" class="nav-logo">Woxa</a>
+    <ul class="nav-links">
+      <li><a href="brokers-list.html" class="active">Brokers</a></li>
+      <li><a href="#">Markets</a></li>
+      <li><a href="#">Analysis</a></li>
+      <li><a href="#">Education</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="nav-icon">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </div>
+      <div class="nav-icon">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+    </div>
+  </nav>
+
+  <!-- SPLIT LAYOUT -->
+  <div class="split-layout">
+
+    <!-- LEFT -->
+    <div class="left-panel">
+      <div class="left-bg"></div>
+      <div class="left-grid"></div>
+      <div class="left-lines"></div>
+      <div class="left-overlay"></div>
+      <div class="left-content">
+        <div class="brand">
+          <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+          <span class="brand-name">Sovereign Ledger</span>
+        </div>
+
+        <h2>Secure Your Entry into the Sovereign Ledger</h2>
+        <p>Access the definitive institutional terminal for global capital management and verified digital asset custody. Join the network of sovereign entities and elite financial brokers.</p>
+
+        <div class="stats-row">
+          <div class="stat">
+            <span class="stat-value">12.4T</span>
+            <span class="stat-label">Managed Capital</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">99.9%</span>
+            <span class="stat-label">Uptime SLA</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="right-panel">
+      <div class="form-header">
+        <h1>Institutional Onboarding</h1>
+        <p>Complete your verification credentials to access the terminal.</p>
+      </div>
+
+      <div class="form-body">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Alexander Sterling" />
+        </div>
+
+        <div class="form-group">
+          <label>Institutional Email</label>
+          <input type="email" placeholder="verification@reserve.int" />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Security Password</label>
+            <input type="password" placeholder="••••••••••" />
+          </div>
+          <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" placeholder="••••••••••" />
+          </div>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="agreement" />
+          <label class="checkbox-label" for="agreement">
+            I acknowledge that I am authorized to represent this entity and agree to the <a href="#">Institutional Master Service Agreement</a> and <a href="#">Privacy Protocols</a>.
+          </label>
+        </div>
+
+        <button class="btn-register">
+          Initialize Registration
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+
+        <p class="login-prompt">Already verified? <a href="login.html">Institutional Login</a></p>
+      </div>
+
+      <div>
+        <div class="form-footer-badges">
+          <span class="security-badge">AES-256 Encrypted</span>
+          <span class="security-badge">GDPR Compliant</span>
+          <span class="security-badge">SEC Framework</span>
+        </div>
+        <p class="form-copyright">© 2024 Sovereign Ledger</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">Woxa</span>
+    <ul class="footer-links">
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Terms of Service</a></li>
+      <li><a href="#">Risk Disclosure</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <span class="footer-copy">© 2024 Sterling Midnight. All Rights Reserved.</span>
+  </footer>
+
+</body>
+</html>

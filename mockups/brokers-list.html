@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Woxa – Institutional Brokers</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #070d1a;
+      --bg-card: #0d1829;
+      --bg-card-hover: #101f34;
+      --bg-input: #0f1e33;
+      --border: #1b2f4e;
+      --border-light: #243d60;
+      --text: #e8f0fe;
+      --text-muted: #7a9cc0;
+      --text-dim: #4a6a8a;
+      --accent: #4a9eff;
+      --accent-dark: #2563eb;
+      --btn-primary: linear-gradient(135deg, #3b8ef0 0%, #5ba8ff 100%);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 60px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a.active {
+      color: var(--text);
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 2px;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* MAIN CONTENT */
+    main {
+      flex: 1;
+      padding: 52px 48px 80px;
+      max-width: 1100px;
+    }
+
+    .page-header {
+      margin-bottom: 36px;
+    }
+
+    .page-header h1 {
+      font-size: 52px;
+      font-weight: 700;
+      letter-spacing: -1.5px;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .page-header p {
+      font-size: 15px;
+      color: var(--text-muted);
+      max-width: 460px;
+      line-height: 1.6;
+    }
+
+    /* SEARCH */
+    .search-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--bg-input);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 18px;
+      margin-bottom: 22px;
+      max-width: 520px;
+    }
+
+    .search-bar svg { color: var(--text-dim); flex-shrink: 0; }
+
+    .search-bar input {
+      background: none;
+      border: none;
+      outline: none;
+      color: var(--text-muted);
+      font-size: 14px;
+      flex: 1;
+    }
+
+    .search-bar input::placeholder { color: var(--text-dim); }
+
+    /* FILTERS */
+    .filters {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      margin-right: 4px;
+    }
+
+    .filter-btn {
+      padding: 7px 18px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-btn.active {
+      background: var(--accent-dark);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .filter-btn:hover:not(.active) {
+      border-color: var(--border-light);
+      color: var(--text);
+    }
+
+    /* BROKERS GRID */
+    .brokers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .broker-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .broker-card:hover {
+      border-color: var(--border-light);
+      transform: translateY(-2px);
+    }
+
+    .broker-card-image {
+      position: relative;
+      height: 170px;
+      overflow: hidden;
+    }
+
+    .broker-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.7);
+    }
+
+    .broker-card-image .placeholder-img {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0f1e33 0%, #162a45 50%, #0a1520 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .badge-premium {
+      background: rgba(59,142,240,0.2);
+      border: 1px solid rgba(59,142,240,0.5);
+      color: #7ac2ff;
+    }
+
+    .broker-card-body {
+      padding: 20px 20px 18px;
+    }
+
+    .broker-card-body h3 {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .broker-card-body p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 16px;
+    }
+
+    .broker-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .broker-tag {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .broker-tag svg { width: 12px; height: 12px; }
+
+    .view-details {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .view-details:hover { color: #7ac2ff; }
+
+    /* PARTNER CARD */
+    .partner-card {
+      background: var(--bg-card);
+      border: 1px dashed var(--border-light);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .partner-card-icon {
+      width: 48px;
+      height: 48px;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .partner-card h3 {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .partner-card p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.55;
+      max-width: 200px;
+    }
+
+    .btn-outline {
+      padding: 9px 22px;
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      background: transparent;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 4px;
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-logo {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: var(--text-dim);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text-muted); }
+
+    .footer-copy {
+      font-size: 11px;
+      color: var(--text-dim);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="brokers-list.html" class="nav-logo">Woxa</a>
+    <ul class="nav-links">
+      <li><a href="brokers-list.html" class="active">Brokers</a></li>
+      <li><a href="#">Markets</a></li>
+      <li><a href="#">Analysis</a></li>
+      <li><a href="#">Education</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="nav-icon">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </div>
+      <div class="nav-icon">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+    <div class="page-header">
+      <h1>Institutional Brokers</h1>
+      <p>Access global liquidity through our curated network of elite financial institutions and market makers.</p>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="search-bar">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" placeholder="Find brokers by name, region, or asset class..." />
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters">
+      <span class="filter-label">Asset Focus:</span>
+      <button class="filter-btn active">All Partners</button>
+      <button class="filter-btn">CFD</button>
+      <button class="filter-btn">Bond</button>
+      <button class="filter-btn">Stock</button>
+      <button class="filter-btn">Crypto</button>
+    </div>
+
+    <!-- GRID -->
+    <div class="brokers-grid">
+
+      <!-- Card 1 -->
+      <div class="broker-card">
+        <div class="broker-card-image">
+          <div class="placeholder-img" style="background: linear-gradient(160deg, #0c1e36 0%, #1a3050 60%, #0a1525 100%);">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1e3a5a" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <span class="badge badge-premium">Premium Tier</span>
+        </div>
+        <div class="broker-card-body">
+          <h3>Vanguard Capital</h3>
+          <p>Specializing in high-frequency CFD execution and multi-asset liquidity across Asian markets.</p>
+          <div class="broker-card-footer">
+            <span class="broker-tag">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              Tier 1 Licensed
+            </span>
+            <a href="broker-detail.html" class="view-details">View Details →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="broker-card">
+        <div class="broker-card-image">
+          <div class="placeholder-img" style="background: linear-gradient(160deg, #0d1e30 0%, #162840 60%, #0a1820 100%);">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1e3050" stroke-width="1"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+        </div>
+        <div class="broker-card-body">
+          <h3>Meridian Bonds</h3>
+          <p>The global authority on sovereign debt and corporate bond indexing for institutional portfolios.</p>
+          <div class="broker-card-footer">
+            <span class="broker-tag">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              FCA Regulated
+            </span>
+            <a href="broker-detail.html" class="view-details">View Details →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="broker-card">
+        <div class="broker-card-image">
+          <div class="placeholder-img" style="background: linear-gradient(160deg, #101520 0%, #1c2535 60%, #0c1220 100%);">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1e2d42" stroke-width="1"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          </div>
+        </div>
+        <div class="broker-card-body">
+          <h3>Apex Equities</h3>
+          <p>Direct market access to NYSE and LSE with industry-leading low-latency execution frameworks.</p>
+          <div class="broker-card-footer">
+            <span class="broker-tag">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+              Global Reach
+            </span>
+            <a href="broker-detail.html" class="view-details">View Details →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="broker-card">
+        <div class="broker-card-image">
+          <div class="placeholder-img" style="background: radial-gradient(circle at 30% 50%, #0d2040 0%, #060e1a 70%);">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1a2e48" stroke-width="1"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+        </div>
+        <div class="broker-card-body">
+          <h3>BlockStream Prime</h3>
+          <p>Secure digital asset brokerage bridging traditional finance with decentralized liquidity pools.</p>
+          <div class="broker-card-footer">
+            <span class="broker-tag">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              Cold Storage
+            </span>
+            <a href="broker-detail.html" class="view-details">View Details →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="broker-card">
+        <div class="broker-card-image">
+          <div class="placeholder-img" style="background: linear-gradient(160deg, #0c1828 0%, #14253a 50%, #080f1c 100%);">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#1b3050" stroke-width="1"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6" y2="6"/><line x1="6" y1="18" x2="6" y2="18"/></svg>
+          </div>
+        </div>
+        <div class="broker-card-body">
+          <h3>Summit Analytics</h3>
+          <p>Data-driven brokerage services focused on commodities and precious metals trading desks.</p>
+          <div class="broker-card-footer">
+            <span class="broker-tag">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+              Data-First
+            </span>
+            <a href="broker-detail.html" class="view-details">View Details →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Partner CTA card -->
+      <div class="partner-card">
+        <svg class="partner-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+          <circle cx="9" cy="7" r="4"/>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+        <h3>Partner with Us</h3>
+        <p>Are you an institutional broker? Join our exclusive network of providers.</p>
+        <button class="btn-outline">Inquire Now</button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-logo">Woxa</span>
+    <ul class="footer-links">
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Terms of Service</a></li>
+      <li><a href="#">Risk Disclosure</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <span class="footer-copy">© 2024 Sterling Midnight. All Rights Reserved.</span>
+  </footer>
+
+</body>
+</html>

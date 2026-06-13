@@ -1,0 +1,162 @@
+{
+  "nav": {
+    "brokers": "Brokers",
+    "markets": "Markets",
+    "analysis": "Analysis",
+    "education": "Education"
+  },
+  "brokers": {
+    "title": "Institutional Brokers",
+    "subtitle": "Access global liquidity through our curated network of elite financial institutions and market makers.",
+    "search": {
+      "placeholder": "Find brokers by name, region, or asset class..."
+    },
+    "filters": {
+      "label": "Asset Focus:",
+      "all": "All Partners",
+      "cfd": "CFD",
+      "bond": "Bond",
+      "stock": "Stock",
+      "crypto": "Crypto"
+    },
+    "card": {
+      "viewDetails": "View Details"
+    },
+    "partner": {
+      "title": "Partner with Us",
+      "description": "Are you an institutional broker? Join our exclusive network of providers.",
+      "cta": "Inquire Now"
+    }
+  },
+  "brokerDetail": {
+    "visitWebsite": "Visit Website",
+    "downloadProspectus": "Download Prospectus",
+    "performanceMetrics": "Performance Metrics",
+    "viewAuditReport": "View Full Audit Report",
+    "availableMarkets": "Available Markets",
+    "contactDetails": "Contact & Details",
+    "mandate": "The Sovereign Mandate",
+    "markets": {
+      "forexPairs": "Forex Pairs",
+      "indices": "Indices",
+      "commodities": "Commodities",
+      "equities": "Equities",
+      "sovereignBonds": "Sovereign Bonds",
+      "cryptoEtps": "Crypto ETPs"
+    },
+    "metrics": {
+      "aumGrowth": "AUM Growth (YoY)",
+      "liquidityAccess": "Liquidity Access",
+      "clientRetention": "Client Retention",
+      "dailyAverage": "Daily Average"
+    }
+  },
+  "submitBroker": {
+    "title": "Submit Broker",
+    "subtitle": "Register a new institutional entity within the Sterling Midnight ecosystem. Please ensure all data points align with regulatory documentation.",
+    "fields": {
+      "brokerName": "Broker Name",
+      "brokerNamePlaceholder": "e.g. Sterling Capital Markets",
+      "slug": "Slug",
+      "slugPlaceholder": "sterling-capital-markets",
+      "brokerType": "Broker Type",
+      "logoUrl": "Logo URL",
+      "logoUrlPlaceholder": "https://assets.sterling.com/logo.png",
+      "website": "Website",
+      "websitePlaceholder": "https://sterlingmidnight.com",
+      "description": "Broker Description",
+      "descriptionPlaceholder": "Provide a comprehensive institutional overview..."
+    },
+    "actions": {
+      "discard": "Discard Draft",
+      "submit": "Submit Application"
+    },
+    "success": "Broker application submitted successfully.",
+    "error": "Failed to submit application. Please try again."
+  },
+  "login": {
+    "brandTitle": "Sterling Midnight",
+    "brandSubtitle": "Institutional Terminal",
+    "sectionTitle": "Secure Verification",
+    "sectionDesc": "Access the Sovereign Ledger with your verified credentials.",
+    "email": "Institutional Email",
+    "emailPlaceholder": "user@institution.domain",
+    "password": "Security Password",
+    "passwordPlaceholder": "••••••••••••",
+    "forgotCredentials": "Forgot Credentials?",
+    "submit": "Login",
+    "noAccount": "Don't have an account?",
+    "register": "Register",
+    "badges": {
+      "tls": "TLS 1.3 Encryption",
+      "biometric": "Biometric Ready"
+    },
+    "error": "Invalid credentials. Please try again."
+  },
+  "register": {
+    "brandName": "Sovereign Ledger",
+    "heroTitle": "Secure Your Entry into the Sovereign Ledger",
+    "heroDesc": "Access the definitive institutional terminal for global capital management and verified digital asset custody. Join the network of sovereign entities and elite financial brokers.",
+    "stats": {
+      "managedCapital": "Managed Capital",
+      "uptimeSla": "Uptime SLA"
+    },
+    "formTitle": "Institutional Onboarding",
+    "formDesc": "Complete your verification credentials to access the terminal.",
+    "fullName": "Full Name",
+    "fullNamePlaceholder": "Alexander Sterling",
+    "email": "Institutional Email",
+    "emailPlaceholder": "verification@reserve.int",
+    "password": "Security Password",
+    "passwordPlaceholder": "••••••••••",
+    "confirmPassword": "Confirm Password",
+    "confirmPasswordPlaceholder": "••••••••••",
+    "agreement": "I acknowledge that I am authorized to represent this entity and agree to the",
+    "agreementLink": "Institutional Master Service Agreement",
+    "and": "and",
+    "privacyLink": "Privacy Protocols",
+    "submit": "Initialize Registration",
+    "alreadyVerified": "Already verified?",
+    "loginLink": "Institutional Login",
+    "badges": {
+      "aes": "AES-256 Encrypted",
+      "gdpr": "GDPR Compliant",
+      "sec": "SEC Framework"
+    },
+    "copyright": "© 2024 Sovereign Ledger",
+    "error": "Registration failed. Please check your details and try again.",
+    "passwordMismatch": "Passwords do not match."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong.",
+    "retry": "Try again",
+    "notFound": "Not found",
+    "backToBrokers": "Back to Brokers"
+  },
+  "footer": {
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "riskDisclosure": "Risk Disclosure",
+    "contact": "Contact",
+    "copyright": "© 2024 Sterling Midnight. All Rights Reserved."
+  },
+  "meta": {
+    "brokers": {
+      "title": "Institutional Brokers | Woxa",
+      "description": "Access global liquidity through our curated network of elite financial institutions and market makers."
+    },
+    "login": {
+      "title": "Secure Login | Woxa Sterling Midnight",
+      "description": "Sign in to the Sterling Midnight institutional terminal."
+    },
+    "register": {
+      "title": "Institutional Onboarding | Woxa",
+      "description": "Register as an institutional entity to access the Sovereign Ledger terminal."
+    },
+    "submitBroker": {
+      "title": "Submit Broker | Woxa",
+      "description": "Register a new institutional broker within the Sterling Midnight ecosystem."
+    }
+  }
+}

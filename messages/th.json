@@ -1,0 +1,162 @@
+{
+  "nav": {
+    "brokers": "โบรกเกอร์",
+    "markets": "ตลาด",
+    "analysis": "วิเคราะห์",
+    "education": "การศึกษา"
+  },
+  "brokers": {
+    "title": "โบรกเกอร์สถาบัน",
+    "subtitle": "เข้าถึงสภาพคล่องทั่วโลกผ่านเครือข่ายสถาบันการเงินและผู้สร้างตลาดชั้นนำที่คัดสรรแล้ว",
+    "search": {
+      "placeholder": "ค้นหาโบรกเกอร์ตามชื่อ ภูมิภาค หรือประเภทสินทรัพย์..."
+    },
+    "filters": {
+      "label": "ประเภทสินทรัพย์:",
+      "all": "พาร์ทเนอร์ทั้งหมด",
+      "cfd": "CFD",
+      "bond": "ตราสารหนี้",
+      "stock": "หุ้น",
+      "crypto": "คริปโต"
+    },
+    "card": {
+      "viewDetails": "ดูรายละเอียด"
+    },
+    "partner": {
+      "title": "เป็นพาร์ทเนอร์กับเรา",
+      "description": "คุณเป็นโบรกเกอร์สถาบันหรือไม่? เข้าร่วมเครือข่ายผู้ให้บริการชั้นนำของเรา",
+      "cta": "สอบถามข้อมูล"
+    }
+  },
+  "brokerDetail": {
+    "visitWebsite": "เยี่ยมชมเว็บไซต์",
+    "downloadProspectus": "ดาวน์โหลดหนังสือชี้ชวน",
+    "performanceMetrics": "ตัวชี้วัดประสิทธิภาพ",
+    "viewAuditReport": "ดูรายงานการตรวจสอบเต็มรูปแบบ",
+    "availableMarkets": "ตลาดที่ให้บริการ",
+    "contactDetails": "ข้อมูลติดต่อ",
+    "mandate": "พันธกิจอธิปไตย",
+    "markets": {
+      "forexPairs": "คู่สกุลเงิน",
+      "indices": "ดัชนี",
+      "commodities": "สินค้าโภคภัณฑ์",
+      "equities": "หุ้น",
+      "sovereignBonds": "พันธบัตรรัฐบาล",
+      "cryptoEtps": "Crypto ETP"
+    },
+    "metrics": {
+      "aumGrowth": "การเติบโตของ AUM (YoY)",
+      "liquidityAccess": "การเข้าถึงสภาพคล่อง",
+      "clientRetention": "การรักษาลูกค้า",
+      "dailyAverage": "เฉลี่ยรายวัน"
+    }
+  },
+  "submitBroker": {
+    "title": "ยื่นข้อมูลโบรกเกอร์",
+    "subtitle": "ลงทะเบียนนิติบุคคลสถาบันใหม่ในระบบ Sterling Midnight กรุณาตรวจสอบให้ข้อมูลทุกจุดสอดคล้องกับเอกสารด้านกฎระเบียบ",
+    "fields": {
+      "brokerName": "ชื่อโบรกเกอร์",
+      "brokerNamePlaceholder": "เช่น Sterling Capital Markets",
+      "slug": "Slug",
+      "slugPlaceholder": "sterling-capital-markets",
+      "brokerType": "ประเภทโบรกเกอร์",
+      "logoUrl": "URL โลโก้",
+      "logoUrlPlaceholder": "https://assets.sterling.com/logo.png",
+      "website": "เว็บไซต์",
+      "websitePlaceholder": "https://sterlingmidnight.com",
+      "description": "คำอธิบายโบรกเกอร์",
+      "descriptionPlaceholder": "ให้ภาพรวมสถาบันที่ครอบคลุม..."
+    },
+    "actions": {
+      "discard": "ยกเลิกร่าง",
+      "submit": "ยื่นใบสมัคร"
+    },
+    "success": "ยื่นใบสมัครโบรกเกอร์สำเร็จแล้ว",
+    "error": "ไม่สามารถยื่นใบสมัครได้ กรุณาลองอีกครั้ง"
+  },
+  "login": {
+    "brandTitle": "Sterling Midnight",
+    "brandSubtitle": "เทอร์มินัลสถาบัน",
+    "sectionTitle": "การยืนยันตัวตนที่ปลอดภัย",
+    "sectionDesc": "เข้าถึง Sovereign Ledger ด้วยข้อมูลประจำตัวที่ยืนยันแล้ว",
+    "email": "อีเมลสถาบัน",
+    "emailPlaceholder": "user@institution.domain",
+    "password": "รหัสผ่านความปลอดภัย",
+    "passwordPlaceholder": "••••••••••••",
+    "forgotCredentials": "ลืมข้อมูลประจำตัว?",
+    "submit": "เข้าสู่ระบบ",
+    "noAccount": "ยังไม่มีบัญชี?",
+    "register": "ลงทะเบียน",
+    "badges": {
+      "tls": "เข้ารหัส TLS 1.3",
+      "biometric": "รองรับไบโอเมตริก"
+    },
+    "error": "ข้อมูลประจำตัวไม่ถูกต้อง กรุณาลองอีกครั้ง"
+  },
+  "register": {
+    "brandName": "Sovereign Ledger",
+    "heroTitle": "เข้าถึง Sovereign Ledger อย่างปลอดภัย",
+    "heroDesc": "เข้าถึงเทอร์มินัลสถาบันที่ชัดเจนสำหรับการบริหารจัดการทุนทั่วโลกและการรับฝากสินทรัพย์ดิจิทัลที่ยืนยันแล้ว",
+    "stats": {
+      "managedCapital": "ทุนที่บริหารจัดการ",
+      "uptimeSla": "SLA Uptime"
+    },
+    "formTitle": "การเริ่มต้นใช้งานสถาบัน",
+    "formDesc": "กรอกข้อมูลประจำตัวการยืนยันเพื่อเข้าถึงเทอร์มินัล",
+    "fullName": "ชื่อ-นามสกุล",
+    "fullNamePlaceholder": "Alexander Sterling",
+    "email": "อีเมลสถาบัน",
+    "emailPlaceholder": "verification@reserve.int",
+    "password": "รหัสผ่านความปลอดภัย",
+    "passwordPlaceholder": "••••••••••",
+    "confirmPassword": "ยืนยันรหัสผ่าน",
+    "confirmPasswordPlaceholder": "••••••••••",
+    "agreement": "ข้าพเจ้ายืนยันว่าได้รับอนุญาตให้เป็นตัวแทนนิติบุคคลนี้และยอมรับ",
+    "agreementLink": "ข้อตกลงการให้บริการหลักสำหรับสถาบัน",
+    "and": "และ",
+    "privacyLink": "นโยบายความเป็นส่วนตัว",
+    "submit": "เริ่มต้นการลงทะเบียน",
+    "alreadyVerified": "ยืนยันแล้ว?",
+    "loginLink": "เข้าสู่ระบบสถาบัน",
+    "badges": {
+      "aes": "เข้ารหัส AES-256",
+      "gdpr": "สอดคล้อง GDPR",
+      "sec": "กรอบ SEC"
+    },
+    "copyright": "© 2024 Sovereign Ledger",
+    "error": "การลงทะเบียนล้มเหลว กรุณาตรวจสอบข้อมูลและลองอีกครั้ง",
+    "passwordMismatch": "รหัสผ่านไม่ตรงกัน"
+  },
+  "common": {
+    "loading": "กำลังโหลด...",
+    "error": "เกิดข้อผิดพลาด",
+    "retry": "ลองอีกครั้ง",
+    "notFound": "ไม่พบข้อมูล",
+    "backToBrokers": "กลับไปยังโบรกเกอร์"
+  },
+  "footer": {
+    "privacyPolicy": "นโยบายความเป็นส่วนตัว",
+    "termsOfService": "ข้อกำหนดการให้บริการ",
+    "riskDisclosure": "การเปิดเผยความเสี่ยง",
+    "contact": "ติดต่อ",
+    "copyright": "© 2024 Sterling Midnight สงวนลิขสิทธิ์"
+  },
+  "meta": {
+    "brokers": {
+      "title": "โบรกเกอร์สถาบัน | Woxa",
+      "description": "เข้าถึงสภาพคล่องทั่วโลกผ่านเครือข่ายสถาบันการเงินและผู้สร้างตลาดชั้นนำที่คัดสรรแล้ว"
+    },
+    "login": {
+      "title": "เข้าสู่ระบบอย่างปลอดภัย | Woxa Sterling Midnight",
+      "description": "เข้าสู่ระบบเทอร์มินัลสถาบัน Sterling Midnight"
+    },
+    "register": {
+      "title": "การเริ่มต้นใช้งานสถาบัน | Woxa",
+      "description": "ลงทะเบียนเป็นนิติบุคคลสถาบันเพื่อเข้าถึงเทอร์มินัล Sovereign Ledger"
+    },
+    "submitBroker": {
+      "title": "ยื่นข้อมูลโบรกเกอร์ | Woxa",
+      "description": "ลงทะเบียนโบรกเกอร์สถาบันใหม่ในระบบ Sterling Midnight"
+    }
+  }
+}
