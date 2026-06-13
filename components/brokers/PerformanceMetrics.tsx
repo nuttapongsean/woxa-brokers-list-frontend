@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+import { TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import type { PerformanceMetrics as Metrics } from '@/types';
 
@@ -11,28 +12,28 @@ export function PerformanceMetrics({ metrics }: PerformanceMetricsProps) {
   const tm = useTranslations('brokerDetail.metrics');
 
   return (
-    <div className="bg-surface border border-line rounded-xl p-6 mb-5">
-      <h3 className="text-sm font-semibold text-ink mb-5">{t('performanceMetrics')}</h3>
+    <div className="bg-sub rounded-xl p-6 mb-8">
+      <h3 className="text-[18px] font-display font-semibold text-logo mb-4">{t('performanceMetrics')}</h3>
 
       {metrics.aumGrowthYoY && (
-        <div className="pb-4 mb-4">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-ink-dim mb-1">
+        <div className="mb-8">
+          <p className="text-[10px] font-semibold uppercase tracking-widest mb-1">
             {tm('aumGrowth')}
           </p>
           <div className="flex items-center justify-between">
-            <span className="text-[26px] font-bold text-positive">{metrics.aumGrowthYoY}</span>
+            <span className="font-display text-[26px] font-bold text-logo">{metrics.aumGrowthYoY}</span>
             <TrendUpIcon />
           </div>
         </div>
       )}
 
       {metrics.liquidityAccess && (
-        <div className="border-t border-line pt-4 pb-4 mb-4">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-ink-dim mb-1">
+        <div className="mb-8">
+          <p className="text-[10px] font-semibold uppercase tracking-widest mb-1">
             {tm('liquidityAccess')}
           </p>
           <div className="flex items-center justify-between">
-            <span className="text-[26px] font-bold text-ink">{metrics.liquidityAccess}</span>
+            <span className="font-display text-[26px] font-bold text-logo">{metrics.liquidityAccess}</span>
             {metrics.liquidityAccessSub && (
               <span className="text-[11px] text-ink-dim">{metrics.liquidityAccessSub}</span>
             )}
@@ -41,12 +42,12 @@ export function PerformanceMetrics({ metrics }: PerformanceMetricsProps) {
       )}
 
       {metrics.clientRetention && (
-        <div className="border-t border-line pt-4">
-          <p className="text-[10px] font-semibold uppercase tracking-widest text-ink-dim mb-1">
+        <div className="mb-8">
+          <p className="text-[10px] font-semibold uppercase tracking-widest mb-1">
             {tm('clientRetention')}
           </p>
           <div className="flex items-center justify-between">
-            <span className="text-[26px] font-bold text-ink">{metrics.clientRetention}</span>
+            <span className="font-display text-[26px] font-bold text-logo">{metrics.clientRetention}</span>
             {metrics.clientRetentionPeriod && (
               <span className="text-[11px] text-ink-dim">{metrics.clientRetentionPeriod}</span>
             )}
@@ -54,7 +55,7 @@ export function PerformanceMetrics({ metrics }: PerformanceMetricsProps) {
         </div>
       )}
 
-      <Button variant="outline" size="md" className="w-full mt-4">
+      <Button variant="outline" size="md" className="w-full text-logo rounded border-[0.5px] border-logo hover:border-logo/50 hover:text-logo/50">
         {t('viewAuditReport')}
       </Button>
     </div>
@@ -63,11 +64,8 @@ export function PerformanceMetrics({ metrics }: PerformanceMetricsProps) {
 
 function TrendUpIcon() {
   return (
-    <div className="w-9 h-9 rounded-md bg-positive/15 border border-positive/30 flex items-center justify-center text-positive">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-        <polyline points="17 6 23 6 23 12" />
-      </svg>
+    <div className="w-20 h-9 rounded bg-chip flex items-center justify-center">
+      <TrendingUp size={16} aria-hidden="true" className="text-logo" />
     </div>
   );
 }
