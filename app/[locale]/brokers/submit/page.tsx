@@ -21,13 +21,13 @@ export default async function SubmitBrokerPage({ params }: SubmitBrokerPageProps
   const t = await getTranslations({ locale, namespace: 'submitBroker' });
 
   return (
-    <div className="max-w-[780px] mx-auto px-8 py-14">
-      <header className="mb-10">
-        <h1 className="text-3xl font-bold text-ink mb-2">{t('title')}</h1>
-        <p className="text-sm text-ink-muted leading-relaxed max-w-lg">{t('subtitle')}</p>
+    <div className="max-w-[780px] mx-auto p-6">
+      <header className="mb-8">
+        <h1 className="font-display text-[32px] leading-[36px] sm:text-[48px] sm:leading-[52px] lg:text-[60px] lg:leading-[60px] font-bold text-ink mb-3">{t('title')}</h1>
+        <p className="text-sm leading-relaxed max-w-lg">{t('subtitle')}</p>
       </header>
 
-      <div className="bg-surface border border-line rounded-xl p-8">
+      <div className="bg-surface rounded-xl p-8 mb-10">
         <SubmitBrokerForm locale={locale} />
       </div>
     </div>

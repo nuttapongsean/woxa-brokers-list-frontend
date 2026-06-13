@@ -68,8 +68,8 @@ export const CreateBrokerSchema = z.object({
   name: z.string().min(2, 'Broker name is required'),
   slug: z.string().min(2, 'Slug is required').regex(/^[a-z0-9-]+$/, 'Slug must be lowercase with hyphens only'),
   type: BrokerTypeSchema,
-  logoUrl: z.string().url('Must be a valid URL').optional().or(z.literal('')),
-  website: z.string().url('Must be a valid URL').optional().or(z.literal('')),
+  logoUrl: z.url({ error: 'Must be a valid URL' }),
+  website: z.url({ error: 'Must be a valid URL' }),
   description: z.string().min(20, 'Description must be at least 20 characters'),
 });
 

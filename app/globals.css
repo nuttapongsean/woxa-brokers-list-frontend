@@ -28,6 +28,8 @@
 
   /* Filter buttons */
   --color-filter-inactive: #1A2B41;
+  --color-submit-broker-form: #203754;
+  --color-submit-broker-type: #68788B;
 
   /* Accent */
   --color-accent: #4a9eff;
@@ -38,7 +40,7 @@
 
 /* Button gradient utility */
 @utility btn-gradient {
-  background: linear-gradient(135deg, #3b8ef0 0%, #5ba8ff 100%);
+  background-image: linear-gradient(135deg, #ADC6FF 0%, #3A81F5 100%);
 }
 
 /* Grid lines background for auth pages */
@@ -47,6 +49,11 @@
     linear-gradient(rgba(20, 45, 80, 0.18) 1px, transparent 1px),
     linear-gradient(90deg, rgba(20, 45, 80, 0.18) 1px, transparent 1px);
   background-size: 70px 70px;
+}
+
+a,
+button {
+  cursor: pointer !important;
 }
 
 html,
