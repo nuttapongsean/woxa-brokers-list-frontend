@@ -18,8 +18,9 @@
   --color-line-focus: #3b6ea0;
 
   /* Text */
+  --color-ink-title: #D4E3FF;
   --color-ink: #e8f0fe;
-  --color-ink-body: #D4E3FF;
+  --color-ink-body: rgba(212, 227, 255, 0.6);
   --color-ink-muted: #7a9cc0;
   --color-ink-dim: #4a6a8a;
 
