@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
+  labelClassName?: string;
   error?: string;
   iconLeft?: ReactNode;
   iconRight?: ReactNode;
@@ -10,7 +11,7 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, error, iconLeft, iconRight, rightAction, className, id, ...props }, ref) => {
+  ({ label, labelClassName, error, iconLeft, iconRight, rightAction, className, id, ...props }, ref) => {
     const inputId = id ?? label?.toLowerCase().replace(/\s+/g, '-');
 
     return (
@@ -18,7 +19,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-[11px] font-semibold uppercase tracking-widest text-logo"
+            className={cn('text-[11px] font-semibold uppercase tracking-widest text-logo', labelClassName)}
           >
             {label}
           </label>
@@ -31,7 +32,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             id={inputId}
             className={cn(
-              'w-full bg-input border border-line rounded-lg py-[13px] text-sm text-ink-muted placeholder:text-ink-dim',
+              'w-full bg-input border border-line rounded py-[13px] text-sm text-ink-muted placeholder:text-ink-dim',
               'transition-colors focus:outline-none focus:border-line-focus focus:bg-input-focus focus:text-ink',
               iconLeft ? 'pl-10 pr-4' : 'px-4',
               iconRight || rightAction ? 'pr-10' : '',
