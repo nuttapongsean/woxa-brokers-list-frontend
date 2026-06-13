@@ -11,6 +11,7 @@ export const MOCK_BROKERS: BrokerDetail[] = [
     type: 'CFD',
     imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
     website: 'https://www.home.saxo',
+    prospectusUrl: 'xxx',
     badge: 'Premium TIER',
     tag: 'Regulated',
     icon: 'shield',

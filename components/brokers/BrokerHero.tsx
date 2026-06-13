@@ -10,7 +10,7 @@ export function BrokerHero({ broker }: BrokerHeroProps) {
   const t = useTranslations('brokerDetail');
 
   return (
-    <div className="relative h-[340px] overflow-hidden">
+    <div className="relative h-[600px] overflow-hidden">
       {broker.imageUrl ? (
         <Image
           src={broker.imageUrl}
@@ -24,22 +24,24 @@ export function BrokerHero({ broker }: BrokerHeroProps) {
         <div className="absolute inset-0 bg-gradient-to-br from-[#0a1828] via-[#0e2240] to-[#061018]" />
       )}
 
-      <div className="absolute inset-0 bg-grid opacity-60" />
+      <div className="absolute inset-0 opacity-60" />
       <div className="absolute inset-0 bg-gradient-to-t from-base/85 via-transparent to-transparent" />
 
-      <div className="relative z-10 h-full flex flex-col justify-end px-12 pb-10">
+      <div className="relative z-10 h-full flex flex-col justify-end px-10 pb-10">
         {broker.grade && (
-          <div className="flex items-center gap-2 mb-4">
-            <span className="inline-flex items-center gap-2 px-3 py-[5px] bg-accent-dark/25 border border-accent/40 rounded text-[10px] font-semibold uppercase tracking-widest text-accent">
+          <div className="flex items-center gap-4 mb-4">
+            <span className="inline-flex items-center px-2 bg-[#001B43] rounded text-[11px] font-semibold uppercase tracking-widest text-accent">
               {broker.grade}
+            </span>
+            <span>
               {broker.rating && (
-                <span className="text-yellow-400">{'★'.repeat(broker.rating)}</span>
+                <span className="text-logo">{'★'.repeat(broker.rating)}</span>
               )}
             </span>
           </div>
         )}
 
-        <h1 className="text-[52px] font-bold tracking-tight leading-[1.05] text-ink mb-3 max-w-[540px]">
+        <h1 className="font-display text-[52px] font-bold tracking-tight leading-[1.05] text-ink mb-3 max-w-[540px]">
           {broker.name}
         </h1>
         <p className="text-sm text-ink-muted max-w-[440px] leading-relaxed mb-6">
@@ -52,7 +54,7 @@ export function BrokerHero({ broker }: BrokerHeroProps) {
               href={broker.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center font-semibold rounded-lg px-6 py-3 text-sm btn-gradient text-white hover:opacity-90 transition-opacity"
+              className="text-black inline-flex items-center justify-center font-semibold rounded px-6 py-3 text-sm btn-gradient hover:brightness-80 transition-opacity"
             >
               {t('visitWebsite')}
             </a>
@@ -62,7 +64,7 @@ export function BrokerHero({ broker }: BrokerHeroProps) {
               href={broker.prospectusUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center font-semibold rounded-lg px-6 py-3 text-sm bg-transparent border border-line-light text-ink hover:bg-surface-3 transition-colors"
+              className="font-semibold rounded px-6 py-3 text-sm bg-chip text-ink hover:brightness-80 transition-colors"
             >
               {t('downloadProspectus')}
             </a>

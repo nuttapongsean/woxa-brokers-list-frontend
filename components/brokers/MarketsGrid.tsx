@@ -24,13 +24,13 @@ export function MarketsGrid({ markets }: MarketsGridProps) {
   if (items.length === 0) return null;
 
   return (
-    <section className="mt-14">
-      <h2 className="text-xl font-semibold text-ink mb-5">{t('availableMarkets')}</h2>
+    <section>
+      <h2 className="font-display text-xl font-semibold text-ink mb-5">{t('availableMarkets')}</h2>
       <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
         {items.map(({ key, value }) => (
           <div
             key={key}
-            className="bg-surface border border-line rounded-lg px-3 py-4 text-center"
+            className="bg-surface rounded-lg px-3 py-4 text-center"
           >
             <span className="block text-[10px] font-semibold uppercase tracking-widest text-ink-dim mb-1.5">
               {mt(key)}
