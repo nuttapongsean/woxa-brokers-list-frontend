@@ -11,4 +11,7 @@ export const config = {
     brokerListStaleTime: 60_000,
     brokerDetailStaleTime: 300_000,
   },
+  images: {
+    loginBg: 'https://images.unsplash.com/photo-1435265603574-177a37a94c2f?q=80&w=764',
+  },
 } as const;

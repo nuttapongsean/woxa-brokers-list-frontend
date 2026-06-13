@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
 import { Lock, ShieldCheck } from 'lucide-react';
+import Image from 'next/image';
+import { config } from '@/lib/config';
 import { LoginForm } from '@/components/forms/LoginForm';
 
 interface LoginPageProps {
@@ -22,32 +24,37 @@ export default async function LoginPage({ params }: LoginPageProps) {
   const t = await getTranslations({ locale, namespace: 'login' });
 
   return (
-    <div className="min-h-[calc(100vh-60px)] flex items-center justify-center px-4 bg-grid">
-      <div className="w-full max-w-[420px]">
+    <div className="relative overflow-hidden min-h-[calc(100vh-60px)] flex flex-col items-center justify-center px-4">
+      <Image
+        src={config.images.loginBg}
+        alt=""
+        fill
+        className="object-cover opacity-10"
+        priority
+        aria-hidden="true"
+      />
+      <div className="w-full max-w-[420px] relative z-10">
         {/* Brand header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-accent-dark/20 border border-accent/30 mb-4">
-            <Lock size={20} className="text-accent" aria-hidden="true" />
-          </div>
-          <h1 className="text-2xl font-bold text-ink">{t('brandTitle')}</h1>
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-ink-dim mt-1">
+          <h1 className="font-display text-3xl font-bold text-logo">{t('brandTitle')}</h1>
+          <p className="uppercase tracking-[.15em] text-ink mt-1">
             {t('brandSubtitle')}
           </p>
         </div>
 
         {/* Card */}
-        <div className="bg-surface border border-line rounded-2xl p-8 shadow-lg">
-          <h2 className="text-base font-semibold text-ink mb-1">{t('sectionTitle')}</h2>
-          <p className="text-[13px] text-ink-muted mb-6">{t('sectionDesc')}</p>
+        <div className="bg-surface border border-line rounded-xl p-8 shadow-lg [box-shadow:inset_0_3px_0_0_var(--color-logo),_0_10px_15px_-3px_rgb(0_0_0/0.1)]">
+          <h2 className="text-xl font-display text-base text-ink mb-1">{t('sectionTitle')}</h2>
+          <p className="text-ink-body mb-6">{t('sectionDesc')}</p>
 
           <LoginForm locale={locale} />
         </div>
+      </div>
 
-        {/* Security badges */}
-        <div className="flex items-center justify-center gap-4 mt-5">
-          <SecurityBadge label={t('badges.tls')} />
-          <SecurityBadge label={t('badges.biometric')} />
-        </div>
+      {/* Security badges — pinned to bottom */}
+      <div className="absolute bottom-0 flex items-center justify-center gap-4 z-10">
+        <SecurityBadge label={t('badges.tls')} />
+        <SecurityBadge label={t('badges.biometric')} />
       </div>
     </div>
   );
@@ -55,8 +62,8 @@ export default async function LoginPage({ params }: LoginPageProps) {
 
 function SecurityBadge({ label }: { label: string }) {
   return (
-    <span className="flex items-center gap-1.5 text-[10px] font-semibold text-ink-dim">
-      <ShieldCheck size={10} aria-hidden="true" />
+    <span className="flex items-center gap-1.5 uppercase text-ink-dim/80">
+      <ShieldCheck size={14} aria-hidden="true" />
       {label}
     </span>
   );
