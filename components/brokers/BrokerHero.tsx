@@ -1,13 +1,13 @@
 import Image from 'next/image';
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import type { BrokerDetail } from '@/lib/schemas/broker';
 
 interface BrokerHeroProps {
   broker: BrokerDetail;
 }
 
-export function BrokerHero({ broker }: BrokerHeroProps) {
-  const t = useTranslations('brokerDetail');
+export async function BrokerHero({ broker }: BrokerHeroProps) {
+  const t = await getTranslations('brokerDetail');
 
   return (
     <div className="relative h-[600px] overflow-hidden">

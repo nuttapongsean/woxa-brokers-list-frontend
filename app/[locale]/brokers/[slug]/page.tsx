@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getTranslations } from 'next-intl/server';
 import { getBroker, getBrokerSlugs } from '@/lib/api/brokers';
 import { BrokerHero } from '@/components/brokers/BrokerHero';
 import { PerformanceMetrics } from '@/components/brokers/PerformanceMetrics';
 import { ContactCard } from '@/components/brokers/ContactCard';
 import { MarketsGrid } from '@/components/brokers/MarketsGrid';
 import { JsonLd } from '@/components/seo/JsonLd';
+
+export const dynamic = 'force-dynamic';
 
 interface BrokerDetailPageProps {
   params: Promise<{ locale: string; slug: string }>;
@@ -45,8 +46,7 @@ export async function generateMetadata({ params }: BrokerDetailPageProps): Promi
 }
 
 export default async function BrokerDetailPage({ params }: BrokerDetailPageProps) {
-  const { locale, slug } = await params;
-  const t = await getTranslations({ locale, namespace: 'common' });
+  const { slug } = await params;
 
   let broker;
   try {

@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import type { PerformanceMetrics as Metrics } from '@/lib/schemas/broker';
@@ -7,9 +7,9 @@ interface PerformanceMetricsProps {
   metrics: Metrics;
 }
 
-export function PerformanceMetrics({ metrics }: PerformanceMetricsProps) {
-  const t = useTranslations('brokerDetail');
-  const tm = useTranslations('brokerDetail.metrics');
+export async function PerformanceMetrics({ metrics }: PerformanceMetricsProps) {
+  const t = await getTranslations('brokerDetail');
+  const tm = await getTranslations('brokerDetail.metrics');
 
   return (
     <div className="bg-sub rounded-xl p-6 mb-8">
