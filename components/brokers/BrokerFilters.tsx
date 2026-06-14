@@ -2,21 +2,14 @@
 
 import { useTranslations } from 'next-intl';
 import { cn } from '@/lib/utils';
-import type { BrokerType } from '@/types';
+import type { BrokerType } from '@/lib/schemas/broker';
 
 type FilterValue = 'all' | BrokerType;
-
-const TYPE_TKEY: Record<BrokerType, 'cfd' | 'bond' | 'stock' | 'crypto'> = {
-  CFD: 'cfd',
-  Bond: 'bond',
-  Stock: 'stock',
-  Crypto: 'crypto',
-};
 
 interface BrokerFiltersProps {
   active: FilterValue;
   onChange: (value: FilterValue) => void;
-  types: BrokerType[];
+  types: string[];
 }
 
 export function BrokerFilters({ active, onChange, types }: BrokerFiltersProps) {
@@ -33,7 +26,7 @@ export function BrokerFilters({ active, onChange, types }: BrokerFiltersProps) {
           'rounded-[12px] transition-all h-[36px] px-4 cursor-pointer',
           active === 'all'
             ? 'bg-logo text-base'
-            : 'bg-filter-inactive text-ink-nav hover:text-base hover:bg-logo'
+            : 'bg-filter-inactive text-ink-nav hover:text-base hover:bg-logo',
         )}
         aria-pressed={active === 'all'}
       >
@@ -42,16 +35,16 @@ export function BrokerFilters({ active, onChange, types }: BrokerFiltersProps) {
       {types.map((type) => (
         <button
           key={type}
-          onClick={() => onChange(type)}
+          onClick={() => onChange(type as BrokerType)}
           className={cn(
             'rounded-[12px] transition-all h-[36px] px-4 cursor-pointer',
             active === type
               ? 'bg-logo text-base'
-              : 'bg-filter-inactive text-ink-nav hover:text-base hover:bg-logo'
+              : 'bg-filter-inactive text-ink-nav hover:text-base hover:bg-logo',
           )}
           aria-pressed={active === type}
         >
-          {t(TYPE_TKEY[type])}
+          {t(type as BrokerType)}
         </button>
       ))}
     </div>

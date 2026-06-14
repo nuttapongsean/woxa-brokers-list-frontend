@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { TrendingUp } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
-import type { PerformanceMetrics as Metrics } from '@/types';
+import type { PerformanceMetrics as Metrics } from '@/lib/schemas/broker';
 
 interface PerformanceMetricsProps {
   metrics: Metrics;

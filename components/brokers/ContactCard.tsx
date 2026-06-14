@@ -1,12 +1,13 @@
 import { useTranslations } from 'next-intl';
 import { MapPin, Mail, Globe } from 'lucide-react';
-import type { ContactInfo } from '@/types';
 
 interface ContactCardProps {
-  contact: ContactInfo;
+  address?: string | null;
+  email?: string | null;
+  website?: string | null;
 }
 
-export function ContactCard({ contact }: ContactCardProps) {
+export function ContactCard({ address, email, website }: ContactCardProps) {
   const t = useTranslations('brokerDetail');
 
   return (
@@ -16,46 +17,34 @@ export function ContactCard({ contact }: ContactCardProps) {
       </h3>
 
       <div className="flex flex-col">
-        {contact.address && (
+        {address && (
           <div className="flex items-center gap-2.5 text-[13px]">
-            <LocationIcon />
-            {contact.address}
+            <MapPin size={14} className="text-ink-dim flex-shrink-0" aria-hidden="true" />
+            {address}
           </div>
         )}
-        {contact.email && (
+        {email && (
           <div className="flex items-center gap-2.5 text-[13px]">
-            <EmailIcon />
-            <a href={`mailto:${contact.email}`} className="hover:text-accent transition-colors">
-              {contact.email}
+            <Mail size={14} className="text-ink-dim flex-shrink-0" aria-hidden="true" />
+            <a href={`mailto:${email}`} className="hover:text-accent transition-colors">
+              {email}
             </a>
           </div>
         )}
-        {contact.website && (
+        {website && (
           <div className="flex items-center gap-2.5 text-[13px]">
-            <GlobeIcon />
+            <Globe size={14} className="text-ink-dim flex-shrink-0" aria-hidden="true" />
             <a
-              href={contact.website}
+              href={website}
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-accent transition-colors"
             >
-              {contact.website.replace(/^https?:\/\//, '')}
+              {website.replace(/^https?:\/\//, '')}
             </a>
           </div>
         )}
       </div>
     </div>
   );
-}
-
-function LocationIcon() {
-  return <MapPin size={14} className="text-ink-dim flex-shrink-0" aria-hidden="true" />;
-}
-
-function EmailIcon() {
-  return <Mail size={14} className="text-ink-dim flex-shrink-0" aria-hidden="true" />;
-}
-
-function GlobeIcon() {
-  return <Globe size={14} className="text-ink-dim flex-shrink-0" aria-hidden="true" />;
 }
