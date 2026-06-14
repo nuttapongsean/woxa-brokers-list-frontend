@@ -1,5 +1,5 @@
 import type { BrokersResponse, BrokerDetailResponse, CreateBrokerInput } from '../schemas/broker';
-import type { LoginInput, RegisterInput, AuthResponse } from '../schemas/auth';
+import type { LoginInput, RegisterInput, AuthTokens } from '../schemas/auth';
 import { MOCK_BROKERS, MOCK_BROKERS_RESPONSE, MOCK_AUTH_RESPONSE } from './data';
 
 const MOCK_DELAY = 400;
@@ -52,23 +52,17 @@ export const mockBrokers = {
 };
 
 export const mockAuth = {
-  async login(_data: LoginInput): Promise<AuthResponse> {
+  async login(_data: LoginInput): Promise<AuthTokens> {
     await delay(MOCK_DELAY);
     return MOCK_AUTH_RESPONSE;
   },
 
-  async register(_data: Omit<RegisterInput, 'confirmPassword'>): Promise<AuthResponse> {
+  async register(_data: Omit<RegisterInput, 'confirmPassword'>): Promise<AuthTokens> {
     await delay(MOCK_DELAY);
     return MOCK_AUTH_RESPONSE;
   },
 
   async logout(): Promise<void> {
     await delay(MOCK_DELAY);
-  },
-
-  async getMe(): Promise<AuthResponse> {
-    await delay(200);
-    // mock: ไม่ได้ login — throw 401 เพื่อให้ useMe() return undefined
-    throw Object.assign(new Error('Unauthorized'), { status: 401 });
   },
 };

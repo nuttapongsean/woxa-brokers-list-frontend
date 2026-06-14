@@ -1,5 +1,5 @@
 import type { BrokerDetail, BrokersResponse, BrokerDetailResponse } from '../schemas/broker';
-import type { AuthResponse } from '../schemas/auth';
+import type { AuthTokens } from '../schemas/auth';
 
 export const MOCK_BROKERS: BrokerDetail[] = [
   {
@@ -212,10 +212,12 @@ export const MOCK_BROKERS_RESPONSE: BrokersResponse = {
   total: MOCK_BROKERS.length,
 };
 
-export const MOCK_AUTH_RESPONSE: AuthResponse = {
+export const MOCK_AUTH_RESPONSE: AuthTokens = {
+  accessToken: 'mock-access-token',
+  refreshToken: 'mock-refresh-token',
   user: {
     id: 'mock-user-1',
-    email: 'demo@woxa.com',
     fullName: 'Demo User',
+    email: 'demo@woxa.com',
   },
 };

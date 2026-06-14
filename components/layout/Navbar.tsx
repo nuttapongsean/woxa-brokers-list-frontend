@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { Bell, CircleUserRound, Menu, X } from 'lucide-react';
+import { Bell, CircleUserRound, LogOut, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useCurrentUser, useLogout } from '@/hooks/useAuth';
 
 interface NavbarProps {
   locale: string;
@@ -14,7 +15,12 @@ interface NavbarProps {
 export function Navbar({ locale }: NavbarProps) {
   const t = useTranslations('nav');
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { data: user } = useCurrentUser();
+  const { mutate: logout } = useLogout();
+
+  const handleLogout = () => logout(undefined, { onSuccess: () => router.push(`/${locale}/login`) });
 
   const navLinks = [
     { key: 'brokers', href: `/${locale}/brokers` },
@@ -61,13 +67,23 @@ export function Navbar({ locale }: NavbarProps) {
           >
             <Bell size={20} strokeWidth={2} aria-hidden="true" />
           </button>
-          <Link
-            href={`/${locale}/login`}
-            aria-label="Account"
-            className="flex items-center justify-center text-logo hover:text-ink transition-colors"
-          >
-            <CircleUserRound size={20} strokeWidth={2} aria-hidden="true" />
-          </Link>
+          {user ? (
+            <button
+              onClick={handleLogout}
+              aria-label="Logout"
+              className="flex items-center justify-center text-logo hover:text-ink transition-colors"
+            >
+              <LogOut size={20} strokeWidth={2} aria-hidden="true" />
+            </button>
+          ) : (
+            <Link
+              href={`/${locale}/login`}
+              aria-label="Account"
+              className="flex items-center justify-center text-logo hover:text-ink transition-colors"
+            >
+              <CircleUserRound size={20} strokeWidth={2} aria-hidden="true" />
+            </Link>
+          )}
 
           {/* Hamburger — mobile only */}
           <button
