@@ -1,7 +1,36 @@
 import createMiddleware from 'next-intl/middleware';
+import { type NextRequest, NextResponse } from 'next/server';
 import { routing } from './i18n/routing';
+import { SESSION_COOKIE } from './lib/api/tokenStorage';
 
-export default createMiddleware(routing);
+const intlMiddleware = createMiddleware(routing);
+
+const PUBLIC_PATHS = new Set(['/login', '/register']);
+
+function isPublicPath(pathname: string): boolean {
+  const withoutLocale = pathname.replace(/^\/(en|th)/, '') || '/';
+  return PUBLIC_PATHS.has(withoutLocale);
+}
+
+function getLocale(pathname: string): string {
+  const segment = pathname.split('/')[1] ?? '';
+  return (routing.locales as readonly string[]).includes(segment)
+    ? segment
+    : routing.defaultLocale;
+}
+
+export default function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  const isAuthenticated = request.cookies.has(SESSION_COOKIE);
+
+  if (!isAuthenticated && !isPublicPath(pathname)) {
+    const locale = getLocale(pathname);
+    return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
+  }
+
+  return intlMiddleware(request);
+}
 
 export const config = {
   matcher: [
