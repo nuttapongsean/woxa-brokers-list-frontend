@@ -1,36 +1,51 @@
 import { apiClient } from './client';
 import { config } from '@/lib/config';
 import { mockAuth } from '@/lib/mock/handlers';
-import {
-  AuthResponseSchema,
-  type LoginInput,
-  type RegisterInput,
-  type AuthResponse,
-} from '../schemas/auth';
+import { AuthTokensSchema, type LoginInput, type RegisterInput, type AuthTokens } from '../schemas/auth';
+import { tokenStorage } from './tokenStorage';
+import { authEndpoints } from './endpoints';
 
-export async function login(data: LoginInput): Promise<AuthResponse> {
-  if (config.useMock) return mockAuth.login(data);
+export async function login(data: LoginInput): Promise<AuthTokens> {
+  console.log(config.useMock);
 
-  const response = await apiClient.post('/auth/login', data);
-  return AuthResponseSchema.parse(response.data);
+  
+  if (config.useMock) {
+    const result = await mockAuth.login(data);
+    tokenStorage.save(result.accessToken, result.refreshToken, result.user);
+    return result;
+  }
+
+  const response = await apiClient.post(authEndpoints.login, data);
+  const tokens = AuthTokensSchema.parse(response.data);
+  tokenStorage.save(tokens.accessToken, tokens.refreshToken, tokens.user);
+  return tokens;
 }
 
-export async function register(data: Omit<RegisterInput, 'confirmPassword'>): Promise<AuthResponse> {
-  if (config.useMock) return mockAuth.register(data);
+export async function register(
+  data: Omit<RegisterInput, 'confirmPassword'>
+): Promise<AuthTokens> {
+  if (config.useMock) {
+    const result = await mockAuth.register(data);
+    tokenStorage.save(result.accessToken, result.refreshToken, result.user);
+    return result;
+  }
 
-  const response = await apiClient.post('/auth/register', data);
-  return AuthResponseSchema.parse(response.data);
+  const response = await apiClient.post(authEndpoints.register, data);
+  const tokens = AuthTokensSchema.parse(response.data);
+  tokenStorage.save(tokens.accessToken, tokens.refreshToken, tokens.user);
+  return tokens;
 }
 
 export async function logout(): Promise<void> {
-  if (config.useMock) return mockAuth.logout();
+  if (config.useMock) {
+    tokenStorage.clear();
+    return mockAuth.logout();
+  }
 
-  await apiClient.post('/auth/logout');
-}
-
-export async function getMe(): Promise<AuthResponse> {
-  if (config.useMock) return mockAuth.getMe();
-
-  const response = await apiClient.get('/auth/me');
-  return AuthResponseSchema.parse(response.data);
+  try {
+    await apiClient.post(authEndpoints.logout);
+  } finally {
+    // Always clear local tokens regardless of server response
+    tokenStorage.clear();
+  }
 }

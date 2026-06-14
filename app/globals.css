@@ -96,6 +96,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-p {
+/* p {
   color: var(--color-ink-body);
-}
+} */
