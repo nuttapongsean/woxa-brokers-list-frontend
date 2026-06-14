@@ -22,26 +22,45 @@ Institutional broker listing platform with a dark-navy "Sterling Midnight" termi
 ### Prerequisites
 
 - Node.js 20+
-- A running backend at `http://localhost:4000` (or update `NEXT_PUBLIC_API_URL`)
 
-### Environment Variables
-
-Create a `.env.local` file in the project root:
-
-```env
-NEXT_PUBLIC_API_URL=http://localhost:4000/api
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXT_PUBLIC_USE_MOCK=true   # set to true to run without a backend (uses lib/mock/data.ts)
-```
-
-### Install and Run
+### Install
 
 ```bash
 npm install
+```
+
+### Option 1 — Mock mode (no backend required)
+
+All API calls return data from `lib/mock/data.ts`. Any email/password works for login and register.
+
+```bash
+echo "NEXT_PUBLIC_USE_MOCK=true" > .env.local
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). The root redirects to `/en/brokers`.
+### Option 2 — With real backend
+
+Make sure the backend is running first (see `woxa-brokers-list-backend/README.md`), then create `.env.local`:
+
+```env
+NEXT_PUBLIC_API_URL=http://localhost:4000/api/v1
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_USE_MOCK=false
+```
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) — the root redirects to `/en/login`.
+
+### Environment Variables
+
+| Variable | Default | Description |
+|---|---|---|
+| `NEXT_PUBLIC_API_URL` | `http://localhost:4000/api/v1` | Backend API base URL |
+| `NEXT_PUBLIC_APP_URL` | `http://localhost:3000` | Frontend origin (used for canonical URLs) |
+| `NEXT_PUBLIC_USE_MOCK` | `false` | `true` = use local mock data, skip backend entirely |
 
 ## Available Scripts
 
@@ -84,7 +103,7 @@ messages/
   en.json              # English translations
   th.json              # Thai translations
 hooks/                 # useBrokers, useBroker, useAuth
-middleware.ts          # next-intl locale routing + protected routes
+proxy.ts               # next-intl locale routing + auth guard (blocks non-public paths)
 ```
 
 ## Pages
@@ -109,7 +128,7 @@ middleware.ts          # next-intl locale routing + protected routes
 - **Server Components by default** — `'use client'` only for hooks/event handlers.
 - Broker list uses RSC `fetch` for SSR/SEO, then React Query for client-side filtering. Filters and search are purely client-side (no refetch).
 - Broker detail uses `generateStaticParams` for SSG + `generateMetadata` for dynamic SEO.
-- Protected routes are enforced in `middleware.ts` via the `woxa_session` session-flag cookie.
+- Protected routes are enforced in `proxy.ts` via the `woxa_session` session-flag cookie. All paths except those in `publicPaths` (`lib/config.ts`) redirect to `/login` when unauthenticated.
 - Access token lives in memory (XSS-safe, cleared on hard refresh); refresh token is in `localStorage`; a plain `woxa_session` cookie signals login state to the middleware.
 - All user-facing strings go through `useTranslations()` — no hardcoded English in components.
 - Under-maintenance pages share the `<UnderMaintenance>` component (`components/ui/UnderMaintenance.tsx`).

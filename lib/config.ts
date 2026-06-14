@@ -8,7 +8,7 @@ export const publicPaths = new Set([
 ]);
 
 export const config = {
-  apiUrl: process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000/api',
+  apiUrl: process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000/api/v1',
   appUrl: process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
   useMock: process.env.NEXT_PUBLIC_USE_MOCK === 'true',
   defaultLocale: 'en',
