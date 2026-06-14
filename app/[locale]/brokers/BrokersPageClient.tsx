@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useDeferredValue, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useTranslations } from 'next-intl';
+import { useDebounce } from '@/hooks/useDebounce';
 import { useBrokers } from '@/hooks/useBrokers';
 import { useBrokerTypes } from '@/hooks/useBrokerTypes';
 import { BrokerCard } from '@/components/brokers/BrokerCard';
@@ -21,18 +22,24 @@ export function BrokersPageClient({ locale }: BrokersPageClientProps) {
   const tc = useTranslations('common');
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState<FilterValue>('all');
-  const deferredSearch = useDeferredValue(search);
+  const debouncedSearch = useDebounce(search, 300);
 
-  const { data, isLoading, isError } = useBrokers({
-    search: deferredSearch || undefined,
-  });
+  const { data, isLoading, isError } = useBrokers();
 
   const { data: availableTypes = [] } = useBrokerTypes();
 
   const brokers = useMemo(() => {
-    const all = data?.brokers ?? [];
+    let all = data?.brokers ?? [];
+    if (debouncedSearch) {
+      const q = debouncedSearch.toLowerCase();
+      all = all.filter(
+        (b) =>
+          b.name.toLowerCase().includes(q) ||
+          b.description.toLowerCase().includes(q),
+      );
+    }
     return filter === 'all' ? all : all.filter((b) => b.brokerType === filter);
-  }, [data, filter]);
+  }, [data, filter, debouncedSearch]);
 
   return (
     <div className="max-w-[1280px] mx-auto p-6">
