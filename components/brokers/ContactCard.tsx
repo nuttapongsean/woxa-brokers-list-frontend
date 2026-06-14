@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import { MapPin, Mail, Globe } from 'lucide-react';
 
 interface ContactCardProps {
@@ -7,8 +7,8 @@ interface ContactCardProps {
   website?: string | null;
 }
 
-export function ContactCard({ address, email, website }: ContactCardProps) {
-  const t = useTranslations('brokerDetail');
+export async function ContactCard({ address, email, website }: ContactCardProps) {
+  const t = await getTranslations('brokerDetail');
 
   return (
     <div className="bg-surface rounded-xl p-6">

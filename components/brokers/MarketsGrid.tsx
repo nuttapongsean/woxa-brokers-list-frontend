@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 import type { MarketStats } from '@/lib/schemas/broker';
 
 type MarketKey = 'forexPairs' | 'indices' | 'commodities' | 'equities' | 'sovereignBonds' | 'cryptoEtps';
@@ -7,9 +7,9 @@ interface MarketsGridProps {
   markets: MarketStats;
 }
 
-export function MarketsGrid({ markets }: MarketsGridProps) {
-  const t = useTranslations('brokerDetail');
-  const mt = useTranslations('brokerDetail.markets');
+export async function MarketsGrid({ markets }: MarketsGridProps) {
+  const t = await getTranslations('brokerDetail');
+  const mt = await getTranslations('brokerDetail.markets');
 
   const allItems: { key: MarketKey; value: number | null | undefined }[] = [
     { key: 'forexPairs', value: markets.forexPairs },

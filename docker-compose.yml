@@ -12,4 +12,11 @@ services:
       - "3000:3000"
     environment:
       NODE_ENV: production
+      API_URL: http://woxa_backend:4000/api/v1
+    networks:
+      - woxa_network
     restart: unless-stopped
+
+networks:
+  woxa_network:
+    external: true

@@ -7,8 +7,12 @@ export const publicPaths = new Set([
   '/contact',
 ]);
 
+// Server-side uses API_URL (runtime env, Docker-aware); browser uses the baked NEXT_PUBLIC_API_URL
+const serverApiUrl = process.env.API_URL ?? process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000/api/v1';
+const clientApiUrl = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000/api/v1';
+
 export const config = {
-  apiUrl: process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000/api/v1',
+  apiUrl: typeof window === 'undefined' ? serverApiUrl : clientApiUrl,
   appUrl: process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
   useMock: process.env.NEXT_PUBLIC_USE_MOCK === 'true',
   defaultLocale: 'en',
