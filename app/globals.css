@@ -21,7 +21,7 @@
   /* Text */
   --color-ink-title: #D4E3FF;
   --color-ink: #e8f0fe;
-  --color-ink-body: rgba(212, 227, 255, 0.6);
+  --color-ink-body: rgba(196, 198, 205);
   --color-ink-muted: #7a9cc0;
   --color-ink-dim: #4a6a8a;
 
@@ -96,6 +96,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* p {
-  font-size: 14px;
-} */
+p {
+  color: var(--color-ink-body);
+}

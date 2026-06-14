@@ -85,7 +85,7 @@ export default async function BrokerDetailPage({
                 <h2 className="font-display text-xl font-semibold text-logo mb-4">
                   {broker.name}
                 </h2>
-                <p className="text-sm text-ink-muted leading-relaxed whitespace-pre-line">
+                <p className="text-ink-body text-sm leading-relaxed whitespace-pre-line">
                   {broker.longDescription}
                 </p>
               </section>
