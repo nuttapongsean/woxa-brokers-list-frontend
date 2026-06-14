@@ -1,3 +1,12 @@
+export const publicPaths = new Set([
+  '/login',
+  '/register',
+  '/privacy',
+  '/terms',
+  '/risk-disclosure',
+  '/contact',
+]);
+
 export const config = {
   apiUrl: process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000/api',
   appUrl: process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
