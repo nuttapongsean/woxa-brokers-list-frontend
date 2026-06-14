@@ -103,6 +103,9 @@ export function RegisterForm({ locale }: RegisterFormProps) {
           .
         </p>
       </label>
+      {errors.agreeToTerms && (
+        <p className="text-xs text-red-400 -mt-6">{errors.agreeToTerms.message}</p>
+      )}
 
       {serverError && <p className="text-sm text-red-400">{serverError}</p>}
 
