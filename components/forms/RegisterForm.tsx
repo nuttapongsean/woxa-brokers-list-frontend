@@ -11,6 +11,7 @@ import { useRegister } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useState } from "react";
+import { ArrowRight } from "lucide-react";
 
 interface RegisterFormProps {
   locale: string;
@@ -113,6 +114,7 @@ export function RegisterForm({ locale }: RegisterFormProps) {
         className="w-full text-black"
       >
         {t("submit")}
+        <ArrowRight size={16} aria-hidden="true" className="ml-2" />
       </Button>
 
       <hr className="text-ink-dim/10 my-4" />
