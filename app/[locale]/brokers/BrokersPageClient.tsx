@@ -44,7 +44,7 @@ export function BrokersPageClient({ locale }: BrokersPageClientProps) {
         >
           {t('title')}
         </h1>
-        <p className="text-sm max-w-xl leading-relaxed">{t('subtitle')}</p>
+        <p className="text-ink-body text-sm max-w-xl leading-relaxed">{t('subtitle')}</p>
       </header>
 
       {/* Controls */}

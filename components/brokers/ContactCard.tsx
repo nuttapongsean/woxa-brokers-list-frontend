@@ -17,13 +17,13 @@ export function ContactCard({ contact }: ContactCardProps) {
 
       <div className="flex flex-col">
         {contact.address && (
-          <div className="flex items-center gap-2.5 text-[13px] text-ink-muted">
+          <div className="flex items-center gap-2.5 text-[13px]">
             <LocationIcon />
             {contact.address}
           </div>
         )}
         {contact.email && (
-          <div className="flex items-center gap-2.5 text-[13px] text-ink-muted">
+          <div className="flex items-center gap-2.5 text-[13px]">
             <EmailIcon />
             <a href={`mailto:${contact.email}`} className="hover:text-accent transition-colors">
               {contact.email}
@@ -31,7 +31,7 @@ export function ContactCard({ contact }: ContactCardProps) {
           </div>
         )}
         {contact.website && (
-          <div className="flex items-center gap-2.5 text-[13px] text-ink-muted">
+          <div className="flex items-center gap-2.5 text-[13px]">
             <GlobeIcon />
             <a
               href={contact.website}

@@ -94,7 +94,7 @@ export function LoginForm({ locale }: LoginFormProps) {
         variant="primary"
         size="lg"
         loading={isSubmitting || loginMutation.isPending}
-        className="w-full mt-6 hover:brightness-80"
+        className="w-full mt-6 hover:brightness-80 uppercase text-black"
       >
         {t('submit')}
       </Button>
