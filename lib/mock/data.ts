@@ -1,5 +1,5 @@
-import type { BrokerDetail, BrokersResponse, BrokerDetailResponse } from '../schemas/broker';
-import type { AuthResponse } from '../schemas/auth';
+import type { BrokerDetail, BrokersResponse } from '../schemas/broker';
+import type { AuthTokens } from '../schemas/auth';
 
 export const MOCK_BROKERS: BrokerDetail[] = [
   {
@@ -8,14 +8,18 @@ export const MOCK_BROKERS: BrokerDetail[] = [
     slug: 'saxo-bank',
     description: 'Leading multi-asset trading and investment specialist with deep institutional liquidity pools across 60,000+ instruments globally.',
     longDescription: 'Saxo Bank is a leading fintech specialist that connects people to investment opportunities in global capital markets. As a fully licensed and regulated European bank, Saxo offers professional traders and investors multi-asset trading from a single margin account.\n\nWith over 30 years of experience and $100 billion in client assets, Saxo provides institutional-grade liquidity, competitive pricing, and award-winning platforms trusted by sovereign wealth funds and family offices worldwide.',
-    type: 'CFD',
+    brokerType: 'cfd',
+    logoUrl: 'https://logo.clearbit.com/home.saxo',
     imageUrl: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80',
     website: 'https://www.home.saxo',
+    prospectusUrl: undefined,
     badge: 'Premium TIER',
     tag: 'Regulated',
     icon: 'shield',
     grade: 'SOVEREIGN GRADE A+',
     rating: 5,
+    contactAddress: 'Philip Heymans Allé 15, 2900 Hellerup, Denmark',
+    contactEmail: 'institutional@saxobank.com',
     features: [
       { title: 'Multi-Asset Coverage', description: 'Access 60,000+ instruments across FX, equities, bonds, commodities, and listed derivatives from a single account.' },
       { title: 'Institutional Liquidity', description: 'Direct market access with tier-1 bank liquidity and competitive spreads from 0.1 pips on major currency pairs.' },
@@ -28,11 +32,6 @@ export const MOCK_BROKERS: BrokerDetail[] = [
       liquidityAccessSub: 'Daily Average',
       clientRetention: '94.7%',
       clientRetentionPeriod: '5-Year Average',
-    },
-    contact: {
-      address: 'Philip Heymans Allé 15, 2900 Hellerup, Denmark',
-      email: 'institutional@saxobank.com',
-      website: 'https://www.home.saxo',
     },
     markets: {
       forexPairs: 185,
@@ -48,8 +47,9 @@ export const MOCK_BROKERS: BrokerDetail[] = [
     name: 'Interactive Brokers',
     slug: 'interactive-brokers',
     description: 'Global prime brokerage offering direct market access to 160 markets in 33 countries with institutional-grade execution and deep liquidity.',
-    longDescription: 'Interactive Brokers is one of the world\'s largest electronic brokerage firms, processing over 1.9 million trades per day. Known for its sophisticated trading technology, low costs, and global reach, IBKR serves hedge funds, family offices, and institutional traders in over 200 countries.',
-    type: 'Stock',
+    longDescription: "Interactive Brokers is one of the world's largest electronic brokerage firms, processing over 1.9 million trades per day. Known for its sophisticated trading technology, low costs, and global reach, IBKR serves hedge funds, family offices, and institutional traders in over 200 countries.",
+    brokerType: 'stock',
+    logoUrl: 'https://logo.clearbit.com/interactivebrokers.com',
     imageUrl: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80',
     website: 'https://www.interactivebrokers.com',
     badge: 'Premium TIER',
@@ -57,6 +57,8 @@ export const MOCK_BROKERS: BrokerDetail[] = [
     icon: 'landmark',
     grade: 'SOVEREIGN GRADE A',
     rating: 5,
+    contactAddress: 'One Pickwick Plaza, Greenwich, CT 06830, USA',
+    contactEmail: 'institutional@ibkr.com',
     features: [
       { title: 'Global Market Access', description: 'Trade stocks, options, futures, forex, bonds, and funds on 160+ markets worldwide.' },
       { title: 'Smart Order Routing', description: 'IEX-powered routing finds the best available price across all lit and dark venues simultaneously.' },
@@ -69,11 +71,6 @@ export const MOCK_BROKERS: BrokerDetail[] = [
       liquidityAccessSub: 'Daily Average',
       clientRetention: '91.3%',
       clientRetentionPeriod: '5-Year Average',
-    },
-    contact: {
-      address: 'One Pickwick Plaza, Greenwich, CT 06830, USA',
-      email: 'institutional@ibkr.com',
-      website: 'https://www.interactivebrokers.com',
     },
     markets: {
       forexPairs: 100,
@@ -88,9 +85,10 @@ export const MOCK_BROKERS: BrokerDetail[] = [
     id: '3',
     name: 'Citadel Securities',
     slug: 'citadel-securities',
-    description: 'One of the world\'s leading market makers providing institutional liquidity across equities, fixed income, and derivatives with unmatched depth.',
+    description: "One of the world's leading market makers providing institutional liquidity across equities, fixed income, and derivatives with unmatched depth.",
     longDescription: 'Citadel Securities is one of the top global market makers, consistently ranking as a top liquidity provider in equities, fixed income, and derivatives markets. Operating in 50+ countries, Citadel Securities executes approximately 25% of all US equity volume daily.',
-    type: 'Bond',
+    brokerType: 'bond',
+    logoUrl: 'https://logo.clearbit.com/citadelsecurities.com',
     imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80',
     website: 'https://www.citadelsecurities.com',
     badge: '',
@@ -98,6 +96,8 @@ export const MOCK_BROKERS: BrokerDetail[] = [
     icon: 'bar-chart',
     grade: 'SOVEREIGN GRADE A+',
     rating: 5,
+    contactAddress: '131 S. Dearborn Street, Chicago, IL 60603, USA',
+    contactEmail: 'prime@citadelsecurities.com',
     features: [
       { title: 'Market Making', description: 'Top-tier liquidity provision across all major asset classes with tight spreads and deep book depth.' },
       { title: 'Fixed Income Expertise', description: 'Leading electronic market maker in US Treasuries, munis, and corporate bonds with $500B+ daily volume.' },
@@ -110,11 +110,6 @@ export const MOCK_BROKERS: BrokerDetail[] = [
       liquidityAccessSub: 'Daily Average',
       clientRetention: '97.2%',
       clientRetentionPeriod: '5-Year Average',
-    },
-    contact: {
-      address: '131 S. Dearborn Street, Chicago, IL 60603, USA',
-      email: 'prime@citadelsecurities.com',
-      website: 'https://www.citadelsecurities.com',
     },
     markets: {
       forexPairs: 60,
@@ -130,8 +125,9 @@ export const MOCK_BROKERS: BrokerDetail[] = [
     name: 'Cumberland DRW',
     slug: 'cumberland-drw',
     description: 'Institutional digital asset prime broker offering 24/7 OTC liquidity, custody, and structured products for sovereign entities and funds.',
-    longDescription: 'Cumberland is the global digital asset arm of DRW, one of the world\'s premier trading firms. Since 2014, Cumberland has provided institutional-grade liquidity and OTC trading services in digital assets to central banks, sovereign wealth funds, hedge funds, and family offices worldwide.',
-    type: 'Crypto',
+    longDescription: "Cumberland is the global digital asset arm of DRW, one of the world's premier trading firms. Since 2014, Cumberland has provided institutional-grade liquidity and OTC trading services in digital assets to central banks, sovereign wealth funds, hedge funds, and family offices worldwide.",
+    brokerType: 'crypto',
+    logoUrl: 'https://logo.clearbit.com/cumberlandcrypto.com',
     imageUrl: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&q=80',
     website: 'https://www.cumberlandcrypto.com',
     badge: '',
@@ -139,9 +135,11 @@ export const MOCK_BROKERS: BrokerDetail[] = [
     icon: 'zap',
     grade: 'DIGITAL GRADE A',
     rating: 4,
+    contactAddress: '540 W Madison St, Chicago, IL 60661, USA',
+    contactEmail: 'institutional@cumberlandcrypto.com',
     features: [
       { title: '24/7 OTC Liquidity', description: 'Round-the-clock bilateral trading for large block orders with minimal market impact and competitive pricing.' },
-      { title: 'Institutional Custody', description: 'Multi-sig cold storage custody solutions with $750M+ insurance coverage through Lloyd\'s of London.' },
+      { title: 'Institutional Custody', description: "Multi-sig cold storage custody solutions with $750M+ insurance coverage through Lloyd's of London." },
       { title: 'Structured Products', description: 'Bespoke digital asset derivatives, structured notes, and yield enhancement strategies for institutions.' },
       { title: 'On-chain Settlement', description: 'Native blockchain settlement with support for all major Layer-1 and Layer-2 networks.' },
     ],
@@ -151,11 +149,6 @@ export const MOCK_BROKERS: BrokerDetail[] = [
       liquidityAccessSub: 'Daily Average',
       clientRetention: '88.5%',
       clientRetentionPeriod: '3-Year Average',
-    },
-    contact: {
-      address: '540 W Madison St, Chicago, IL 60661, USA',
-      email: 'institutional@cumberlandcrypto.com',
-      website: 'https://www.cumberlandcrypto.com',
     },
     markets: {
       forexPairs: 0,
@@ -171,24 +164,22 @@ export const MOCK_BROKERS: BrokerDetail[] = [
     name: 'Société Générale CIB',
     slug: 'societe-generale-cib',
     description: 'Global tier-1 investment bank offering comprehensive fixed income, derivatives, and structured finance solutions for institutional counterparties.',
-    type: 'Bond',
+    brokerType: 'bond',
+    logoUrl: 'https://logo.clearbit.com/societegenerale.com',
     imageUrl: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80',
     website: 'https://www.sgcib.com',
     tag: 'ECB Regulated',
     icon: 'globe',
     grade: 'SOVEREIGN GRADE A',
     rating: 4,
+    contactAddress: '29 Boulevard Haussmann, 75009 Paris, France',
+    contactEmail: 'cib@societegenerale.com',
     metrics: {
       aumGrowthYoY: '+18.3%',
       liquidityAccess: '$42.1B',
       liquidityAccessSub: 'Daily Average',
       clientRetention: '93.1%',
       clientRetentionPeriod: '5-Year Average',
-    },
-    contact: {
-      address: '29 Boulevard Haussmann, 75009 Paris, France',
-      email: 'cib@societegenerale.com',
-      website: 'https://www.sgcib.com',
     },
     markets: {
       forexPairs: 120,
@@ -206,10 +197,12 @@ export const MOCK_BROKERS_RESPONSE: BrokersResponse = {
   total: MOCK_BROKERS.length,
 };
 
-export const MOCK_AUTH_RESPONSE: AuthResponse = {
+export const MOCK_AUTH_RESPONSE: AuthTokens = {
+  accessToken: 'mock-access-token',
+  refreshToken: 'mock-refresh-token',
   user: {
     id: 'mock-user-1',
-    email: 'demo@woxa.com',
     fullName: 'Demo User',
+    email: 'demo@woxa.com',
   },
 };

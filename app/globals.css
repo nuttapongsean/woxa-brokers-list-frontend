@@ -6,6 +6,7 @@
 
   /* Backgrounds */
   --color-base: #070d1a;
+  --color-sub: #25354D;
   --color-surface: #0d1829;
   --color-surface-2: #0f1e33;
   --color-surface-3: #101f34;
@@ -18,8 +19,9 @@
   --color-line-focus: #3b6ea0;
 
   /* Text */
+  --color-ink-title: #D4E3FF;
   --color-ink: #e8f0fe;
-  --color-ink-body: #D4E3FF;
+  --color-ink-body: rgba(196, 198, 205);
   --color-ink-muted: #7a9cc0;
   --color-ink-dim: #4a6a8a;
 
@@ -28,6 +30,10 @@
 
   /* Filter buttons */
   --color-filter-inactive: #1A2B41;
+  --color-submit-broker-form: #203754;
+  --color-submit-broker-type: #68788B;
+  --color-register-form: #000E23;
+  --color-chip: #32445E;
 
   /* Accent */
   --color-accent: #4a9eff;
@@ -36,9 +42,30 @@
   --color-warning: #f59e0b;
 }
 
+/* Custom checkbox for register/agreement */
+@layer components {
+  .checkbox-custom {
+    appearance: none;
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.125rem;
+    border: 1px solid var(--color-chip);
+    background-color: var(--color-chip);
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .checkbox-custom:checked {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
 /* Button gradient utility */
 @utility btn-gradient {
-  background: linear-gradient(135deg, #3b8ef0 0%, #5ba8ff 100%);
+  background-image: linear-gradient(135deg, #ADC6FF 0%, #3A81F5 100%);
 }
 
 /* Grid lines background for auth pages */
@@ -47,6 +74,11 @@
     linear-gradient(rgba(20, 45, 80, 0.18) 1px, transparent 1px),
     linear-gradient(90deg, rgba(20, 45, 80, 0.18) 1px, transparent 1px);
   background-size: 70px 70px;
+}
+
+a,
+button {
+  cursor: pointer !important;
 }
 
 html,
@@ -58,9 +90,12 @@ body {
   background-color: #070d1a;
   color: var(--color-ink-body);
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 29px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* p {
+  color: var(--color-ink-body);
+} */

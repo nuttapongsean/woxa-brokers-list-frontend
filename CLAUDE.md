@@ -1,5 +1,23 @@
 # Woxa Brokers List — Frontend
 
+## Documentation Maintenance
+
+Always update `CLAUDE.md` whenever any of the following changes. Do not wait to be asked.
+
+| Change type | What to update |
+|---|---|
+| Add / remove a page or component | Project structure tree |
+| Add / remove a dependency (`package.json`) | Tech Stack table |
+| Add a new color / CSS variable | Design System color palette |
+| Add / remove a custom utility class | Custom Utilities table |
+| Change `lib/config.ts` or env variables | API Integration → config section + env block |
+| Change a Zod schema or TypeScript type | Relevant schema / type description |
+| Add / remove i18n namespaces or keys | i18n Setup → key namespaces list |
+| Add a new shared pattern or convention | Component Conventions section |
+| Add / remove icon usage patterns | Design System → Icons section |
+
+---
+
 ## Project Overview
 
 Full-stack developer assessment project. A Next.js frontend for **Woxa**, an institutional broker listing platform ("Sterling Midnight" terminal). The UI is dark-navy, financial/institutional in tone.
@@ -24,24 +42,66 @@ Reference mockups are in `./mockups/` — always consult them before implementin
 | Schema validation | Zod |
 | SEO | Next.js Metadata API + JSON-LD |
 | Auth tokens | HTTP-only cookies (set by backend) |
+| Icons | lucide-react |
 
 ---
 
 ## Design System
 
-All colors, spacing, and typography come from the mockups. The palette is:
+All colors come from CSS variables defined in `app/globals.css` under `@theme`. **Never use arbitrary hex values in components** — always use Tailwind semantic class names mapped to these variables.
+
+### Color Palette
 
 ```
-Background:    #070d1a (page), #0d1829 (card), #0f1e33 (input)
-Border:        #1b2f4e (default), #243d60 (light/hover)
-Text:          #e8f0fe (primary), #7a9cc0 (muted), #4a6a8a (dim)
-Accent:        #4a9eff (blue), #2563eb (dark blue)
-Positive:      #34d399 (green)
+Backgrounds:
+  bg-base          #070d1a   page background
+  bg-surface       #0d1829   card / panel
+  bg-surface-2     #0f1e33
+  bg-surface-3     #101f34
+  bg-input         #0f1e33   default input
+  bg-input-focus   #122240   focused input
+  bg-register-form #000E23   register form inputs
+  bg-chip          #32445E   chips / small buttons
+  bg-filter-inactive #1A2B41 inactive filter pills
+  bg-submit-broker-form #203754
+
+Borders:
+  border-line         #1b2f4e  default
+  border-line-light   #243d60  hover
+  border-line-focus   #3b6ea0  focused
+
+Text:
+  text-ink-title  #D4E3FF   headings
+  text-ink        #e8f0fe   primary
+  text-ink-body   rgba(212,227,255,0.6)  body
+  text-ink-muted  #7a9cc0   secondary
+  text-ink-dim    #4a6a8a   labels / captions
+  text-logo       #ADC6FF   logo blue / link accent
+
+Accent:
+  text-accent / bg-accent  #4a9eff  interactive blue
+  bg-accent-dark           #2563eb
+  text-positive            #34d399  green / success
+  text-warning             #f59e0b  amber / maintenance
 ```
 
-Define these as Tailwind CSS variables in `app/globals.css`. Never use arbitrary hex values in components — always use Tailwind semantic class names mapped to these variables.
+### Typography
 
-Font: system-ui / `Inter` (next/font). Display headings use tight tracking (`tracking-tight`).
+- **Display / headings:** `font-display` → Noto Serif (`--font-noto-serif`)
+- **Body:** `font-body` → Inter (`--font-inter`)
+- Display headings use `tracking-tight` or tight custom tracking
+
+### Custom Utilities (`app/globals.css`)
+
+| Class | Purpose |
+|---|---|
+| `btn-gradient` | Primary button gradient (#ADC6FF → #3A81F5) |
+| `bg-grid` | Grid-line background for auth pages |
+| `checkbox-custom` | Styled checkbox with `appearance-none`, bg-chip base, accent on checked |
+
+### Icons
+
+Use **lucide-react** exclusively. No inline SVGs unless there is no equivalent Lucide icon. Common icons in use: `Landmark`, `ShieldCheck`, `TrendingUp`, `MapPin`, `Mail`, `Globe`, `Bell`, `CircleUserRound`, `Menu`, `X`, `Eye`, `EyeOff`, `Construction`, `BarChart2`, `GraduationCap`.
 
 ---
 
@@ -50,69 +110,87 @@ Font: system-ui / `Inter` (next/font). Display headings use tight tracking (`tra
 ```
 woxa-brokers-list-frontend/
 ├── app/
-│   └── [locale]/                    # next-intl locale wrapper
-│       ├── layout.tsx               # Root layout (nav, footer, providers)
-│       ├── page.tsx                 # Redirect → /[locale]/brokers
+│   ├── layout.tsx               # Global layout
+│   ├── page.tsx                 # Root redirect → /[locale]/brokers
+│   ├── robots.ts
+│   ├── sitemap.ts
+│   ├── globals.css              # @theme tokens + custom utilities
+│   └── [locale]/
+│       ├── layout.tsx           # Locale layout (Navbar, Footer, providers)
 │       ├── brokers/
-│       │   ├── page.tsx             # Brokers list  → mockups/brokers-list.html
+│       │   ├── page.tsx             # Brokers list (SSR)
+│       │   ├── BrokersPageClient.tsx # Client filtering/search logic
 │       │   ├── submit/
-│       │   │   └── page.tsx         # Submit broker → mockups/submit-broker.html
+│       │   │   └── page.tsx         # Submit broker form
 │       │   └── [slug]/
-│       │       └── page.tsx         # Broker detail → mockups/broker-detail.html
+│       │       └── page.tsx         # Broker detail (SSR + ISR)
 │       ├── login/
-│       │   └── page.tsx             # Login         → mockups/login.html
-│       └── register/
-│           └── page.tsx             # Register      → mockups/register.html
+│       │   └── page.tsx
+│       ├── register/
+│       │   └── page.tsx             # Split layout: left image panel + right form
+│       ├── markets/
+│       │   └── page.tsx             # Under maintenance
+│       ├── analysis/
+│       │   └── page.tsx             # Under maintenance
+│       ├── education/
+│       │   └── page.tsx             # Under maintenance
+│       ├── privacy/page.tsx
+│       ├── terms/page.tsx
+│       ├── risk-disclosure/page.tsx
+│       └── contact/page.tsx
 ├── components/
 │   ├── layout/
-│   │   ├── Navbar.tsx
+│   │   ├── Navbar.tsx           # Nav links, mobile drawer, Bell + account icons
 │   │   └── Footer.tsx
-│   ├── ui/                          # Primitive reusable components
-│   │   ├── Button.tsx
-│   │   ├── Input.tsx
+│   ├── ui/
+│   │   ├── Button.tsx           # variants: primary, ghost, outline; sizes: sm, md, lg
+│   │   ├── Input.tsx            # label, iconLeft, iconRight, rightAction, error
 │   │   ├── Badge.tsx
 │   │   ├── Card.tsx
-│   │   └── SecurityBadge.tsx
+│   │   ├── SecurityBadge.tsx
+│   │   └── UnderMaintenance.tsx # Shared placeholder for unbuilt pages
 │   ├── brokers/
-│   │   ├── BrokerCard.tsx           # Single card in the grid
-│   │   ├── BrokerGrid.tsx           # Responsive grid wrapper
-│   │   ├── BrokerFilters.tsx        # All Partners / CFD / Bond / Stock / Crypto pills
+│   │   ├── BrokerCard.tsx
+│   │   ├── BrokerFilters.tsx    # All / CFD / Bond / Stock / Crypto pills
 │   │   ├── BrokerSearchBar.tsx
-│   │   ├── BrokerHero.tsx           # Detail page hero section
-│   │   ├── PerformanceMetrics.tsx   # Right-side metrics card on detail page
-│   │   ├── ContactCard.tsx
-│   │   ├── MarketsGrid.tsx          # Available markets stat boxes
-│   │   └── PartnerCTACard.tsx       # "Partner with Us" dashed card
+│   │   ├── BrokerHero.tsx       # Detail page hero
+│   │   ├── PerformanceMetrics.tsx
+│   │   ├── ContactCard.tsx      # MapPin / Mail / Globe icons
+│   │   ├── MarketsGrid.tsx
+│   │   └── PartnerCTACard.tsx
 │   ├── forms/
-│   │   ├── SubmitBrokerForm.tsx
 │   │   ├── LoginForm.tsx
-│   │   └── RegisterForm.tsx
+│   │   ├── RegisterForm.tsx     # Includes agreeToTerms checkbox (checkbox-custom)
+│   │   └── SubmitBrokerForm.tsx
 │   └── seo/
-│       └── JsonLd.tsx               # Structured data injector
+│       └── JsonLd.tsx
 ├── lib/
 │   ├── api/
-│   │   ├── client.ts                # Axios instance + interceptors
-│   │   ├── brokers.ts               # Broker API functions
-│   │   └── auth.ts                  # Auth API functions
+│   │   ├── client.ts            # Axios instance (baseURL, withCredentials, interceptors)
+│   │   ├── brokers.ts
+│   │   └── auth.ts
 │   ├── query/
-│   │   ├── keys.ts                  # TanStack Query key factories
-│   │   └── providers.tsx            # QueryClientProvider wrapper
-│   └── schemas/
-│       ├── broker.ts                # Zod schemas for broker API responses
-│       └── auth.ts                  # Zod schemas for auth API responses
+│   │   ├── keys.ts
+│   │   └── providers.tsx
+│   ├── schemas/
+│   │   ├── broker.ts
+│   │   └── auth.ts              # LoginSchema, RegisterSchema (incl. agreeToTerms)
+│   ├── mock/
+│   │   └── data.ts              # Mock broker data (used when NEXT_PUBLIC_USE_MOCK=true)
+│   ├── config.ts                # App config + images.loginBg URL
+│   └── utils.ts                 # cn() helper
 ├── messages/
-│   ├── en.json                      # English translations
-│   └── th.json                      # Thai translations
+│   ├── en.json
+│   └── th.json
 ├── types/
-│   └── index.ts                     # Shared TypeScript types
+│   └── index.ts                 # RegisterInput includes agreeToTerms: boolean
 ├── hooks/
-│   ├── useBrokers.ts                # useQuery wrapper for broker list
-│   ├── useBroker.ts                 # useQuery wrapper for broker detail
-│   └── useAuth.ts                   # Auth state hook
-├── middleware.ts                    # next-intl locale routing
-├── i18n.ts                          # next-intl config
-├── next.config.ts
-└── tailwind.config.ts
+│   ├── useBrokers.ts
+│   ├── useBroker.ts
+│   └── useAuth.ts
+├── middleware.ts
+├── i18n.ts
+└── next.config.ts
 ```
 
 ---
@@ -120,176 +198,94 @@ woxa-brokers-list-frontend/
 ## Pages
 
 ### 1. Brokers List — `app/[locale]/brokers/page.tsx`
-**Mockup:** `mockups/brokers-list.html`
-
 - **Server Component** — fetches initial broker list via `fetch` for SSR (SEO critical)
-- Renders `<BrokerGrid>` pre-populated from server; React Query hydrates for client-side filtering
-- Filter pills (All / CFD / Bond / Stock / Crypto) are client-side — filter the already-fetched list, no refetch
-- Search is debounced (300ms), client-side
-- Metadata: title, description, OG tags
+- Client filtering/search handled in `BrokersPageClient.tsx`
+- Filter pills (All / CFD / Bond / Stock / Crypto) — client-side, no refetch
+- Search debounced 300ms
 
 ### 2. Broker Detail — `app/[locale]/brokers/[slug]/page.tsx`
-**Mockup:** `mockups/broker-detail.html`
-
-- **Server Component** — `generateMetadata` uses broker name/description for dynamic SEO
-- `generateStaticParams` for popular brokers (ISR/SSG)
-- Hero section with `next/image` optimized image
-- Performance metrics, contact, markets sections
-- Injects `BrokerJsonLd` (JSON-LD structured data)
+- **Server Component** — `generateMetadata` for dynamic SEO, `generateStaticParams` for ISR
+- Sections: `BrokerHero`, `PerformanceMetrics`, `ContactCard`, `MarketsGrid`, `PartnerCTACard`
+- Injects `BrokerJsonLd` (JSON-LD `FinancialService` schema)
 
 ### 3. Submit Broker — `app/[locale]/brokers/submit/page.tsx`
-**Mockup:** `mockups/submit-broker.html`
-
-- **Client Component** — React Hook Form + Zod validation
-- Broker type toggle (CFD / Bond / Stock / Crypto) — single-select pill buttons
+- **Client Component** — React Hook Form + Zod
+- Broker type toggle: CFD / Bond / Stock / Crypto (single-select pills)
 - Protected route — redirects to `/login` if unauthenticated
 
 ### 4. Login — `app/[locale]/login/page.tsx`
-**Mockup:** `mockups/login.html`
-
 - **Client Component** — React Hook Form
-- On success: backend sets HTTP-only cookie; client redirects to `/brokers`
-- Dark full-page background with grid lines (CSS pseudo-elements)
+- Background: `bg-grid` utility + gradient overlay
 
 ### 5. Register — `app/[locale]/register/page.tsx`
-**Mockup:** `mockups/register.html`
+- **Client Component** — React Hook Form + Zod (`RegisterSchema` with `agreeToTerms`)
+- Left panel: `config.images.loginBg` background image + gradient overlay (`justify-end` — text at bottom)
+- Left panel content (bottom): Landmark icon + brand name, hero title/desc, stats row
+- Right panel: form inputs using `bg-register-form` + `checkbox-custom` for terms agreement
 
-- **Client Component** — React Hook Form + Zod (password confirmation validation)
-- Split layout: decorative left panel + form right panel
-- On success: redirect to `/login`
+### 6. Under Maintenance — markets / analysis / education
+- Uses shared `<UnderMaintenance>` component
+- Shows `Construction` icon badge in `text-warning`, page-specific icon, title, description
+
+---
+
+## Register Page — Left Panel Details
+
+```
+Background image: config.images.loginBg (Unsplash, cover + center)
+Gradient overlay: linear-gradient(0deg, #070d1a 0%, rgba(7,13,26,0.4) 50%, rgba(7,13,26,0) 100%)
+Layout: flex-col justify-end (all content pinned to bottom)
+Content order (bottom):
+  1. <Landmark size={14} /> + brandName  (text-logo, uppercase, tracking-widest)
+  2. heroTitle  (font-display, text-[60px])
+  3. heroDesc   (text-[14px], text-ink-muted)
+  4. Stats row: $2.4T+ | 99.98%  (font-display, text-[28px], text-logo)
+```
 
 ---
 
 ## API Integration
 
-### Base client — `lib/api/client.ts`
+### `lib/config.ts`
 
 ```ts
-// Axios instance configuration
-baseURL: process.env.NEXT_PUBLIC_API_URL
-timeout: 10000
-withCredentials: true  // send HTTP-only cookies
-
-// Request interceptor: attach X-Request-ID header
-// Response interceptor: parse Zod schema, throw typed errors
-// 401 interceptor: redirect to /login
+config.apiUrl       // NEXT_PUBLIC_API_URL (default: http://localhost:4000/api)
+config.appUrl       // NEXT_PUBLIC_APP_URL (default: http://localhost:3000)
+config.useMock      // NEXT_PUBLIC_USE_MOCK === 'true' → use mock data
+config.images.loginBg  // Unsplash URL used as bg for register/login left panels
+config.query.brokerListStaleTime   // 60_000 ms
+config.query.brokerDetailStaleTime // 300_000 ms
 ```
 
-### Environment variables
+### Environment Variables
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:4000/api   # backend base URL
-NEXT_PUBLIC_APP_URL=http://localhost:3000        # for OG image generation
+NEXT_PUBLIC_API_URL=http://localhost:4000/api
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_USE_MOCK=true   # set to true to use mock data without a backend
 ```
-
-### Data fetching strategy
-
-| Route | Strategy | Why |
-|---|---|---|
-| Brokers list | RSC `fetch` → React Query hydration | SEO + client filtering |
-| Broker detail | RSC `fetch` + `generateStaticParams` | SEO + performance |
-| Submit/Login/Register | Client-side React Query mutations | Interactive forms |
-
-- **Caching:** React Query `staleTime: 60_000` for broker list, `staleTime: 300_000` for detail
-- **Prefetching:** Hover over broker card prefetches `useBroker(slug)` via `queryClient.prefetchQuery`
-- **Error handling:** Typed error boundaries per section; API errors map to user-visible toast messages
 
 ---
 
 ## i18n Setup
 
-Using **next-intl** with locale prefix routing (`/en/...`, `/th/...`).
-
-- Default locale: `en`
-- Supported locales: `en`, `th`
-- Translation files: `messages/en.json`, `messages/th.json`
-- `middleware.ts` handles locale detection and redirect
-- All user-facing strings go through `useTranslations()` — no hardcoded English strings in components
-- `generateMetadata` uses `getTranslations()` for locale-aware titles and descriptions
-
-Translation key structure:
-```json
-{
-  "nav": { "brokers": "Brokers", "markets": "Markets", ... },
-  "brokers": {
-    "title": "Institutional Brokers",
-    "subtitle": "Access global liquidity...",
-    "search": { "placeholder": "Find brokers by name..." },
-    "filters": { "all": "All Partners", "cfd": "CFD", ... },
-    "card": { "viewDetails": "View Details" }
-  },
-  "brokerDetail": { ... },
-  "submitBroker": { ... },
-  "login": { ... },
-  "register": { ... }
-}
-```
-
----
-
-## SEO
-
-### Per-page metadata
-
-Every page exports `generateMetadata` (or a static `metadata` object):
-
-```ts
-export async function generateMetadata({ params }): Promise<Metadata> {
-  return {
-    title: `${broker.name} | Woxa Institutional Brokers`,
-    description: broker.description.slice(0, 155),
-    openGraph: {
-      title: ...,
-      description: ...,
-      images: [{ url: broker.logoUrl, width: 1200, height: 630 }],
-    },
-    twitter: { card: 'summary_large_image', ... },
-  };
-}
-```
-
-### Structured data
-
-`components/seo/JsonLd.tsx` renders `<script type="application/ld+json">` with:
-- `Organization` schema on the brokers list page
-- `FinancialService` schema on broker detail pages
-
-### Sitemap + robots
-
-- `app/sitemap.ts` — dynamically generates URLs for all broker detail pages
-- `app/robots.ts` — disallows `/login`, `/register`, `/brokers/submit`
-
-### Performance (Core Web Vitals)
-
-- `next/image` with `priority` on above-fold images
-- Route-level code splitting (automatic with App Router)
-- `loading="lazy"` on below-fold broker card images
-- No layout shift: skeleton placeholders match final card dimensions
-
----
-
-## Security
-
-- Auth tokens stored in **HTTP-only cookies** (set by backend) — never `localStorage`
-- All API requests use `withCredentials: true`
-- Form inputs sanitized via Zod before sending to API
-- `next.config.ts` sets strict security headers:
-  - `Content-Security-Policy`
-  - `X-Frame-Options: DENY`
-  - `X-Content-Type-Options: nosniff`
-  - `Referrer-Policy: strict-origin-when-cross-origin`
-- Protected routes checked in `middleware.ts` — no client-side-only guards
+- Default locale: `en` | Supported: `en`, `th`
+- Routing: `/en/...`, `/th/...` via `middleware.ts`
+- All user-facing strings → `useTranslations()` / `getTranslations()`
+- Key namespaces: `nav`, `brokers`, `brokerDetail`, `submitBroker`, `login`, `register`, `common`, `footer`, `meta`
 
 ---
 
 ## Component Conventions
 
-- **Server Components by default.** Add `'use client'` only when the component needs hooks, event handlers, or browser APIs.
+- **Server Components by default.** Add `'use client'` only when the component needs hooks, events, or browser APIs.
 - Props interfaces named `<ComponentName>Props`, defined in the same file.
-- No `any` — use Zod-inferred types from `lib/schemas/`.
-- Tailwind classes only — no inline `style` except for truly dynamic values (e.g., calculated widths). When a string of classes is reused 3+ times, extract it to a `const` or `cva` variant.
-- Icon system: inline SVGs only (no icon library dependency). Keep SVGs in `components/ui/icons/`.
+- No `any` — use Zod-inferred types from `lib/schemas/` or interfaces from `types/index.ts`.
+- **No arbitrary hex values** in JSX — always use named Tailwind classes from `@theme`.
+- Use `cn()` for conditional class composition.
+- Icons: **lucide-react** only. Pass `size` and `aria-hidden="true"` on decorative icons.
 - All interactive states: hover, focus-visible, disabled — must be implemented.
+- `@layer components` for multi-state custom CSS (e.g. `.checkbox-custom`) — `@utility` does not support nested pseudo-selectors in Tailwind v4.
 
 ---
 
@@ -302,18 +298,3 @@ npm run start        # production server
 npm run lint         # ESLint
 npm run type-check   # tsc --noEmit
 ```
-
----
-
-## Implementation Order
-
-1. Initialize Next.js 15 project with TypeScript + Tailwind CSS v4
-2. Configure next-intl (middleware, i18n.ts, message files)
-3. Set up Tailwind design tokens (CSS variables from mockup palette)
-4. Build shared layout: `Navbar`, `Footer`
-5. Build primitive UI components: `Button`, `Input`, `Badge`, `Card`
-6. Set up API client (`lib/api/client.ts`) and React Query provider
-7. Define Zod schemas and TypeScript types
-8. Implement pages in order: Brokers List → Broker Detail → Submit Broker → Login → Register
-9. Add `generateMetadata`, JSON-LD, sitemap, robots
-10. Add i18n strings (en + th) — replace all hardcoded strings last

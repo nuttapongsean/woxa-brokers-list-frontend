@@ -8,7 +8,7 @@ import { BrokerCard } from '@/components/brokers/BrokerCard';
 import { BrokerFilters } from '@/components/brokers/BrokerFilters';
 import { BrokerSearchBar } from '@/components/brokers/BrokerSearchBar';
 import { PartnerCTACard } from '@/components/brokers/PartnerCTACard';
-import type { BrokerType } from '@/types';
+import type { BrokerType } from '@/lib/schemas/broker';
 
 type FilterValue = 'all' | BrokerType;
 
@@ -27,33 +27,27 @@ export function BrokersPageClient({ locale }: BrokersPageClientProps) {
     search: deferredSearch || undefined,
   });
 
-  const allBrokers = data?.brokers ?? [];
   const { data: availableTypes = [] } = useBrokerTypes();
 
-  const brokers = useMemo(
-    () => filter === 'all' ? allBrokers : allBrokers.filter((b) => b.type === filter),
-    [allBrokers, filter],
-  );
+  const brokers = useMemo(() => {
+    const all = data?.brokers ?? [];
+    return filter === 'all' ? all : all.filter((b) => b.brokerType === filter);
+  }, [data, filter]);
 
   return (
     <div className="max-w-[1280px] mx-auto p-6">
-      {/* Header */}
       <header className="mb-6 sm:mb-8">
-        <h1
-          className="font-display font-bold text-[32px] leading-[36px] sm:text-[48px] sm:leading-[52px] lg:text-[60px] lg:leading-[60px] text-ink-bright flex items-center mb-3"
-        >
+        <h1 className="text-ink-title font-display font-bold text-[32px] leading-[36px] sm:text-[48px] sm:leading-[52px] lg:text-[60px] lg:leading-[60px] flex items-center mb-3">
           {t('title')}
         </h1>
-        <p className="text-sm max-w-xl leading-relaxed">{t('subtitle')}</p>
+        <p className="text-ink-body text-sm max-w-xl leading-relaxed">{t('subtitle')}</p>
       </header>
 
-      {/* Controls */}
       <div className="flex flex-col gap-4 sm:gap-6 mb-6 sm:mb-8">
         <BrokerSearchBar value={search} onChange={setSearch} />
         <BrokerFilters active={filter} onChange={setFilter} types={availableTypes} />
       </div>
 
-      {/* Grid */}
       {isLoading && <BrokersGridSkeleton />}
 
       {isError && (
@@ -63,12 +57,7 @@ export function BrokersPageClient({ locale }: BrokersPageClientProps) {
       {!isLoading && !isError && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6 lg:gap-8">
           {brokers.map((broker, i) => (
-            <BrokerCard
-              key={broker.id}
-              broker={broker}
-              locale={locale}
-              priority={i < 3}
-            />
+            <BrokerCard key={broker.id} broker={broker} locale={locale} priority={i < 3} />
           ))}
           <PartnerCTACard />
         </div>
@@ -81,7 +70,10 @@ function BrokersGridSkeleton() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {Array.from({ length: 6 }).map((_, i) => (
-        <div key={i} className="bg-surface border border-line rounded-xl overflow-hidden animate-pulse">
+        <div
+          key={i}
+          className="bg-surface border border-line rounded-xl overflow-hidden animate-pulse"
+        >
           <div className="h-[170px] bg-surface-2" />
           <div className="p-5 space-y-2">
             <div className="h-4 bg-surface-3 rounded w-3/4" />
