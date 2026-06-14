@@ -1,5 +1,5 @@
 import { useTranslations } from 'next-intl';
-import type { MarketStats } from '@/types';
+import type { MarketStats } from '@/lib/schemas/broker';
 
 type MarketKey = 'forexPairs' | 'indices' | 'commodities' | 'equities' | 'sovereignBonds' | 'cryptoEtps';
 
@@ -11,7 +11,7 @@ export function MarketsGrid({ markets }: MarketsGridProps) {
   const t = useTranslations('brokerDetail');
   const mt = useTranslations('brokerDetail.markets');
 
-  const allItems: { key: MarketKey; value: number | undefined }[] = [
+  const allItems: { key: MarketKey; value: number | null | undefined }[] = [
     { key: 'forexPairs', value: markets.forexPairs },
     { key: 'indices', value: markets.indices },
     { key: 'commodities', value: markets.commodities },

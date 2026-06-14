@@ -4,18 +4,23 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslations } from 'next-intl';
 import { useRouter } from 'next/navigation';
-import { CreateBrokerSchema, type CreateBrokerInput } from '@/lib/schemas/broker';
+import { CreateBrokerSchema, type CreateBrokerInput, type BrokerType } from '@/lib/schemas/broker';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { submitBroker } from '@/lib/api/brokers';
-import { useRef, useState } from 'react';
-import { ImageIcon, Globe, Upload, X } from 'lucide-react';
+import { useState } from 'react';
+import { ImageIcon, Globe } from 'lucide-react';
 
 interface SubmitBrokerFormProps {
   locale: string;
 }
 
-const BROKER_TYPES = ['CFD', 'Bond', 'Stock', 'Crypto'] as const;
+const BROKER_TYPES: { value: BrokerType; label: string }[] = [
+  { value: 'cfd', label: 'CFD' },
+  { value: 'bond', label: 'Bond' },
+  { value: 'stock', label: 'Stock' },
+  { value: 'crypto', label: 'Crypto' },
+];
 
 export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
   const t = useTranslations('submitBroker');
@@ -32,7 +37,7 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
     resolver: zodResolver(CreateBrokerSchema),
   });
 
-  const selectedType = watch('type');
+  const selectedType = watch('brokerType');
 
   async function onSubmit(data: CreateBrokerInput) {
     setServerError('');
@@ -63,30 +68,30 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
         />
       </div>
 
-      {/* Type radio buttons */}
+      {/* Broker type toggle */}
       <div className="flex flex-col gap-1.5">
         <label className="text-[11px] font-semibold uppercase tracking-widest text-logo">
           {t('fields.brokerType')}
         </label>
         <div className="flex gap-2">
-          {BROKER_TYPES.map((bt) => (
+          {BROKER_TYPES.map(({ value, label }) => (
             <button
-              key={bt}
+              key={value}
               type="button"
-              onClick={() => setValue('type', bt, { shouldValidate: true })}
+              onClick={() => setValue('brokerType', value, { shouldValidate: true })}
               className={[
                 'grow px-5 py-4 rounded text-sm border transition-colors',
-                selectedType === bt
+                selectedType === value
                   ? 'bg-submit-broker-form border-accent text-ink'
                   : 'bg-submit-broker-type border-line hover:border-accent hover:bg-submit-broker-form',
               ].join(' ')}
             >
-              {bt}
+              {label}
             </button>
           ))}
         </div>
-        {errors.type && (
-          <p className="text-xs text-red-400">{errors.type.message}</p>
+        {errors.brokerType && (
+          <p className="text-xs text-red-400">{errors.brokerType.message}</p>
         )}
       </div>
 
@@ -124,9 +129,7 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
         )}
       </div>
 
-      {serverError && (
-        <p className="text-sm text-red-400">{serverError}</p>
-      )}
+      {serverError && <p className="text-sm text-red-400">{serverError}</p>}
 
       <div className="flex items-center justify-end gap-10 py-8">
         <button
@@ -136,11 +139,16 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
         >
           {t('actions.discard')}
         </button>
-        <Button className="rounded shadow-lg text-black hover:brightness-80" type="submit" variant="primary" size="lg" loading={isSubmitting}>
+        <Button
+          className="rounded shadow-lg text-black hover:brightness-80"
+          type="submit"
+          variant="primary"
+          size="lg"
+          loading={isSubmitting}
+        >
           {t('actions.submit')}
         </Button>
       </div>
     </form>
   );
 }
-

@@ -3,28 +3,33 @@ import { config } from '@/lib/config';
 import { mockBrokers } from '@/lib/mock/handlers';
 import { brokerEndpoints } from './endpoints';
 import {
-  BrokersResponseSchema,
-  BrokerDetailResponseSchema,
+  BrokersListResponseSchema,
+  BrokerDetailSchema,
   type BrokersResponse,
-  type BrokerDetailResponse,
+  type BrokerDetail,
   type CreateBrokerInput,
 } from '../schemas/broker';
 
 export async function getBrokers(params?: {
-  type?: string;
+  brokerType?: string;
+  page?: number;
+  limit?: number;
   search?: string;
 }): Promise<BrokersResponse> {
   if (config.useMock) return mockBrokers.getBrokers(params);
 
-  const response = await apiClient.get(brokerEndpoints.list, { params });
-  return BrokersResponseSchema.parse(response.data);
+  // search is client-side only — strip before sending to API
+  const { search: _search, ...apiParams } = params ?? {};
+  const response = await apiClient.get(brokerEndpoints.list, { params: apiParams });
+  const parsed = BrokersListResponseSchema.parse(response.data);
+  return { brokers: parsed.data, total: parsed.total };
 }
 
-export async function getBroker(slug: string): Promise<BrokerDetailResponse> {
+export async function getBroker(slug: string): Promise<BrokerDetail> {
   if (config.useMock) return mockBrokers.getBroker(slug);
 
   const response = await apiClient.get(brokerEndpoints.detail(slug));
-  return BrokerDetailResponseSchema.parse(response.data);
+  return BrokerDetailSchema.parse(response.data);
 }
 
 export async function submitBroker(data: CreateBrokerInput): Promise<{ id: string }> {

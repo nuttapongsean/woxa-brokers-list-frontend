@@ -1,4 +1,4 @@
-import type { BrokersResponse, BrokerDetailResponse, CreateBrokerInput } from '../schemas/broker';
+import type { BrokerDetail, BrokersResponse, CreateBrokerInput } from '../schemas/broker';
 import type { LoginInput, RegisterInput, AuthTokens } from '../schemas/auth';
 import { MOCK_BROKERS, MOCK_BROKERS_RESPONSE, MOCK_AUTH_RESPONSE } from './data';
 
@@ -7,32 +7,32 @@ const MOCK_DELAY = 400;
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const mockBrokers = {
-  async getBrokers(params?: { type?: string; search?: string }): Promise<BrokersResponse> {
+  async getBrokers(params?: { brokerType?: string; search?: string }): Promise<BrokersResponse> {
     await delay(MOCK_DELAY);
 
     let brokers = MOCK_BROKERS;
 
-    if (params?.type) {
-      brokers = brokers.filter((b) => b.type === params.type);
+    if (params?.brokerType) {
+      brokers = brokers.filter((b) => b.brokerType === params.brokerType);
     }
 
     if (params?.search) {
       const q = params.search.toLowerCase();
       brokers = brokers.filter(
-        (b) => b.name.toLowerCase().includes(q) || b.description.toLowerCase().includes(q)
+        (b) => b.name.toLowerCase().includes(q) || b.description.toLowerCase().includes(q),
       );
     }
 
     return { brokers, total: brokers.length };
   },
 
-  async getBroker(slug: string): Promise<BrokerDetailResponse> {
+  async getBroker(slug: string): Promise<BrokerDetail> {
     await delay(MOCK_DELAY);
 
     const broker = MOCK_BROKERS.find((b) => b.slug === slug);
     if (!broker) throw new Error(`Mock: broker "${slug}" not found`);
 
-    return { broker };
+    return broker;
   },
 
   async submitBroker(_data: CreateBrokerInput): Promise<{ id: string }> {
@@ -47,7 +47,7 @@ export const mockBrokers = {
 
   async getBrokerTypes(): Promise<string[]> {
     await delay(MOCK_DELAY);
-    return [...new Set(MOCK_BROKERS.map((b) => b.type))];
+    return [...new Set(MOCK_BROKERS.map((b) => b.brokerType))];
   },
 };
 

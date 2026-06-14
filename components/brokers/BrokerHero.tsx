@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import type { BrokerDetail } from '@/types';
+import type { BrokerDetail } from '@/lib/schemas/broker';
 
 interface BrokerHeroProps {
   broker: BrokerDetail;
