@@ -6,14 +6,14 @@ Institutional broker listing platform with a dark-navy "Sterling Midnight" termi
 
 | Concern | Choice |
 |---|---|
-| Framework | Next.js 16 (App Router) |
+| Framework | Next.js 15 (App Router) |
 | Language | TypeScript (strict) |
 | Styling | Tailwind CSS v4 |
 | Data fetching | TanStack Query v5 |
 | Forms | React Hook Form + Zod |
 | i18n | next-intl (`/en`, `/th`) |
 | API client | Axios with interceptors |
-| Auth | HTTP-only cookies (set by backend) |
+| Auth | Access token in memory + refresh token in localStorage + session flag cookie |
 | SEO | Next.js Metadata API + JSON-LD |
 | Icons | lucide-react |
 
@@ -109,8 +109,8 @@ middleware.ts          # next-intl locale routing + protected routes
 - **Server Components by default** — `'use client'` only for hooks/event handlers.
 - Broker list uses RSC `fetch` for SSR/SEO, then React Query for client-side filtering. Filters and search are purely client-side (no refetch).
 - Broker detail uses `generateStaticParams` for SSG + `generateMetadata` for dynamic SEO.
-- Protected routes are enforced in `middleware.ts`, not client-side guards.
-- Auth tokens live in HTTP-only cookies — never `localStorage`.
+- Protected routes are enforced in `middleware.ts` via the `woxa_session` session-flag cookie.
+- Access token lives in memory (XSS-safe, cleared on hard refresh); refresh token is in `localStorage`; a plain `woxa_session` cookie signals login state to the middleware.
 - All user-facing strings go through `useTranslations()` — no hardcoded English in components.
 - Under-maintenance pages share the `<UnderMaintenance>` component (`components/ui/UnderMaintenance.tsx`).
 

@@ -35,7 +35,7 @@ export function LoginForm({ locale }: LoginFormProps) {
   async function onSubmit(data: LoginInput) {
     setServerError('');
     loginMutation.mutate(data, {
-      onSuccess: () => router.push(`/${locale}/brokers`),
+      onSuccess: () => router.push(`/${locale}/brokers/submit`),
       onError: () => setServerError(t('error')),
     });
   }
