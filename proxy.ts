@@ -21,9 +21,7 @@ function getLocale(pathname: string): string {
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  const isAuthenticated = request.cookies.has(SESSION_COOKIE);
-
-  if (!isAuthenticated && !isPublicPath(pathname)) {
+  if (!request.cookies.has(SESSION_COOKIE) && !isPublicPath(pathname)) {
     const locale = getLocale(pathname);
     return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
   }

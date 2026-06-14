@@ -34,7 +34,7 @@ export function RegisterForm({ locale }: RegisterFormProps) {
   async function onSubmit(data: RegisterInput) {
     setServerError("");
     registerMutation.mutate(data, {
-      onSuccess: () => router.push(`/${locale}/brokers`),
+      onSuccess: () => router.push(`/${locale}/login`),
       onError: () => setServerError(t("error")),
     });
   }
