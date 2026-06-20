@@ -194,7 +194,8 @@
       "platform": "Platform",
       "company": "Company",
       "legal": "Legal",
-      "resources": "Resources"
+      "resources": "Resources",
+      "community": "Community"
     },
     "company": {
       "about": "About Woxa",
@@ -218,6 +219,12 @@
       "helpCenter": "Help Center",
       "apiDocs": "API Documentation",
       "status": "System Status"
+    },
+    "community": {
+      "discord": "Discord Server",
+      "newsletter": "Newsletter",
+      "forum": "Community Forum",
+      "submitBroker": "Submit a Broker"
     },
     "copyright": "© 2024 Sterling Midnight. All Rights Reserved.",
     "social": {

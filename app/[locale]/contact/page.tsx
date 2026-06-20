@@ -6,11 +6,11 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="max-w-3xl mx-auto px-6 py-16">
+    <div className="max-w-3xl mx-auto px-6 py-16 animate-fade-up">
       <h1 className="font-display text-3xl font-bold text-ink mb-2">Contact</h1>
       <p className="font-bold uppercase text-xs text-ink-dim tracking-widest mb-10">Woxa Financial Technologies</p>
 
-      <div className="space-y-10 text-sm text-ink-muted leading-relaxed">
+      <div className="space-y-10 text-sm leading-relaxed">
         <section>
           <h2 className="font-display text-base font-semibold text-ink mb-3">General Enquiries</h2>
           <p>Email: <span className="text-accent">hello@woxa.io</span></p>

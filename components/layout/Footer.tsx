@@ -36,12 +36,21 @@ export function Footer({ locale }: FooterProps) {
         { label: t('resources.status'), href: `/${locale}/status` },
       ],
     },
+    {
+      title: t('sections.community'),
+      links: [
+        { label: t('community.discord'), href: 'https://discord.com' },
+        { label: t('community.newsletter'), href: `/${locale}/newsletter` },
+        { label: t('community.forum'), href: `/${locale}/forum` },
+        { label: t('community.submitBroker'), href: `/${locale}/brokers/submit` },
+      ],
+    },
   ];
 
   return (
     <footer className="border-t border-line/40 mt-auto">
       {/* Main grid */}
-      <div className="px-8 md:px-12 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div className="px-8 md:px-12 py-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10">
         {/* Brand column */}
         <div className="flex flex-col gap-4">
           <span
@@ -50,7 +59,7 @@ export function Footer({ locale }: FooterProps) {
           >
             Woxa
           </span>
-          <p className="text-sm text-ink-dim leading-relaxed max-w-[200px]">
+          <p className="text-sm text-ink-dim leading-relaxed">
             {t('brandDesc')}
           </p>
           <div className="flex items-center gap-4">
@@ -109,12 +118,23 @@ export function Footer({ locale }: FooterProps) {
             <ul className="flex flex-col list-none">
               {section.links.map(({ label, href }) => (
                 <li key={href}>
-                  <Link
-                    href={href}
-                    className="text-sm text-ink-dim hover:text-ink-muted transition-colors"
-                  >
-                    {label}
-                  </Link>
+                  {href.startsWith('http') ? (
+                    <a
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-ink-dim hover:text-ink-muted transition-colors"
+                    >
+                      {label}
+                    </a>
+                  ) : (
+                    <Link
+                      href={href}
+                      className="text-sm text-ink-dim hover:text-ink-muted transition-colors"
+                    >
+                      {label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>

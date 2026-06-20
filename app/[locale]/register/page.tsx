@@ -35,7 +35,7 @@ export default async function RegisterPage({ params }: RegisterPageProps) {
           backgroundPosition: "center",
         }}
       >
-        <div className="absolute inset-0 z-[1] overlay-hero-bottom" />
+        <div className="absolute inset-0 z-[1] overlay-hero-bottom opacity-100" />
 
         <div className="relative z-10">
           <h2 className="font-display text-[18px] font-semibold text-logo flex items-center gap-2">

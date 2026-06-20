@@ -194,7 +194,8 @@
       "platform": "แพลตฟอร์ม",
       "company": "บริษัท",
       "legal": "กฎหมาย",
-      "resources": "ทรัพยากร"
+      "resources": "ทรัพยากร",
+      "community": "ชุมชน"
     },
     "company": {
       "about": "เกี่ยวกับ Woxa",
@@ -218,6 +219,12 @@
       "helpCenter": "ศูนย์ช่วยเหลือ",
       "apiDocs": "เอกสาร API",
       "status": "สถานะระบบ"
+    },
+    "community": {
+      "discord": "เซิร์ฟเวอร์ Discord",
+      "newsletter": "จดหมายข่าว",
+      "forum": "ฟอรัมชุมชน",
+      "submitBroker": "เสนอโบรกเกอร์"
     },
     "copyright": "© 2024 Sterling Midnight สงวนลิขสิทธิ์",
     "social": {

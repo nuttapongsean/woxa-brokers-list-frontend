@@ -97,6 +97,10 @@ Accent:
 | `btn-gradient` | Primary button gradient (#ADC6FF → #3A81F5) |
 | `bg-grid` | Grid-line background for auth pages |
 | `checkbox-custom` | Styled checkbox with `appearance-none`, bg-chip base, accent on checked |
+| `animate-fade-up` | Fade in from below (0.5s ease) |
+| `animate-fade-down` | Fade in from above (0.5s ease) |
+| `animate-fade-left` | Fade in from right (0.5s ease) |
+| `animate-fade-right` | Fade in from left (0.5s ease) |
 
 ### Icons
 
