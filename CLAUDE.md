@@ -41,7 +41,8 @@ Reference mockups are in `./mockups/` — always consult them before implementin
 | API client | Axios with interceptors (lib/api) |
 | Schema validation | Zod |
 | SEO | Next.js Metadata API + JSON-LD |
-| Auth tokens | HTTP-only cookies (set by backend) |
+| Auth tokens | Signed HttpOnly session cookie (HS256 JWT via `jose`) |
+| JWT signing | `jose` |
 | Icons | lucide-react |
 
 ---
@@ -269,6 +270,7 @@ config.query.brokerDetailStaleTime // 300_000 ms
 NEXT_PUBLIC_API_URL=http://localhost:4000/api
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 NEXT_PUBLIC_USE_MOCK=true   # set to true to use mock data without a backend
+SESSION_SECRET=<random-32-char-string>  # signs the HttpOnly session JWT in proxy.ts
 ```
 
 ---
@@ -277,7 +279,8 @@ NEXT_PUBLIC_USE_MOCK=true   # set to true to use mock data without a backend
 
 - Default locale: `en` | Supported: `en`, `th`
 - Routing: `/en/...`, `/th/...` via `proxy.ts` (Next.js 16 supports `proxy.ts` as the middleware entry point directly)
-- Auth guard in `proxy.ts`: unauthenticated users on protected paths → redirect to `/[locale]/login`; logged-in users on `/login` or `/register` → redirect to `/[locale]/brokers`
+- Auth guard in `proxy.ts`: verifies `woxa_session` cookie as HS256 JWT (signed with `SESSION_SECRET`) — forged/unsigned cookies are rejected. Unauthenticated users on protected paths → redirect to `/[locale]/login`; logged-in users on `/login` or `/register` → redirect to `/[locale]/brokers`
+- Session cookie issued by `POST /api/auth/session` (Next.js Route Handler) after login/register; cleared by `DELETE /api/auth/session` on logout. Lives in `lib/session.ts`
 - Public paths defined in `lib/config.ts` → `publicPaths` Set
 - All user-facing strings → `useTranslations()` / `getTranslations()`
 - Key namespaces: `nav`, `brokers`, `brokerDetail`, `submitBroker`, `login`, `register`, `common`, `footer`, `meta`
