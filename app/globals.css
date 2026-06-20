@@ -60,6 +60,13 @@
   }
 }
 
+/* Hero overlay gradient — bottom-to-top dark fade */
+@layer components {
+  .overlay-hero-bottom {
+    background: linear-gradient(0deg, #070d1a 0%, rgba(7, 13, 26, 0.4) 50%, rgba(7, 13, 26, 0) 100%);
+  }
+}
+
 /* Themed scrollbar for dropdowns */
 @layer components {
   .scrollbar-theme {

@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 import { Bell, CircleUserRound, LogOut, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useCurrentUser, useLogout } from '@/hooks/useAuth';
+import { Button } from '@/components/ui/Button';
 
 interface NavbarProps {
   locale: string;
@@ -61,20 +62,13 @@ export function Navbar({ locale }: NavbarProps) {
 
         {/* Actions */}
         <div className="flex items-center gap-4">
-          <button
-            aria-label="Notifications"
-            className="flex items-center justify-center text-logo hover:text-ink transition-colors"
-          >
+          <Button variant="ghost" size="icon" aria-label="Notifications" className="text-logo hover:text-ink hover:bg-transparent">
             <Bell size={20} strokeWidth={2} aria-hidden="true" />
-          </button>
+          </Button>
           {user ? (
-            <button
-              onClick={handleLogout}
-              aria-label="Logout"
-              className="flex items-center justify-center text-logo hover:text-ink transition-colors"
-            >
+            <Button variant="ghost" size="icon" onClick={handleLogout} aria-label="Logout" className="text-logo hover:text-ink hover:bg-transparent">
               <LogOut size={20} strokeWidth={2} aria-hidden="true" />
-            </button>
+            </Button>
           ) : (
             <Link
               href={`/${locale}/login`}
@@ -86,14 +80,16 @@ export function Navbar({ locale }: NavbarProps) {
           )}
 
           {/* Hamburger — mobile only */}
-          <button
+          <Button
+            variant="ghost"
+            size="icon"
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((o) => !o)}
-            className="md:hidden flex items-center justify-center text-logo hover:text-ink transition-colors"
+            className="md:hidden text-logo hover:text-ink hover:bg-transparent"
           >
-            {mobileOpen ? <X size={22} strokeWidth={2} /> : <Menu size={22} strokeWidth={2} />}
-          </button>
+            {mobileOpen ? <X size={22} strokeWidth={2} aria-hidden="true" /> : <Menu size={22} strokeWidth={2} aria-hidden="true" />}
+          </Button>
         </div>
       </div>
 

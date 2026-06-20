@@ -35,18 +35,11 @@ export default async function RegisterPage({ params }: RegisterPageProps) {
           backgroundPosition: "center",
         }}
       >
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(0deg, #070d1a 0%, rgba(7, 13, 26, 0.4) 50%, rgba(7, 13, 26, 0) 100%)",
-            zIndex: 1,
-          }}
-        />
+        <div className="absolute inset-0 z-[1] overlay-hero-bottom" />
 
         <div className="relative z-10">
           <h2 className="font-display text-[18px] font-semibold text-logo flex items-center gap-2">
-            <Landmark size={18} />
+            <Landmark size={18} aria-hidden="true" />
             {t("brandName")}
           </h2>
           <h1 className="font-display text-[60px] font-bold text-ink leading-[1.15] my-6">
@@ -91,7 +84,7 @@ export default async function RegisterPage({ params }: RegisterPageProps) {
             {[t("badges.aes"), t("badges.gdpr"), t("badges.sec")].map(
               (label, i) => (
                 <span key={label} className="flex items-center gap-1.5 text-[10px] uppercase text-ink-dim">
-                  {i === 0 && <ShieldCheck size={12}/>}
+                  {i === 0 && <ShieldCheck size={12} aria-hidden="true" />}
                   {label}
                 </span>
               ),

@@ -24,9 +24,11 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {label}
           </label>
         )}
-        <div className="relative flex items-center">
+        <div className="relative flex items-center group">
           {iconLeft && (
-            <span className="absolute left-[14px] text-ink-dim pointer-events-none">{iconLeft}</span>
+            <span className="absolute left-[14px] inset-y-0 flex items-center text-ink-dim group-focus-within:text-line-focus pointer-events-none transition-colors">
+              {iconLeft}
+            </span>
           )}
           <input
             ref={ref}
@@ -44,7 +46,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {...props}
           />
           {(iconRight || rightAction) && (
-            <span className="absolute right-[14px] text-ink-dim">{iconRight ?? rightAction}</span>
+            <span className="absolute right-[14px] inset-y-0 flex items-center text-ink-dim group-focus-within:text-line-focus transition-colors">
+              {iconRight ?? rightAction}
+            </span>
           )}
         </div>
         {error && (

@@ -8,6 +8,7 @@ import { Autocomplete } from '@/components/ui/Autocomplete';
 import { Select } from '@/components/ui/Select';
 import { RadioGroup } from '@/components/ui/RadioGroup';
 import { MultiSelect } from '@/components/ui/MultiSelect';
+import { Checkbox } from '@/components/ui/Checkbox';
 import { FileUpload } from '@/components/ui/FileUpload';
 import { Badge } from '@/components/ui/Badge';
 import { Card } from '@/components/ui/Card';
@@ -229,6 +230,32 @@ export function DevGallery() {
         </div>
       </Section>
 
+      {/* ── Checkbox ── */}
+      <Section title="Checkbox">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="space-y-3">
+            <Label>Default</Label>
+            <Checkbox label="Remember me" />
+            <Checkbox label="Send me updates" description="Weekly digest of new brokers and market insights" />
+            <Checkbox label="Disabled" disabled />
+          </div>
+          <div className="space-y-3">
+            <Label>With rich label & error</Label>
+            <Checkbox
+              labelContent={
+                <span>
+                  I agree to the{' '}
+                  <span className="text-logo">Terms of Service</span>
+                  {' '}and{' '}
+                  <span className="text-logo">Privacy Policy</span>
+                </span>
+              }
+              error="You must accept the terms to continue"
+            />
+          </div>
+        </div>
+      </Section>
+
       {/* ── Badge ── */}
       <Section title="Badge">
         <div className="flex flex-wrap gap-3 items-center">
@@ -320,7 +347,7 @@ export function DevGallery() {
             label="Country"
             placeholder="Select a country…"
             value={selectedCountry}
-            onChange={(e) => setSelectedCountry(e.target.value)}
+            onChange={(v) => setSelectedCountry(v)}
             options={[
               { value: 'th', label: 'Thailand' },
               { value: 'sg', label: 'Singapore' },

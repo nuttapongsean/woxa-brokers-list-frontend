@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'outline' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'icon';
   loading?: boolean;
 }
 
@@ -20,9 +20,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const sizes = {
-      sm: 'px-4 py-2 text-sm',
-      md: 'px-6 py-3 text-sm',
-      lg: 'px-7 py-[14px] text-sm',
+      sm:   'px-4 py-2 text-sm',
+      md:   'px-6 py-3 text-sm',
+      lg:   'px-7 py-[14px] text-sm',
+      icon: 'p-2',
     };
 
     return (

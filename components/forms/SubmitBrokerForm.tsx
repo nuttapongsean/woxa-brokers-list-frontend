@@ -75,19 +75,20 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
         </label>
         <div className="flex gap-2">
           {BROKER_TYPES.map(({ value, label }) => (
-            <button
+            <Button
               key={value}
               type="button"
+              variant="outline"
               onClick={() => setValue('brokerType', value, { shouldValidate: true })}
               className={cn(
-                'grow px-5 py-4 rounded-lg text-sm border transition-colors',
+                'grow py-4',
                 selectedType === value
-                  ? 'bg-input-focus border-accent text-ink'
-                  : 'bg-input border-line text-ink-muted hover:border-line-focus hover:text-ink'
+                  ? 'bg-input-focus border-accent text-ink hover:border-accent hover:text-ink'
+                  : 'bg-input border-line text-ink-muted'
               )}
             >
               {label}
-            </button>
+            </Button>
           ))}
         </div>
         {errors.brokerType && (
@@ -123,13 +124,9 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
       {serverError && <p className="text-sm text-red-400">{serverError}</p>}
 
       <div className="flex items-center justify-end gap-10 py-8">
-        <button
-          type="button"
-          onClick={() => router.back()}
-          className="text-sm text-ink-body hover:text-ink transition-colors"
-        >
+        <Button type="button" variant="ghost" onClick={() => router.back()}>
           {t('actions.discard')}
-        </button>
+        </Button>
         <Button
           type="submit"
           variant="primary"

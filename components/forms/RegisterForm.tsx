@@ -10,8 +10,9 @@ import type { RegisterInput } from "@/types";
 import { useRegister } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import { Checkbox } from "@/components/ui/Checkbox";
 import { useState } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Eye, EyeOff } from "lucide-react";
 
 interface RegisterFormProps {
   locale: string;
@@ -21,6 +22,8 @@ export function RegisterForm({ locale }: RegisterFormProps) {
   const t = useTranslations("register");
   const router = useRouter();
   const [serverError, setServerError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const registerMutation = useRegister();
 
   const {
@@ -61,43 +64,67 @@ export function RegisterForm({ locale }: RegisterFormProps) {
       <div className="grid grid-cols-2 gap-3">
         <Input
           label={t("password")}
-          type="password"
+          type={showPassword ? "text" : "password"}
           placeholder={t("passwordPlaceholder")}
           error={errors.password?.message}
           autoComplete="new-password"
+          rightAction={
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              onClick={() => setShowPassword((v) => !v)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword
+                ? <EyeOff size={15} aria-hidden="true" />
+                : <Eye size={15} aria-hidden="true" />}
+            </Button>
+          }
           {...register("password")}
         />
         <Input
           label={t("confirmPassword")}
-          type="password"
+          type={showConfirm ? "text" : "password"}
           placeholder={t("confirmPasswordPlaceholder")}
           error={errors.confirmPassword?.message}
           autoComplete="new-password"
+          rightAction={
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              onClick={() => setShowConfirm((v) => !v)}
+              aria-label={showConfirm ? "Hide password" : "Show password"}
+            >
+              {showConfirm
+                ? <EyeOff size={15} aria-hidden="true" />
+                : <Eye size={15} aria-hidden="true" />}
+            </Button>
+          }
           {...register("confirmPassword")}
         />
       </div>
 
-      <label className="flex items-start gap-3 cursor-pointer group my-8">
-        <input
-          type="checkbox"
-          className="mt-1 checkbox-custom"
+      <div className="my-4">
+        <Checkbox
+          labelContent={
+            <span>
+              {t("agreement")}{" "}
+              <Link href={`/${locale}/terms`} className="text-logo hover:underline">
+                {t("agreementLink")}
+              </Link>{" "}
+              {t("and")}{" "}
+              <Link href={`/${locale}/privacy`} className="text-logo hover:underline">
+                {t("privacyLink")}
+              </Link>
+              .
+            </span>
+          }
+          error={errors.agreeToTerms?.message}
           {...register("agreeToTerms")}
         />
-        <p className="text-sm text-ink leading-relaxed">
-          {t("agreement")}{" "}
-          <a href="#" className="hover:underline text-logo">
-            {t("agreementLink")}
-          </a>{" "}
-          {t("and")}{" "}
-          <a href="#" className="hover:underline text-logo">
-            {t("privacyLink")}
-          </a>
-          .
-        </p>
-      </label>
-      {errors.agreeToTerms && (
-        <p className="text-xs text-red-400 -mt-6">{errors.agreeToTerms.message}</p>
-      )}
+      </div>
 
       {serverError && <p className="text-sm text-red-400">{serverError}</p>}
 
@@ -109,17 +136,13 @@ export function RegisterForm({ locale }: RegisterFormProps) {
         className="w-full"
       >
         {t("submit")}
-        <ArrowRight size={16} aria-hidden="true" className="ml-2" />
       </Button>
 
       <hr className="text-ink-dim/10 my-4" />
 
       <p className="text-center text-sm text-ink-muted my-6">
         {t("alreadyVerified")}{" "}
-        <Link
-          href={`/${locale}/login`}
-          className="text-logo font-medium hover:underline"
-        >
+        <Link href={`/${locale}/login`} className="text-logo font-medium hover:underline">
           {t("loginLink")}
         </Link>
       </p>
