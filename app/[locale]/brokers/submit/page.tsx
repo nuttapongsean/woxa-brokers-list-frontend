@@ -22,12 +22,12 @@ export default async function SubmitBrokerPage({ params }: SubmitBrokerPageProps
 
   return (
     <div className="max-w-[780px] mx-auto p-6">
-      <header className="mb-8">
+      <header>
         <h1 className="font-display text-[32px] leading-[36px] sm:text-[48px] sm:leading-[52px] lg:text-[60px] lg:leading-[60px] font-bold text-ink mb-3">{t('title')}</h1>
         <p className="text-sm leading-relaxed max-w-lg">{t('subtitle')}</p>
       </header>
 
-      <div className="bg-surface rounded-xl p-8 mb-10">
+      <div className="bg-surface rounded-xl p-8 my-10">
         <SubmitBrokerForm locale={locale} />
       </div>
     </div>

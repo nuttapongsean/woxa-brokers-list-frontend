@@ -1,6 +1,10 @@
 export const publicPaths = new Set([
   '/login',
   '/register',
+  '/brokers',
+  '/markets',
+  '/analysis',
+  '/education',
   '/privacy',
   '/terms',
   '/risk-disclosure',

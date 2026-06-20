@@ -7,11 +7,11 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="max-w-3xl mx-auto px-6 py-16">
+    <div className="max-w-3xl mx-auto px-6 py-16 animate-fade-up">
       <h1 className="font-display text-3xl font-bold text-ink mb-2">Privacy Policy</h1>
       <p className="font-bold uppercase text-xs text-ink-dim uppercase tracking-widest mb-10">Last updated: January 2025</p>
 
-      <div className="space-y-10 text-sm text-ink-muted leading-relaxed">
+      <div className="space-y-10 text-sm leading-relaxed">
         <section>
           <h2 className="font-display text-base font-semibold text-ink mb-3">1. Information We Collect</h2>
           <p>Woxa collects information you provide when creating an account, submitting broker listings, or contacting support. This includes your name, email address, and usage data generated while interacting with our platform.</p>

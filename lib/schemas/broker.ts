@@ -64,16 +64,70 @@ export const BrokersResponseSchema = z.object({
   total: z.number(),
 });
 
+const optionalUrl = z.string().url('Must be a valid URL').or(z.literal('')).optional();
+const optionalInt = z.preprocess(
+  (v) => (v === '' || v == null ? undefined : Number(v)),
+  z.number().int().nonnegative().optional()
+);
+const requiredNonNegInt = z.preprocess(
+  (v) => (v === '' || v == null ? undefined : Number(v)),
+  z.number({ error: 'Required' }).int().nonnegative('Must be 0 or greater')
+);
+
 export const CreateBrokerSchema = z.object({
+  // Basic
   name: z.string().min(2, 'Broker name is required'),
-  slug: z
-    .string()
-    .regex(/^[a-z0-9-]+$/, 'Lowercase letters, numbers, and hyphens only')
-    .optional(),
+  slug: z.string().regex(/^[a-z0-9-]+$/, 'Lowercase letters, numbers, and hyphens only').optional(),
   brokerType: BrokerTypeSchema,
-  logoUrl: z.string().url('Must be a valid URL'),
-  website: z.string().url('Must be a valid URL'),
-  description: z.string().min(20, 'Description must be at least 20 characters'),
+
+  // Media & Links
+  logoUrl: optionalUrl,
+  imageUrl: optionalUrl,
+  website: optionalUrl,
+  prospectusUrl: optionalUrl,
+
+  // Descriptions
+  description: z.string().min(20, 'Must be at least 20 characters'),
+  longDescription: z.string().min(1, 'Required'),
+
+  // Branding
+  badge: z.string().optional(),
+  tag: z.string().optional(),
+  grade: z.string().optional(),
+  rating: z.preprocess(
+    (v) => (v === '' || v == null ? undefined : Number(v)),
+    z.number().int().min(1).max(5).optional()
+  ),
+  icon: z.string().optional(),
+
+  // Contact
+  contactAddress: z.string().min(1, 'Required'),
+  contactEmail: z.string().email('Must be a valid email'),
+
+  // Features (dynamic rows)
+  features: z.array(z.object({
+    title: z.string().min(1, 'Required'),
+    description: z.string().min(1, 'Required'),
+  })).optional(),
+
+  // Metrics
+  metrics: z.object({
+    aumGrowthYoY: z.string().min(1, 'Required'),
+    liquidityAccess: z.string().min(1, 'Required'),
+    liquidityAccessSub: z.string().optional(),
+    clientRetention: z.string().min(1, 'Required'),
+    clientRetentionPeriod: z.string().optional(),
+  }).optional(),
+
+  // Markets
+  markets: z.object({
+    forexPairs: requiredNonNegInt,
+    indices: requiredNonNegInt,
+    commodities: requiredNonNegInt,
+    equities: requiredNonNegInt,
+    sovereignBonds: requiredNonNegInt,
+    cryptoEtps: requiredNonNegInt,
+  }).optional(),
 });
 
 export type BrokerType = z.infer<typeof BrokerTypeSchema>;

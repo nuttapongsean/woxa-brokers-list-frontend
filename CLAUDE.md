@@ -146,6 +146,7 @@ woxa-brokers-list-frontend/
 │   │   ├── Button.tsx           # variants: primary, ghost, outline; sizes: sm, md, lg
 │   │   ├── Input.tsx            # label, iconLeft, iconRight, rightAction, error; rounded-lg
 │   │   ├── Textarea.tsx         # label, error; same styling tokens as Input
+│   │   ├── Checkbox.tsx         # label, labelContent (ReactNode), description, error; uses checkbox-custom
 │   │   ├── Autocomplete.tsx     # combobox; type-to-filter, keyboard nav (↑↓ Enter Esc), clear button
 │   │   ├── Select.tsx           # native select + ChevronDown overlay; label, placeholder, error
 │   │   ├── RadioGroup.tsx       # controlled radio list; vertical/horizontal; label+description per option
@@ -193,7 +194,7 @@ woxa-brokers-list-frontend/
 │   ├── useBrokers.ts
 │   ├── useBroker.ts
 │   └── useAuth.ts
-├── middleware.ts
+├── proxy.ts             # Next.js 16 middleware (auth guard + guest-only redirect + next-intl)
 ├── i18n.ts
 └── next.config.ts
 ```
@@ -275,7 +276,9 @@ NEXT_PUBLIC_USE_MOCK=true   # set to true to use mock data without a backend
 ## i18n Setup
 
 - Default locale: `en` | Supported: `en`, `th`
-- Routing: `/en/...`, `/th/...` via `middleware.ts`
+- Routing: `/en/...`, `/th/...` via `proxy.ts` (Next.js 16 supports `proxy.ts` as the middleware entry point directly)
+- Auth guard in `proxy.ts`: unauthenticated users on protected paths → redirect to `/[locale]/login`; logged-in users on `/login` or `/register` → redirect to `/[locale]/brokers`
+- Public paths defined in `lib/config.ts` → `publicPaths` Set
 - All user-facing strings → `useTranslations()` / `getTranslations()`
 - Key namespaces: `nav`, `brokers`, `brokerDetail`, `submitBroker`, `login`, `register`, `common`, `footer`, `meta`
 
@@ -295,7 +298,7 @@ NEXT_PUBLIC_USE_MOCK=true   # set to true to use mock data without a backend
 ### Shared Components First
 
 **Always check `components/ui/` before writing any UI element.** The canonical shared components are:
-`Button`, `Input`, `Textarea`, `Autocomplete`, `Select`, `RadioGroup`, `MultiSelect`, `FileUpload`, `Badge`, `Card`.
+`Button`, `Input`, `Textarea`, `Checkbox`, `Autocomplete`, `Select`, `RadioGroup`, `MultiSelect`, `FileUpload`, `Badge`, `Card`.
 
 - If a shared component covers the use case → use it as-is, no inline recreation.
 - If a shared component is close but not quite right → extend via props or `className`, do not duplicate.

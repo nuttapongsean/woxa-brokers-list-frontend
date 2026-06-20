@@ -6,9 +6,6 @@ import { tokenStorage } from './tokenStorage';
 import { authEndpoints } from './endpoints';
 
 export async function login(data: LoginInput): Promise<AuthTokens> {
-  console.log(config.useMock);
-
-  
   if (config.useMock) {
     const result = await mockAuth.login(data);
     tokenStorage.save(result.accessToken, result.refreshToken, result.user);

@@ -34,10 +34,12 @@ export function LoginForm({ locale }: LoginFormProps) {
 
   async function onSubmit(data: LoginInput) {
     setServerError('');
-    loginMutation.mutate(data, {
-      onSuccess: () => router.push(`/${locale}/brokers/submit`),
-      onError: () => setServerError(t('error')),
-    });
+    try {
+      await loginMutation.mutateAsync(data);
+      router.push(`/${locale}/brokers/submit`);
+    } catch {
+      setServerError(t('error'));
+    }
   }
 
   return (
@@ -57,12 +59,9 @@ export function LoginForm({ locale }: LoginFormProps) {
           <label className="text-[11px] font-semibold uppercase tracking-widest text-logo">
             {t('password')}
           </label>
-          <button
-            type="button"
-            className="text-[10px] text-logo tracking-wide uppercase hover:brightness-80"
-          >
+          <Button type="button" variant="ghost" size="sm" className="text-[10px] text-logo tracking-wide uppercase px-0 hover:bg-transparent hover:text-logo/70">
             {t('forgotCredentials')}
-          </button>
+          </Button>
         </div>
         <Input
           type={showPassword ? 'text' : 'password'}
@@ -71,14 +70,15 @@ export function LoginForm({ locale }: LoginFormProps) {
           autoComplete="current-password"
           iconLeft={<Lock size={15} />}
           rightAction={
-            <button
+            <Button
               type="button"
+              variant="ghost"
+              size="icon"
               onClick={() => setShowPassword((v) => !v)}
               aria-label={showPassword ? 'Hide password' : 'Show password'}
-              className="text-ink-dim hover:text-ink transition-colors"
             >
-              {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
-            </button>
+              {showPassword ? <EyeOff size={15} aria-hidden="true" /> : <Eye size={15} aria-hidden="true" />}
+            </Button>
           }
           {...register('password')}
         />
