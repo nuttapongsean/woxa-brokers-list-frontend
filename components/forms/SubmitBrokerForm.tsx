@@ -7,9 +7,11 @@ import { useRouter } from 'next/navigation';
 import { CreateBrokerSchema, type CreateBrokerInput, type BrokerType } from '@/lib/schemas/broker';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import { Textarea } from '@/components/ui/Textarea';
 import { submitBroker } from '@/lib/api/brokers';
 import { useState } from 'react';
 import { ImageIcon, Globe } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface SubmitBrokerFormProps {
   locale: string;
@@ -53,14 +55,12 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <Input
-          className="bg-submit-broker-form focus:bg-submit-broker-form rounded"
           label={t('fields.brokerName')}
           placeholder={t('fields.brokerNamePlaceholder')}
           error={errors.name?.message}
           {...register('name')}
         />
         <Input
-          className="bg-submit-broker-form focus:bg-submit-broker-form rounded"
           label={t('fields.slug')}
           placeholder={t('fields.slugPlaceholder')}
           error={errors.slug?.message}
@@ -69,7 +69,7 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
       </div>
 
       {/* Broker type toggle */}
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         <label className="text-[11px] font-semibold uppercase tracking-widest text-logo">
           {t('fields.brokerType')}
         </label>
@@ -79,12 +79,12 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
               key={value}
               type="button"
               onClick={() => setValue('brokerType', value, { shouldValidate: true })}
-              className={[
-                'grow px-5 py-4 rounded text-sm border transition-colors',
+              className={cn(
+                'grow px-5 py-4 rounded-lg text-sm border transition-colors',
                 selectedType === value
-                  ? 'bg-submit-broker-form border-accent text-ink'
-                  : 'bg-submit-broker-type border-line hover:border-accent hover:bg-submit-broker-form',
-              ].join(' ')}
+                  ? 'bg-input-focus border-accent text-ink'
+                  : 'bg-input border-line text-ink-muted hover:border-line-focus hover:text-ink'
+              )}
             >
               {label}
             </button>
@@ -97,7 +97,6 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <Input
-          className="bg-submit-broker-form focus:bg-submit-broker-form rounded"
           label={t('fields.logoUrl')}
           placeholder={t('fields.logoUrlPlaceholder')}
           error={errors.logoUrl?.message}
@@ -105,7 +104,6 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
           {...register('logoUrl')}
         />
         <Input
-          className="bg-submit-broker-form focus:bg-submit-broker-form rounded"
           label={t('fields.website')}
           placeholder={t('fields.websitePlaceholder')}
           error={errors.website?.message}
@@ -114,20 +112,13 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
         />
       </div>
 
-      <div className="flex flex-col gap-1.5">
-        <label className="text-[11px] font-semibold uppercase tracking-widest text-logo">
-          {t('fields.description')}
-        </label>
-        <textarea
-          {...register('description')}
-          placeholder={t('fields.descriptionPlaceholder')}
-          rows={5}
-          className={`rounded bg-submit-broker-form border px-4 py-3 text-sm text-ink resize-none focus:outline-none placeholder:text-ink-dim ${errors.description ? 'border-red-500 focus:border-red-500' : 'border-line focus:border-line-focus'}`}
-        />
-        {errors.description && (
-          <p className="text-xs text-red-400">{errors.description.message}</p>
-        )}
-      </div>
+      <Textarea
+        label={t('fields.description')}
+        placeholder={t('fields.descriptionPlaceholder')}
+        rows={5}
+        error={errors.description?.message}
+        {...register('description')}
+      />
 
       {serverError && <p className="text-sm text-red-400">{serverError}</p>}
 
@@ -135,12 +126,11 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
         <button
           type="button"
           onClick={() => router.back()}
-          className="text-sm text-ink-body hover:brightness-80 transition-colors"
+          className="text-sm text-ink-body hover:text-ink transition-colors"
         >
           {t('actions.discard')}
         </button>
         <Button
-          className="rounded shadow-lg text-black hover:brightness-80"
           type="submit"
           variant="primary"
           size="lg"

@@ -44,8 +44,6 @@ export function LoginForm({ locale }: LoginFormProps) {
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
       <Input
         label={t('email')}
-        labelClassName="text-ink/70"
-        className="border-ink/30"
         type="email"
         placeholder={t('emailPlaceholder')}
         error={errors.email?.message}
@@ -56,7 +54,7 @@ export function LoginForm({ locale }: LoginFormProps) {
 
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
-          <label className="text-[11px] font-semibold uppercase tracking-widest text-ink/70">
+          <label className="text-[11px] font-semibold uppercase tracking-widest text-logo">
             {t('password')}
           </label>
           <button
@@ -67,7 +65,6 @@ export function LoginForm({ locale }: LoginFormProps) {
           </button>
         </div>
         <Input
-          className="border-ink/30"
           type={showPassword ? 'text' : 'password'}
           placeholder={t('passwordPlaceholder')}
           error={errors.password?.message}
@@ -94,7 +91,7 @@ export function LoginForm({ locale }: LoginFormProps) {
         variant="primary"
         size="lg"
         loading={isSubmitting || loginMutation.isPending}
-        className="w-full mt-6 hover:brightness-80 uppercase text-black"
+        className="w-full mt-6"
       >
         {t('submit')}
       </Button>

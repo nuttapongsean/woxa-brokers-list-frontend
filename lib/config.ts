@@ -5,6 +5,7 @@ export const publicPaths = new Set([
   '/terms',
   '/risk-disclosure',
   '/contact',
+  '/dev',
 ]);
 
 // Server-side uses API_URL (runtime env, Docker-aware); browser uses the baked NEXT_PUBLIC_API_URL

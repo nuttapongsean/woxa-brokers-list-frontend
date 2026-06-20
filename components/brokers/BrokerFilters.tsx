@@ -23,10 +23,10 @@ export function BrokerFilters({ active, onChange, types }: BrokerFiltersProps) {
       <button
         onClick={() => onChange('all')}
         className={cn(
-          'rounded-[12px] transition-all h-[36px] px-4 cursor-pointer',
+          'rounded-full transition-all h-[36px] px-4 cursor-pointer',
           active === 'all'
             ? 'bg-logo text-base'
-            : 'bg-filter-inactive text-ink-nav hover:text-base hover:bg-logo',
+            : 'bg-filter-inactive text-ink-muted hover:text-base hover:bg-logo',
         )}
         aria-pressed={active === 'all'}
       >
@@ -37,10 +37,10 @@ export function BrokerFilters({ active, onChange, types }: BrokerFiltersProps) {
           key={type}
           onClick={() => onChange(type as BrokerType)}
           className={cn(
-            'rounded-[12px] transition-all h-[36px] px-4 cursor-pointer',
+            'rounded-full transition-all h-[36px] px-4 cursor-pointer',
             active === type
               ? 'bg-logo text-base'
-              : 'bg-filter-inactive text-ink-nav hover:text-base hover:bg-logo',
+              : 'bg-filter-inactive text-ink-muted hover:text-base hover:bg-logo',
           )}
           aria-pressed={active === type}
         >

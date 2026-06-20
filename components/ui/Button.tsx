@@ -1,8 +1,9 @@
 import { type ButtonHTMLAttributes, forwardRef } from 'react';
+import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'ghost' | 'outline';
+  variant?: 'primary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   loading?: boolean;
 }
@@ -10,12 +11,12 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant = 'primary', size = 'md', loading, className, children, disabled, ...props }, ref) => {
     const base =
-      'inline-flex items-center justify-center font-semibold rounded-lg transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-base disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none';
+      'inline-flex items-center justify-center font-semibold rounded-lg transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-base disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none active:scale-95';
 
     const variants = {
-      primary: 'btn-gradient text-white hover:opacity-90',
-      ghost: 'bg-transparent border border-line-light text-ink hover:bg-surface-3 transition-colors',
+      primary: 'btn-gradient text-white hover:brightness-110',
       outline: 'bg-transparent border border-line-light text-ink-muted hover:border-accent hover:text-accent',
+      ghost:   'bg-transparent text-ink-muted hover:text-accent hover:bg-surface-2',
     };
 
     const sizes = {
@@ -31,13 +32,10 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || loading}
         {...props}
       >
-        {loading && (
-          <svg className="mr-2 h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
-          </svg>
-        )}
-        {children}
+        {loading
+          ? <Loader2 size={16} className="animate-spin" aria-hidden="true" />
+          : children
+        }
       </button>
     );
   }
