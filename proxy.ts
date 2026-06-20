@@ -2,7 +2,7 @@ import createMiddleware from 'next-intl/middleware';
 import { type NextRequest, NextResponse } from 'next/server';
 import { routing } from './i18n/routing';
 import { publicPaths } from './lib/config';
-import { SESSION_COOKIE } from './lib/api/tokenStorage';
+import { verifySession, SESSION_COOKIE_NAME } from './lib/session';
 
 const intlMiddleware = createMiddleware(routing);
 
@@ -25,9 +25,10 @@ function isGuestOnly(pathname: string): boolean {
   return guestOnlyPaths.has(withoutLocale);
 }
 
-export default function middleware(request: NextRequest) {
+export default async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
-  const hasSession = request.cookies.has(SESSION_COOKIE);
+  const sessionToken = request.cookies.get(SESSION_COOKIE_NAME)?.value;
+  const hasSession = sessionToken ? await verifySession(sessionToken) : false;
 
   // Logged-in users cannot access login / register — send them home
   if (hasSession && isGuestOnly(pathname)) {

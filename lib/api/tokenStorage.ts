@@ -19,8 +19,6 @@ function lsDel(key: string): void {
   if (typeof window !== 'undefined') localStorage.removeItem(key);
 }
 
-export const SESSION_COOKIE = 'woxa_session';
-
 export const tokenStorage = {
   getAccessToken: (): string | null => _accessToken,
 
@@ -40,9 +38,7 @@ export const tokenStorage = {
     _accessToken = accessToken;
     lsSet(REFRESH_KEY, refreshToken);
     lsSet(USER_KEY, JSON.stringify(user));
-    if (typeof document !== 'undefined') {
-      document.cookie = `${SESSION_COOKIE}=1; path=/; SameSite=Lax`;
-    }
+    // Session cookie is set server-side via POST /api/auth/session (HttpOnly + signed JWT)
   },
 
   updateAccessToken(accessToken: string): void {
@@ -53,8 +49,6 @@ export const tokenStorage = {
     _accessToken = null;
     lsDel(REFRESH_KEY);
     lsDel(USER_KEY);
-    if (typeof document !== 'undefined') {
-      document.cookie = `${SESSION_COOKIE}=; path=/; max-age=0`;
-    }
+    // Session cookie is cleared server-side via DELETE /api/auth/session
   },
 };
