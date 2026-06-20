@@ -12,6 +12,8 @@ export interface RadioOption {
 interface RadioGroupProps {
   name: string;
   label?: string;
+  tooltip?: string;
+  required?: boolean;
   options: RadioOption[];
   value?: string;
   onChange?: (value: string) => void;
@@ -23,6 +25,8 @@ interface RadioGroupProps {
 export function RadioGroup({
   name,
   label,
+  tooltip,
+  required,
   options,
   value,
   onChange,
@@ -32,17 +36,35 @@ export function RadioGroup({
 }: RadioGroupProps) {
   return (
     <div className={cn('flex flex-col gap-2', className)}>
-      {label && (
-        <span className="text-[11px] font-semibold uppercase tracking-widest text-logo">
-          {label}
-        </span>
+      {(label || tooltip) && (
+        <div className="flex items-center gap-1.5">
+          {label && (
+            <span className="text-[11px] font-semibold uppercase tracking-widest text-logo">
+              {label}
+              {required && <span className="text-red-400 ml-0.5">*</span>}
+            </span>
+          )}
+          {tooltip && (
+            <span className="relative group/tip">
+              <span className="flex items-center justify-center w-3.5 h-3.5 rounded-full border border-ink-dim text-ink-dim text-[9px] font-bold cursor-default select-none leading-none">
+                ?
+              </span>
+              <span
+                role="tooltip"
+                className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[220px] rounded-lg bg-surface border border-line px-3 py-2 text-[12px] text-ink-body leading-relaxed shadow-lg opacity-0 group-hover/tip:opacity-100 transition-opacity z-50"
+              >
+                {tooltip}
+              </span>
+            </span>
+          )}
+        </div>
       )}
       <div
         role="radiogroup"
         aria-label={label}
         className={cn(
-          'flex gap-3',
-          orientation === 'vertical' ? 'flex-col' : 'flex-row flex-wrap'
+          'gap-3',
+          orientation === 'vertical' ? 'flex flex-col' : 'grid grid-cols-1 sm:flex sm:flex-row'
         )}
       >
         {options.map((opt) => {
@@ -55,6 +77,7 @@ export function RadioGroup({
               htmlFor={optId}
               className={cn(
                 'flex items-start gap-3 rounded-lg border px-4 py-3 cursor-pointer transition-colors',
+                orientation === 'horizontal' && 'sm:flex-1',
                 isSelected
                   ? 'bg-input-focus border-accent'
                   : 'bg-input border-line hover:border-line-focus',

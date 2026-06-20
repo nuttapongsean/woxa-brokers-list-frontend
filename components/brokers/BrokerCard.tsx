@@ -61,7 +61,7 @@ export function BrokerCard({ broker, locale, priority = false }: BrokerCardProps
       {/* Body */}
       <div className="p-5 flex flex-col flex-1">
         <h3 className="text-ink-title font-display text-[17px] font-semibold mb-2">{broker.name}</h3>
-        <p className="text-ink-body text-[13px] leading-[1.55] mb-4 line-clamp-3 flex-1">
+        <p className="text-[13px] leading-[1.55] mb-4 line-clamp-3 flex-1">
           {broker.description}
         </p>
 

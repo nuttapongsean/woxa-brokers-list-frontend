@@ -39,7 +39,7 @@ export function Navbar({ locale }: NavbarProps) {
     );
 
   return (
-    <nav className="sticky top-0 z-50 bg-base/90 backdrop-blur-sm border-b border-line/40">
+    <nav className="sticky top-0 z-50 bg-base backdrop-blur-sm border-b border-line/40">
       {/* Top bar */}
       <div className="flex items-center justify-between px-4 sm:px-8 md:px-12 py-4">
         {/* Logo */}
@@ -61,7 +61,7 @@ export function Navbar({ locale }: NavbarProps) {
         </ul>
 
         {/* Actions */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-3">
           <Button variant="ghost" size="icon" aria-label="Notifications" className="text-logo hover:text-ink hover:bg-transparent">
             <Bell size={20} strokeWidth={2} aria-hidden="true" />
           </Button>
@@ -70,13 +70,9 @@ export function Navbar({ locale }: NavbarProps) {
               <LogOut size={20} strokeWidth={2} aria-hidden="true" />
             </Button>
           ) : (
-            <Link
-              href={`/${locale}/login`}
-              aria-label="Account"
-              className="flex items-center justify-center text-logo hover:text-ink transition-colors"
-            >
+            <Button variant="ghost" size="icon" aria-label="Account" className="text-logo hover:text-ink hover:bg-transparent" onClick={() => router.push(`/${locale}/login`)}>
               <CircleUserRound size={20} strokeWidth={2} aria-hidden="true" />
-            </Link>
+            </Button>
           )}
 
           {/* Hamburger — mobile only */}

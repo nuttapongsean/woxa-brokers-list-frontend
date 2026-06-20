@@ -6,7 +6,7 @@
 }
 
 @utility animate-fade-up {
-  animation: fade-up 5s ease both;
+  animation: fade-up 0.5s ease both;
 }
 
 @theme {
@@ -115,6 +115,16 @@ button {
   cursor: pointer !important;
 }
 
+/* Number input — hide browser spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 html,
 body {
   height: 100%;
@@ -122,7 +132,6 @@ body {
 
 body {
   background-color: #070d1a;
-  color: var(--color-ink-body);
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 29px;
@@ -130,6 +139,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* p {
-  color: var(--color-ink-body);
-} */
+p {
+  color: var(--color-ink-muted);
+}

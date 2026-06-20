@@ -194,7 +194,7 @@ woxa-brokers-list-frontend/
 │   ├── useBrokers.ts
 │   ├── useBroker.ts
 │   └── useAuth.ts
-├── middleware.ts
+├── proxy.ts             # Next.js 16 middleware (auth guard + guest-only redirect + next-intl)
 ├── i18n.ts
 └── next.config.ts
 ```
@@ -276,7 +276,9 @@ NEXT_PUBLIC_USE_MOCK=true   # set to true to use mock data without a backend
 ## i18n Setup
 
 - Default locale: `en` | Supported: `en`, `th`
-- Routing: `/en/...`, `/th/...` via `middleware.ts`
+- Routing: `/en/...`, `/th/...` via `proxy.ts` (Next.js 16 supports `proxy.ts` as the middleware entry point directly)
+- Auth guard in `proxy.ts`: unauthenticated users on protected paths → redirect to `/[locale]/login`; logged-in users on `/login` or `/register` → redirect to `/[locale]/brokers`
+- Public paths defined in `lib/config.ts` → `publicPaths` Set
 - All user-facing strings → `useTranslations()` / `getTranslations()`
 - Key namespaces: `nav`, `brokers`, `brokerDetail`, `submitBroker`, `login`, `register`, `common`, `footer`, `meta`
 

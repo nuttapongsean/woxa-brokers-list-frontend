@@ -49,7 +49,7 @@ export function BrokersPageClient({ locale }: BrokersPageClientProps) {
         <h1 className="text-ink-title font-display font-bold text-[32px] leading-[36px] sm:text-[48px] sm:leading-[52px] lg:text-[60px] lg:leading-[60px] flex items-center mb-3">
           {t('title')}
         </h1>
-        <p className="text-ink-body text-sm max-w-xl leading-relaxed">{t('subtitle')}</p>
+        <p className="text-sm max-w-xl leading-relaxed">{t('subtitle')}</p>
       </header>
 
       <div className="flex flex-col gap-4 sm:gap-6 mb-6 sm:mb-8">

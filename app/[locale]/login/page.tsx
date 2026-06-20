@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { getTranslations } from 'next-intl/server';
-import { Lock, ShieldCheck } from 'lucide-react';
 import Image from 'next/image';
 import { config } from '@/lib/config';
 import { LoginForm } from '@/components/forms/LoginForm';
@@ -46,7 +45,7 @@ export default async function LoginPage({ params }: LoginPageProps) {
         {/* Card */}
         <Card className="p-8 shadow-lg [box-shadow:inset_0_3px_0_0_var(--color-logo),_0_10px_15px_-3px_rgb(0_0_0/0.1)]">
           <h2 className="text-xl font-display text-base text-ink mb-1">{t('sectionTitle')}</h2>
-          <p className="text-ink-body mb-6">{t('sectionDesc')}</p>
+          <p className="mb-6">{t('sectionDesc')}</p>
 
           <LoginForm locale={locale} />
         </Card>

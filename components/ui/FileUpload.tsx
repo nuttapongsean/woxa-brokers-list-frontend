@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 
 interface FileUploadProps {
   label?: string;
+  required?: boolean;
   error?: string;
   accept?: string;
   multiple?: boolean;
@@ -24,6 +25,7 @@ function formatBytes(bytes: number): string {
 
 export function FileUpload({
   label,
+  required,
   error,
   accept,
   multiple = false,
@@ -69,6 +71,7 @@ export function FileUpload({
           className="text-[11px] font-semibold uppercase tracking-widest text-logo"
         >
           {label}
+          {required && <span className="text-red-400 ml-0.5">*</span>}
         </label>
       )}
 

@@ -18,10 +18,25 @@ function getLocale(pathname: string): string {
     : routing.defaultLocale;
 }
 
+const guestOnlyPaths = new Set(['/login', '/register']);
+
+function isGuestOnly(pathname: string): boolean {
+  const withoutLocale = pathname.replace(/^\/(en|th)/, '') || '/';
+  return guestOnlyPaths.has(withoutLocale);
+}
+
 export default function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const hasSession = request.cookies.has(SESSION_COOKIE);
 
-  if (!request.cookies.has(SESSION_COOKIE) && !isPublicPath(pathname)) {
+  // Logged-in users cannot access login / register — send them home
+  if (hasSession && isGuestOnly(pathname)) {
+    const locale = getLocale(pathname);
+    return NextResponse.redirect(new URL(`/${locale}/brokers`, request.url));
+  }
+
+  // Unauthenticated users cannot access protected paths
+  if (!hasSession && !isPublicPath(pathname)) {
     const locale = getLocale(pathname);
     return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
   }
