@@ -39,7 +39,7 @@ export function Navbar({ locale }: NavbarProps) {
     );
 
   return (
-    <nav className="mt-2 z-50 relative">
+    <nav className="sticky top-0 z-50 bg-base/90 backdrop-blur-sm border-b border-line/40">
       {/* Top bar */}
       <div className="flex items-center justify-between px-4 sm:px-8 md:px-12 py-4">
         {/* Logo */}

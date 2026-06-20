@@ -6,6 +6,7 @@ import { useDebounce } from '@/hooks/useDebounce';
 import { useBrokers } from '@/hooks/useBrokers';
 import { useBrokerTypes } from '@/hooks/useBrokerTypes';
 import { BrokerCard } from '@/components/brokers/BrokerCard';
+import { Card } from '@/components/ui/Card';
 import { BrokerFilters } from '@/components/brokers/BrokerFilters';
 import { BrokerSearchBar } from '@/components/brokers/BrokerSearchBar';
 import { PartnerCTACard } from '@/components/brokers/PartnerCTACard';
@@ -26,6 +27,7 @@ export function BrokersPageClient({ locale }: BrokersPageClientProps) {
 
   const { data, isLoading, isError } = useBrokers();
 
+
   const { data: availableTypes = [] } = useBrokerTypes();
 
   const brokers = useMemo(() => {
@@ -42,7 +44,7 @@ export function BrokersPageClient({ locale }: BrokersPageClientProps) {
   }, [data, filter, debouncedSearch]);
 
   return (
-    <div className="max-w-[1280px] mx-auto p-6">
+    <div className="max-w-[1280px] mx-auto p-6 animate-fade-up">
       <header className="mb-6 sm:mb-8">
         <h1 className="text-ink-title font-display font-bold text-[32px] leading-[36px] sm:text-[48px] sm:leading-[52px] lg:text-[60px] lg:leading-[60px] flex items-center mb-3">
           {t('title')}
@@ -77,17 +79,18 @@ function BrokersGridSkeleton() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {Array.from({ length: 6 }).map((_, i) => (
-        <div
-          key={i}
-          className="bg-surface border border-line rounded-xl overflow-hidden animate-pulse"
-        >
-          <div className="h-[170px] bg-surface-2" />
-          <div className="p-5 space-y-2">
+        <Card key={i} className="animate-pulse">
+          <div className="h-[320px] bg-surface-2" />
+          <div className="p-5 space-y-3">
             <div className="h-4 bg-surface-3 rounded w-3/4" />
-            <div className="h-3 bg-surface-3 rounded w-full" />
-            <div className="h-3 bg-surface-3 rounded w-5/6" />
+            <div className="space-y-2">
+              <div className="h-3 bg-surface-3 rounded w-full" />
+              <div className="h-3 bg-surface-3 rounded w-5/6" />
+              <div className="h-3 bg-surface-3 rounded w-4/6" />
+            </div>
+            <div className="h-3 bg-surface-3 rounded w-1/3 mt-4" />
           </div>
-        </div>
+        </Card>
       ))}
     </div>
   );

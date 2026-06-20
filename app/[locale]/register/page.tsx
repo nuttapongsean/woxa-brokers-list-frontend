@@ -25,7 +25,7 @@ export default async function RegisterPage({ params }: RegisterPageProps) {
   const t = await getTranslations({ locale, namespace: "register" });
 
   return (
-    <div className="min-h-[calc(100vh-60px)] grid grid-cols-1 lg:grid-cols-2">
+    <div className="min-h-[calc(100vh-60px)] grid grid-cols-1 lg:grid-cols-2 animate-fade-up">
       {/* Left hero panel */}
       <div
         className="hidden lg:flex flex-col justify-end p-12 relative overflow-hidden"

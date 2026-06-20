@@ -3,7 +3,8 @@
     "brokers": "Brokers",
     "markets": "Markets",
     "analysis": "Analysis",
-    "education": "Education"
+    "education": "Education",
+    "login": "Sign In"
   },
   "brokers": {
     "title": "Institutional Brokers",
@@ -135,11 +136,41 @@
     "backToBrokers": "Back to Brokers"
   },
   "footer": {
-    "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service",
-    "riskDisclosure": "Risk Disclosure",
-    "contact": "Contact",
-    "copyright": "© 2024 Sterling Midnight. All Rights Reserved."
+    "brandDesc": "Institutional broker listing platform for elite financial entities and market makers.",
+    "sections": {
+      "platform": "Platform",
+      "company": "Company",
+      "legal": "Legal",
+      "resources": "Resources"
+    },
+    "company": {
+      "about": "About Woxa",
+      "careers": "Careers",
+      "press": "Press & Media",
+      "blog": "Insights"
+    },
+    "platform": {
+      "brokers": "Brokers",
+      "markets": "Markets",
+      "analysis": "Analysis",
+      "education": "Education"
+    },
+    "legal": {
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service",
+      "riskDisclosure": "Risk Disclosure"
+    },
+    "resources": {
+      "contact": "Contact Us",
+      "helpCenter": "Help Center",
+      "apiDocs": "API Documentation",
+      "status": "System Status"
+    },
+    "copyright": "© 2024 Sterling Midnight. All Rights Reserved.",
+    "social": {
+      "twitter": "X (Twitter)",
+      "linkedin": "LinkedIn"
+    }
   },
   "meta": {
     "brokers": {

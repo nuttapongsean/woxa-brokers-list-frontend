@@ -3,7 +3,8 @@
     "brokers": "โบรกเกอร์",
     "markets": "ตลาด",
     "analysis": "วิเคราะห์",
-    "education": "การศึกษา"
+    "education": "การศึกษา",
+    "login": "เข้าสู่ระบบ"
   },
   "brokers": {
     "title": "โบรกเกอร์สถาบัน",
@@ -135,11 +136,41 @@
     "backToBrokers": "กลับไปยังโบรกเกอร์"
   },
   "footer": {
-    "privacyPolicy": "นโยบายความเป็นส่วนตัว",
-    "termsOfService": "ข้อกำหนดการให้บริการ",
-    "riskDisclosure": "การเปิดเผยความเสี่ยง",
-    "contact": "ติดต่อ",
-    "copyright": "© 2024 Sterling Midnight สงวนลิขสิทธิ์"
+    "brandDesc": "แพลตฟอร์มรายชื่อโบรกเกอร์สถาบันสำหรับองค์กรการเงินชั้นนำ",
+    "sections": {
+      "platform": "แพลตฟอร์ม",
+      "company": "บริษัท",
+      "legal": "กฎหมาย",
+      "resources": "ทรัพยากร"
+    },
+    "company": {
+      "about": "เกี่ยวกับ Woxa",
+      "careers": "ร่วมงานกับเรา",
+      "press": "ข่าวสาร & สื่อ",
+      "blog": "บทวิเคราะห์"
+    },
+    "platform": {
+      "brokers": "โบรกเกอร์",
+      "markets": "ตลาด",
+      "analysis": "วิเคราะห์",
+      "education": "การศึกษา"
+    },
+    "legal": {
+      "privacyPolicy": "นโยบายความเป็นส่วนตัว",
+      "termsOfService": "ข้อกำหนดการให้บริการ",
+      "riskDisclosure": "การเปิดเผยความเสี่ยง"
+    },
+    "resources": {
+      "contact": "ติดต่อเรา",
+      "helpCenter": "ศูนย์ช่วยเหลือ",
+      "apiDocs": "เอกสาร API",
+      "status": "สถานะระบบ"
+    },
+    "copyright": "© 2024 Sterling Midnight สงวนลิขสิทธิ์",
+    "social": {
+      "twitter": "X (Twitter)",
+      "linkedin": "LinkedIn"
+    }
   },
   "meta": {
     "brokers": {
