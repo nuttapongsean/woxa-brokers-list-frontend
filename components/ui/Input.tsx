@@ -32,7 +32,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             id={inputId}
             className={cn(
-              'w-full bg-input border border-line rounded py-[13px] text-sm text-ink-muted placeholder:text-ink-dim',
+              'w-full bg-input border border-line rounded-lg py-[13px] text-sm text-ink-muted placeholder:text-ink-dim',
               'transition-colors focus:outline-none focus:border-line-focus focus:bg-input-focus focus:text-ink',
               iconLeft ? 'pl-10 pr-4' : 'px-4',
               iconRight || rightAction ? 'pr-10' : '',

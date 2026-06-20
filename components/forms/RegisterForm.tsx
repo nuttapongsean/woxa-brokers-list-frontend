@@ -43,8 +43,6 @@ export function RegisterForm({ locale }: RegisterFormProps) {
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
       <Input
         label={t("fullName")}
-        labelClassName="font-normal text-ink/70"
-        className="bg-register-form border border-transparent placeholder:text-ink-dim/50 focus:bg-register-form focus:border-accent/40"
         placeholder={t("fullNamePlaceholder")}
         error={errors.fullName?.message}
         autoComplete="name"
@@ -53,9 +51,7 @@ export function RegisterForm({ locale }: RegisterFormProps) {
 
       <Input
         label={t("email")}
-        labelClassName="font-normal text-ink/70"
         type="email"
-        className="bg-register-form border border-transparent placeholder:text-ink-dim/50 focus:bg-register-form focus:border-accent/40"
         placeholder={t("emailPlaceholder")}
         error={errors.email?.message}
         autoComplete="email"
@@ -65,9 +61,7 @@ export function RegisterForm({ locale }: RegisterFormProps) {
       <div className="grid grid-cols-2 gap-3">
         <Input
           label={t("password")}
-          labelClassName="font-normal text-ink/70"
           type="password"
-          className="bg-register-form border border-transparent placeholder:text-ink-dim/50 focus:bg-register-form focus:border-accent/40"
           placeholder={t("passwordPlaceholder")}
           error={errors.password?.message}
           autoComplete="new-password"
@@ -75,9 +69,7 @@ export function RegisterForm({ locale }: RegisterFormProps) {
         />
         <Input
           label={t("confirmPassword")}
-          labelClassName="font-normal text-ink/70"
           type="password"
-          className="bg-register-form border border-transparent placeholder:text-ink-dim/50 focus:bg-register-form focus:border-accent/40"
           placeholder={t("confirmPasswordPlaceholder")}
           error={errors.confirmPassword?.message}
           autoComplete="new-password"
@@ -114,7 +106,7 @@ export function RegisterForm({ locale }: RegisterFormProps) {
         variant="primary"
         size="lg"
         loading={isSubmitting || registerMutation.isPending}
-        className="w-full text-black"
+        className="w-full"
       >
         {t("submit")}
         <ArrowRight size={16} aria-hidden="true" className="ml-2" />
@@ -126,7 +118,7 @@ export function RegisterForm({ locale }: RegisterFormProps) {
         {t("alreadyVerified")}{" "}
         <Link
           href={`/${locale}/login`}
-          className="text-accent hover:underline font-medium  text-logo"
+          className="text-logo font-medium hover:underline"
         >
           {t("loginLink")}
         </Link>

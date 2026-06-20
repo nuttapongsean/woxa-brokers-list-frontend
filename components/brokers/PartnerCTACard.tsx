@@ -15,7 +15,7 @@ export function PartnerCTACard() {
       <p className="text-[13px] text-ink-muted leading-[1.55] max-w-[200px]">{t('description')}</p>
       <Link
         href={`/${locale}/brokers/submit`}
-        className="inline-flex items-center justify-center mt-1 h-9 px-6 bg-logo hover:bg-logo/50 text-base font-semibold rounded-[4px] transition-colors"
+        className="inline-flex items-center justify-center mt-1 h-9 px-6 btn-gradient text-white text-sm font-semibold rounded-lg transition-all hover:opacity-90"
       >
         {t('cta')}
       </Link>

@@ -58,12 +58,10 @@ Backgrounds:
   bg-surface       #0d1829   card / panel
   bg-surface-2     #0f1e33
   bg-surface-3     #101f34
-  bg-input         #0f1e33   default input
-  bg-input-focus   #122240   focused input
-  bg-register-form #000E23   register form inputs
+  bg-input         #0f1e33   default input (used across all forms)
+  bg-input-focus   #122240   focused input / active toggle
   bg-chip          #32445E   chips / small buttons
   bg-filter-inactive #1A2B41 inactive filter pills
-  bg-submit-broker-form #203754
 
 Borders:
   border-line         #1b2f4e  default
@@ -137,17 +135,24 @@ woxa-brokers-list-frontend/
 │       ├── privacy/page.tsx
 │       ├── terms/page.tsx
 │       ├── risk-disclosure/page.tsx
-│       └── contact/page.tsx
+│       ├── contact/page.tsx
+│       └── dev/
+│           └── page.tsx             # Component gallery (dev only, public path)
 ├── components/
 │   ├── layout/
 │   │   ├── Navbar.tsx           # Nav links, mobile drawer, Bell + account icons
 │   │   └── Footer.tsx
 │   ├── ui/
 │   │   ├── Button.tsx           # variants: primary, ghost, outline; sizes: sm, md, lg
-│   │   ├── Input.tsx            # label, iconLeft, iconRight, rightAction, error
+│   │   ├── Input.tsx            # label, iconLeft, iconRight, rightAction, error; rounded-lg
+│   │   ├── Textarea.tsx         # label, error; same styling tokens as Input
+│   │   ├── Autocomplete.tsx     # combobox; type-to-filter, keyboard nav (↑↓ Enter Esc), clear button
+│   │   ├── Select.tsx           # native select + ChevronDown overlay; label, placeholder, error
+│   │   ├── RadioGroup.tsx       # controlled radio list; vertical/horizontal; label+description per option
+│   │   ├── MultiSelect.tsx      # dropdown multiselect with chip display; controlled value[]
+│   │   ├── FileUpload.tsx       # drag-and-drop zone; multiple, accept, maxSizeMb; file list
 │   │   ├── Badge.tsx
 │   │   ├── Card.tsx
-│   │   ├── SecurityBadge.tsx
 │   │   └── UnderMaintenance.tsx # Shared placeholder for unbuilt pages
 │   ├── brokers/
 │   │   ├── BrokerCard.tsx
@@ -286,6 +291,25 @@ NEXT_PUBLIC_USE_MOCK=true   # set to true to use mock data without a backend
 - Icons: **lucide-react** only. Pass `size` and `aria-hidden="true"` on decorative icons.
 - All interactive states: hover, focus-visible, disabled — must be implemented.
 - `@layer components` for multi-state custom CSS (e.g. `.checkbox-custom`) — `@utility` does not support nested pseudo-selectors in Tailwind v4.
+
+### Shared Components First
+
+**Always check `components/ui/` before writing any UI element.** The canonical shared components are:
+`Button`, `Input`, `Textarea`, `Autocomplete`, `Select`, `RadioGroup`, `MultiSelect`, `FileUpload`, `Badge`, `Card`.
+
+- If a shared component covers the use case → use it as-is, no inline recreation.
+- If a shared component is close but not quite right → extend via props or `className`, do not duplicate.
+- If no shared component fits → **ask the user** whether to create a new shared component or use a one-off local element before writing any code.
+
+### Responsive Design
+
+This app runs on **iOS, Android, and web** — every component and page must work across all screen sizes.
+
+- Mobile-first: base styles target small screens, use `sm:`, `md:`, `lg:` breakpoints to scale up.
+- Minimum tap target: `44×44px` for all interactive elements on touch screens.
+- No fixed pixel widths on containers — use `max-w-*` with `w-full` or `flex`/`grid` fluid layouts.
+- Test layout at 375px (iPhone SE), 768px (tablet), and 1280px (desktop) breakpoints.
+- Avoid `hover:`-only interactions — pair with `focus-visible:` or `active:` so touch users get feedback.
 
 ---
 
