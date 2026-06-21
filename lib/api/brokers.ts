@@ -105,3 +105,12 @@ export async function getBrokerTypes(): Promise<string[]> {
   const response = await apiClient.get(brokerEndpoints.types);
   return response.data;
 }
+
+export async function suggestSlug(name: string): Promise<string> {
+  if (config.useMock) return mockBrokers.suggestSlug(name);
+
+  const response = await apiClient.get<{ slug: string }>(brokerEndpoints.suggestSlug, {
+    params: { name },
+  });
+  return response.data.slug;
+}

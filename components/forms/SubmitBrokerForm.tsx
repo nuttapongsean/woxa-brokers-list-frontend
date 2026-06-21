@@ -20,9 +20,10 @@ import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 import { RadioGroup } from "@/components/ui/RadioGroup";
 import { FileUpload } from "@/components/ui/FileUpload";
-import { submitBroker } from "@/lib/api/brokers";
+import { submitBroker, suggestSlug } from "@/lib/api/brokers";
 import { useState, useEffect } from "react";
 import { Plus, X, Globe, MapPin, Mail } from "lucide-react";
+import { useDebounce } from "@/hooks/useDebounce";
 
 interface SubmitBrokerFormProps {
   locale: string;
@@ -52,8 +53,6 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
   const [imageFiles, setImageFiles] = useState<File[]>([]);
   const [imageError, setImageError] = useState("");
   const [prospectusFiles, setProspectusFiles] = useState<File[]>([]);
-  const [slugSuffix] = useState(() => Math.random().toString(36).slice(2, 7));
-
   const {
     register,
     handleSubmit,
@@ -75,17 +74,12 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
   });
 
   const watchedName = useWatch({ control, name: "name" });
+  const debouncedName = useDebounce(watchedName ?? "", 500);
+
   useEffect(() => {
-    const base = (watchedName ?? "")
-      .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, "")
-      .trim()
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-");
-    setValue("slug", base ? `${base}-${slugSuffix}` : "", {
-      shouldValidate: false,
-    });
-  }, [watchedName, slugSuffix, setValue]);
+    if (!debouncedName.trim()) { setValue("slug", "", { shouldValidate: false }); return; }
+    suggestSlug(debouncedName).then((slug) => setValue("slug", slug, { shouldValidate: false }));
+  }, [debouncedName, setValue]);
 
   async function onSubmit(data: CreateBrokerInput) {
     if (logoFiles.length === 0 || imageFiles.length === 0) return;

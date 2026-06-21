@@ -56,6 +56,18 @@ export const mockBrokers = {
     await delay(MOCK_DELAY);
     return [...new Set(MOCK_BROKERS.map((b) => b.brokerType))];
   },
+
+  async suggestSlug(name: string): Promise<string> {
+    await delay(MOCK_DELAY);
+    const base = name
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .trim()
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-');
+    const suffix = Math.random().toString(36).slice(2, 7);
+    return base ? `${base}-${suffix}` : suffix;
+  },
 };
 
 export const mockAuth = {
