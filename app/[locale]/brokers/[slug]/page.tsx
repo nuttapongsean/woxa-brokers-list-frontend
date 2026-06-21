@@ -72,7 +72,7 @@ export default async function BrokerDetailPage({ params }: BrokerDetailPageProps
 
       <BrokerHero broker={broker} />
 
-      <div className="mx-auto p-10">
+      <div className="mx-auto p-10 animate-fade-up">
         <div className="flex flex-col lg:flex-row gap-8">
           <article className="flex-1 min-w-0">
             {broker.longDescription && (
