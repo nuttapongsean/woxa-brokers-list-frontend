@@ -32,10 +32,63 @@ export async function getBroker(slug: string): Promise<BrokerDetail> {
   return BrokerDetailSchema.parse(response.data);
 }
 
-export async function submitBroker(data: CreateBrokerInput): Promise<{ id: string }> {
+export interface SubmitBrokerFiles {
+  logo: File;
+  coverImage: File;
+  prospectus?: File;
+}
+
+export async function submitBroker(
+  data: CreateBrokerInput,
+  files: SubmitBrokerFiles
+): Promise<{ id: string }> {
   if (config.useMock) return mockBrokers.submitBroker(data);
 
-  const response = await apiClient.post(brokerEndpoints.submit, data);
+  const form = new FormData();
+
+  // Scalar fields
+  const scalarKeys = [
+    'name', 'slug', 'brokerType', 'description', 'longDescription',
+    'website', 'contactAddress', 'contactEmail',
+  ] as const;
+  for (const key of scalarKeys) {
+    const val = data[key];
+    if (val !== undefined && val !== '') form.append(key, String(val));
+  }
+
+  // Features — JSON string (multipart/form-data cannot carry arrays)
+  if (data.features && data.features.length > 0) {
+    form.append('features', JSON.stringify(data.features));
+  }
+
+  // Metrics — dot-notation fields
+  if (data.metrics) {
+    const m = data.metrics;
+    if (m.aumGrowthYoY)    form.append('metrics.aumGrowthYoY',    m.aumGrowthYoY);
+    if (m.liquidityAccess) form.append('metrics.liquidityAccess',  m.liquidityAccess);
+    if (m.clientRetention) form.append('metrics.clientRetention',  m.clientRetention);
+  }
+
+  // Markets — dot-notation fields
+  if (data.markets) {
+    const mk = data.markets;
+    const marketKeys = [
+      'forexPairs', 'indices', 'commodities',
+      'equities', 'sovereignBonds', 'cryptoEtps',
+    ] as const;
+    for (const key of marketKeys) {
+      if (mk[key] !== undefined) form.append(`markets.${key}`, String(mk[key]));
+    }
+  }
+
+  // Files
+  form.append('logo', files.logo);
+  form.append('coverImage', files.coverImage);
+  if (files.prospectus) form.append('prospectus', files.prospectus);
+
+  const response = await apiClient.post(brokerEndpoints.submit, form, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
   return response.data;
 }
 

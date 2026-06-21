@@ -91,7 +91,11 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
     if (logoFiles.length === 0 || imageFiles.length === 0) return;
     setServerError("");
     try {
-      await submitBroker(data);
+      await submitBroker(data, {
+        logo: logoFiles[0],
+        coverImage: imageFiles[0],
+        prospectus: prospectusFiles[0],
+      });
       router.push(`/${locale}/brokers`);
     } catch {
       setServerError(t("error"));

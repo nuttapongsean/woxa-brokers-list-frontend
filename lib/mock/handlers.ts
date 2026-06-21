@@ -7,7 +7,7 @@ const MOCK_DELAY = 400;
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export const mockBrokers = {
-  async getBrokers(params?: { brokerType?: string; search?: string }): Promise<BrokersResponse> {
+  async getBrokers(params?: { brokerType?: string; search?: string; page?: number; limit?: number }): Promise<BrokersResponse> {
     await delay(MOCK_DELAY);
 
     let brokers = MOCK_BROKERS;
@@ -23,7 +23,14 @@ export const mockBrokers = {
       );
     }
 
-    return { brokers, total: brokers.length };
+    const total = brokers.length;
+
+    if (params?.page !== undefined && params?.limit !== undefined) {
+      const start = (params.page - 1) * params.limit;
+      brokers = brokers.slice(start, start + params.limit);
+    }
+
+    return { brokers, total };
   },
 
   async getBroker(slug: string): Promise<BrokerDetail> {

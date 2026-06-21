@@ -186,7 +186,8 @@
     "error": "Something went wrong.",
     "retry": "Try again",
     "notFound": "Not found",
-    "backToBrokers": "Back to Brokers"
+    "backToBrokers": "Back to Brokers",
+    "allLoaded": "All brokers loaded"
   },
   "footer": {
     "brandDesc": "Institutional broker listing platform for elite financial entities and market makers.",
