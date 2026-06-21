@@ -6,6 +6,7 @@ import { PerformanceMetrics } from '@/components/brokers/PerformanceMetrics';
 import { ContactCard } from '@/components/brokers/ContactCard';
 import { MarketsGrid } from '@/components/brokers/MarketsGrid';
 import { JsonLd } from '@/components/seo/JsonLd';
+import { Card } from '@/components/ui/Card';
 
 export const dynamic = 'force-dynamic';
 
@@ -90,12 +91,12 @@ export default async function BrokerDetailPage({ params }: BrokerDetailPageProps
               <section className="mb-10">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   {broker.features.map((feature, i) => (
-                    <div key={i} className="bg-surface rounded-xl p-5">
+                    <Card key={i} className="p-5">
                       <h3 className="text-sm font-semibold text-ink mb-1">{feature.title}</h3>
                       <p className="text-[13px] text-ink-muted leading-relaxed">
                         {feature.description}
                       </p>
-                    </div>
+                    </Card>
                   ))}
                 </div>
               </section>

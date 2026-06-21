@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { Bell, CircleUserRound, LogOut, Menu, X } from 'lucide-react';
+import { Bell, CircleUserRound, Loader2, LogOut, Menu, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useCurrentUser, useLogout } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/Button';
@@ -19,7 +19,7 @@ export function Navbar({ locale }: NavbarProps) {
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
   const { data: user } = useCurrentUser();
-  const { mutate: logout } = useLogout();
+  const { mutate: logout, isPending: isLoggingOut } = useLogout();
 
   const handleLogout = () => logout(undefined, { onSuccess: () => router.push(`/${locale}/login`) });
 
@@ -66,8 +66,10 @@ export function Navbar({ locale }: NavbarProps) {
             <Bell size={20} strokeWidth={2} aria-hidden="true" />
           </Button>
           {user ? (
-            <Button variant="ghost" size="icon" onClick={handleLogout} aria-label="Logout" className="text-logo hover:text-ink hover:bg-transparent">
-              <LogOut size={20} strokeWidth={2} aria-hidden="true" />
+            <Button variant="ghost" size="icon" onClick={handleLogout} disabled={isLoggingOut} aria-label="Logout" className="text-logo hover:text-ink hover:bg-transparent">
+              {isLoggingOut
+                ? <Loader2 size={20} strokeWidth={2} className="animate-spin" aria-hidden="true" />
+                : <LogOut size={20} strokeWidth={2} aria-hidden="true" />}
             </Button>
           ) : (
             <Button variant="ghost" size="icon" aria-label="Account" className="text-logo hover:text-ink hover:bg-transparent" onClick={() => router.push(`/${locale}/login`)}>
