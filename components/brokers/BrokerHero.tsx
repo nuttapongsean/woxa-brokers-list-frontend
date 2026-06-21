@@ -54,7 +54,7 @@ export async function BrokerHero({ broker }: BrokerHeroProps) {
               href={broker.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black inline-flex items-center justify-center font-semibold rounded px-6 py-3 text-sm btn-gradient hover:brightness-80 transition-opacity"
+              className="inline-flex items-center justify-center font-semibold rounded-lg px-6 py-3 text-sm text-white btn-gradient hover:brightness-110 active:scale-95 transition-all"
             >
               {t('visitWebsite')}
             </a>
@@ -64,7 +64,7 @@ export async function BrokerHero({ broker }: BrokerHeroProps) {
               href={broker.prospectusUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-semibold rounded px-6 py-3 text-sm bg-chip text-ink hover:brightness-80 transition-colors"
+              className="inline-flex items-center justify-center font-semibold rounded-lg px-6 py-3 text-sm bg-transparent border border-line-light text-ink-muted hover:border-accent hover:text-accent active:scale-95 transition-all"
             >
               {t('downloadProspectus')}
             </a>

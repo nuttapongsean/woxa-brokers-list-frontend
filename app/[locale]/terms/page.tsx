@@ -7,11 +7,11 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <div className="max-w-3xl mx-auto px-6 py-16">
+    <div className="max-w-3xl mx-auto px-6 py-16 animate-fade-up">
       <h1 className="font-display text-3xl font-bold text-ink mb-2">Terms of Service</h1>
       <p className="font-bold uppercase text-xs text-ink-dim uppercase tracking-widest mb-10">Effective: January 2025</p>
 
-      <div className="space-y-10 text-sm text-ink-muted leading-relaxed">
+      <div className="space-y-10 text-sm leading-relaxed">
         <section>
           <h2 className="font-display text-base font-semibold text-ink mb-3">1. Acceptance</h2>
           <p>By accessing Woxa you agree to these Terms. If you do not agree, do not use the platform. These Terms constitute a binding agreement between you and Woxa Financial Technologies Ltd.</p>
@@ -34,7 +34,7 @@ export default function TermsPage() {
 
         <section>
           <h2 className="font-display text-base font-semibold text-ink mb-3">5. Limitation of Liability</h2>
-          <p>Woxa is provided "as is." We are not liable for investment losses, reliance on broker listing data, or service interruptions. Our maximum liability is limited to amounts paid to us in the preceding 12 months.</p>
+          <p>Woxa is provided as is. We are not liable for investment losses, reliance on broker listing data, or service interruptions. Our maximum liability is limited to amounts paid to us in the preceding 12 months.</p>
         </section>
 
         <section>

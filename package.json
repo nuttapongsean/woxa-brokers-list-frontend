@@ -6,7 +6,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:auth": "tsx scripts/test-auth-flow.ts",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:report": "playwright test --reporter=html && playwright show-report"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
@@ -14,6 +18,7 @@
     "@tanstack/react-query-devtools": "^5.101.0",
     "axios": "^1.17.0",
     "clsx": "^2.1.1",
+    "jose": "^6.2.3",
     "lucide-react": "^1.17.0",
     "next": "16.2.9",
     "next-intl": "^4.13.0",
@@ -24,6 +29,7 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@playwright/test": "^1.61.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
@@ -31,6 +37,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "tailwindcss": "^4",
+    "tsx": "^4.22.4",
     "typescript": "^5"
   }
 }

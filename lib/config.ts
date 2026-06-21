@@ -1,10 +1,24 @@
 export const publicPaths = new Set([
   '/login',
   '/register',
+  '/brokers',
+  '/markets',
+  '/analysis',
+  '/education',
   '/privacy',
   '/terms',
   '/risk-disclosure',
   '/contact',
+  '/dev',
+  '/about',
+  '/careers',
+  '/press',
+  '/blog',
+  '/help',
+  '/docs',
+  '/status',
+  '/newsletter',
+  '/forum',
 ]);
 
 // Server-side uses API_URL (runtime env, Docker-aware); browser uses the baked NEXT_PUBLIC_API_URL

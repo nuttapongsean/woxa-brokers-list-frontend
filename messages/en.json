@@ -3,7 +3,8 @@
     "brokers": "Brokers",
     "markets": "Markets",
     "analysis": "Analysis",
-    "education": "Education"
+    "education": "Education",
+    "login": "Sign In"
   },
   "brokers": {
     "title": "Institutional Brokers",
@@ -54,18 +55,71 @@
   "submitBroker": {
     "title": "Submit Broker",
     "subtitle": "Register a new institutional entity within the Sterling Midnight ecosystem. Please ensure all data points align with regulatory documentation.",
+    "sections": {
+      "basicInfo": "Basic Information",
+      "mediaLinks": "Media & Links",
+      "descriptions": "Descriptions",
+      "branding": "Branding & Classification",
+      "contact": "Contact Details",
+      "features": "Key Features",
+      "metrics": "Performance Metrics",
+      "markets": "Available Markets"
+    },
     "fields": {
       "brokerName": "Broker Name",
       "brokerNamePlaceholder": "e.g. Sterling Capital Markets",
       "slug": "Slug",
       "slugPlaceholder": "sterling-capital-markets",
+      "slugTooltip": "Auto-generated from the broker name. Used in the URL (e.g. /brokers/sterling-capital-markets). You may edit it manually.",
       "brokerType": "Broker Type",
+      "brokerTypeTooltip": "Select the primary asset class this broker specialises in. This determines how the broker is listed and filtered on the platform.",
       "logoUrl": "Logo URL",
       "logoUrlPlaceholder": "https://assets.sterling.com/logo.png",
+      "imageUrl": "Cover Image URL",
+      "imageUrlPlaceholder": "https://images.unsplash.com/photo.jpg",
       "website": "Website",
       "websitePlaceholder": "https://sterlingmidnight.com",
-      "description": "Broker Description",
-      "descriptionPlaceholder": "Provide a comprehensive institutional overview..."
+      "prospectusUrl": "Prospectus URL",
+      "prospectusUrlPlaceholder": "https://assets.broker.com/prospectus.pdf",
+      "description": "Short Description",
+      "descriptionPlaceholder": "Provide a concise institutional overview...",
+      "longDescription": "Full Description",
+      "longDescriptionPlaceholder": "Detailed institutional overview, history, and capabilities...",
+      "badge": "Badge",
+      "badgePlaceholder": "e.g. Premium TIER",
+      "tag": "Tag",
+      "tagPlaceholder": "e.g. Regulated",
+      "grade": "Grade",
+      "gradePlaceholder": "e.g. SOVEREIGN GRADE A+",
+      "rating": "Rating (1–5)",
+      "icon": "Icon",
+      "iconPlaceholder": "e.g. shield",
+      "contactAddress": "Address",
+      "contactAddressPlaceholder": "Full institutional address",
+      "contactEmail": "Contact Email",
+      "contactEmailPlaceholder": "institutional@broker.com",
+      "featureTitle": "Feature Title",
+      "featureTitlePlaceholder": "e.g. Multi-Asset Coverage",
+      "featureDescription": "Feature Description",
+      "featureDescriptionPlaceholder": "Describe what makes this feature valuable...",
+      "addFeature": "Add Feature",
+      "removeFeature": "Remove feature",
+      "aumGrowthYoY": "AUM Growth (YoY) (%)",
+      "aumGrowthYoYPlaceholder": "+34.2%",
+      "liquidityAccess": "Liquidity Access (B)",
+      "liquidityAccessPlaceholder": "$18.4B",
+      "liquidityAccessSub": "Liquidity Sub-label",
+      "liquidityAccessSubPlaceholder": "Daily Average",
+      "clientRetention": "Client Retention (%)",
+      "clientRetentionPlaceholder": "94.7%",
+      "clientRetentionPeriod": "Retention Period",
+      "clientRetentionPeriodPlaceholder": "5-Year Average",
+      "forexPairs": "Forex Pairs",
+      "indices": "Indices",
+      "commodities": "Commodities",
+      "equities": "Equities",
+      "sovereignBonds": "Sovereign Bonds",
+      "cryptoEtps": "Crypto ETPs"
     },
     "actions": {
       "discard": "Discard Draft",
@@ -132,14 +186,52 @@
     "error": "Something went wrong.",
     "retry": "Try again",
     "notFound": "Not found",
-    "backToBrokers": "Back to Brokers"
+    "backToBrokers": "Back to Brokers",
+    "allLoaded": "All brokers loaded"
   },
   "footer": {
-    "privacyPolicy": "Privacy Policy",
-    "termsOfService": "Terms of Service",
-    "riskDisclosure": "Risk Disclosure",
-    "contact": "Contact",
-    "copyright": "© 2024 Sterling Midnight. All Rights Reserved."
+    "brandDesc": "Institutional broker listing platform for elite financial entities and market makers.",
+    "sections": {
+      "platform": "Platform",
+      "company": "Company",
+      "legal": "Legal",
+      "resources": "Resources",
+      "community": "Community"
+    },
+    "company": {
+      "about": "About Woxa",
+      "careers": "Careers",
+      "press": "Press & Media",
+      "blog": "Insights"
+    },
+    "platform": {
+      "brokers": "Brokers",
+      "markets": "Markets",
+      "analysis": "Analysis",
+      "education": "Education"
+    },
+    "legal": {
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service",
+      "riskDisclosure": "Risk Disclosure"
+    },
+    "resources": {
+      "contact": "Contact Us",
+      "helpCenter": "Help Center",
+      "apiDocs": "API Documentation",
+      "status": "System Status"
+    },
+    "community": {
+      "discord": "Discord Server",
+      "newsletter": "Newsletter",
+      "forum": "Community Forum",
+      "submitBroker": "Submit a Broker"
+    },
+    "copyright": "© 2024 Sterling Midnight. All Rights Reserved.",
+    "social": {
+      "twitter": "X (Twitter)",
+      "linkedin": "LinkedIn"
+    }
   },
   "meta": {
     "brokers": {

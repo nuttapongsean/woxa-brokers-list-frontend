@@ -1,5 +1,35 @@
 @import "tailwindcss";
 
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-down {
+  from { opacity: 0; transform: translateY(-16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-left {
+  from { opacity: 0; transform: translateX(16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes fade-right {
+  from { opacity: 0; transform: translateX(-16px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@utility animate-fade-up {
+  animation: fade-up 0.5s ease both;
+}
+@utility animate-fade-down {
+  animation: fade-down 0.5s ease both;
+}
+@utility animate-fade-left {
+  animation: fade-left 0.5s ease both;
+}
+@utility animate-fade-right {
+  animation: fade-right 0.5s ease both;
+}
+
 @theme {
   --font-display: var(--font-noto-serif), 'Noto Serif', Georgia, serif;
   --font-body: var(--font-inter), Inter, system-ui, sans-serif;
@@ -30,9 +60,6 @@
 
   /* Filter buttons */
   --color-filter-inactive: #1A2B41;
-  --color-submit-broker-form: #203754;
-  --color-submit-broker-type: #68788B;
-  --color-register-form: #000E23;
   --color-chip: #32445E;
 
   /* Accent */
@@ -63,6 +90,34 @@
   }
 }
 
+/* Hero overlay gradient — bottom-to-top dark fade */
+@layer components {
+  .overlay-hero-bottom {
+    background: linear-gradient(0deg, #070d1a 0%, rgba(7, 13, 26, 0.4) 50%, rgba(7, 13, 26, 0) 100%);
+  }
+}
+
+/* Themed scrollbar for dropdowns */
+@layer components {
+  .scrollbar-theme {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line-light) transparent;
+  }
+  .scrollbar-theme::-webkit-scrollbar {
+    width: 4px;
+  }
+  .scrollbar-theme::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-theme::-webkit-scrollbar-thumb {
+    background-color: var(--color-line-light);
+    border-radius: 9999px;
+  }
+  .scrollbar-theme::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-ink-dim);
+  }
+}
+
 /* Button gradient utility */
 @utility btn-gradient {
   background-image: linear-gradient(135deg, #ADC6FF 0%, #3A81F5 100%);
@@ -81,6 +136,16 @@ button {
   cursor: pointer !important;
 }
 
+/* Number input — hide browser spinners */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
 html,
 body {
   height: 100%;
@@ -88,7 +153,6 @@ body {
 
 body {
   background-color: #070d1a;
-  color: var(--color-ink-body);
   font-family: var(--font-body);
   font-size: 14px;
   line-height: 29px;
@@ -96,6 +160,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* p {
-  color: var(--color-ink-body);
-} */
+p {
+  color: var(--color-ink-muted);
+}

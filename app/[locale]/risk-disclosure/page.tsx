@@ -7,13 +7,13 @@ export const metadata: Metadata = {
 
 export default function RiskDisclosurePage() {
   return (
-    <div className="max-w-3xl mx-auto px-6 py-16">
+    <div className="max-w-3xl mx-auto px-6 py-16 animate-fade-up">
       <div className="flex items-center gap-3 mb-2">
         <h1 className="font-display text-3xl font-bold text-ink">Risk Disclosure</h1>
       </div>
       <p className="font-bold uppercase text-xs text-ink-dim uppercase tracking-widest mb-10">Important — Please read carefully</p>
 
-      <div className="space-y-10 text-sm text-ink-muted leading-relaxed">
+      <div className="space-y-10 text-sm leading-relaxed">
         <section>
           <h2 className="font-display text-base font-semibold text-ink mb-3">Market Risk</h2>
           <p>Prices of financial instruments can fluctuate rapidly and unpredictably. CFDs, bonds, equities, and crypto assets are all subject to market volatility. Leverage amplifies both gains and losses.</p>

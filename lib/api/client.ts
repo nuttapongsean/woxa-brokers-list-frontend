@@ -82,6 +82,7 @@ apiClient.interceptors.response.use(
     } catch (refreshError) {
       drainQueue(refreshError, null);
       tokenStorage.clear();
+      await fetch('/api/auth/session', { method: 'DELETE' });
       redirectToLogin();
       return Promise.reject(refreshError);
     } finally {

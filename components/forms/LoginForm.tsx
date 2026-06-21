@@ -34,18 +34,18 @@ export function LoginForm({ locale }: LoginFormProps) {
 
   async function onSubmit(data: LoginInput) {
     setServerError('');
-    loginMutation.mutate(data, {
-      onSuccess: () => router.push(`/${locale}/brokers/submit`),
-      onError: () => setServerError(t('error')),
-    });
+    try {
+      await loginMutation.mutateAsync(data);
+      router.push(`/${locale}/brokers/submit`);
+    } catch {
+      setServerError(t('error'));
+    }
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-4">
       <Input
         label={t('email')}
-        labelClassName="text-ink/70"
-        className="border-ink/30"
         type="email"
         placeholder={t('emailPlaceholder')}
         error={errors.email?.message}
@@ -56,32 +56,29 @@ export function LoginForm({ locale }: LoginFormProps) {
 
       <div className="flex flex-col gap-2">
         <div className="flex items-center justify-between">
-          <label className="text-[11px] font-semibold uppercase tracking-widest text-ink/70">
+          <label className="text-[11px] font-semibold uppercase tracking-widest text-logo">
             {t('password')}
           </label>
-          <button
-            type="button"
-            className="text-[10px] text-logo tracking-wide uppercase hover:brightness-80"
-          >
+          <Button type="button" variant="ghost" size="sm" className="text-[10px] text-logo tracking-wide uppercase px-0 hover:bg-transparent hover:text-logo/70">
             {t('forgotCredentials')}
-          </button>
+          </Button>
         </div>
         <Input
-          className="border-ink/30"
           type={showPassword ? 'text' : 'password'}
           placeholder={t('passwordPlaceholder')}
           error={errors.password?.message}
           autoComplete="current-password"
           iconLeft={<Lock size={15} />}
           rightAction={
-            <button
+            <Button
               type="button"
+              variant="ghost"
+              size="icon"
               onClick={() => setShowPassword((v) => !v)}
               aria-label={showPassword ? 'Hide password' : 'Show password'}
-              className="text-ink-dim hover:text-ink transition-colors"
             >
-              {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
-            </button>
+              {showPassword ? <EyeOff size={15} aria-hidden="true" /> : <Eye size={15} aria-hidden="true" />}
+            </Button>
           }
           {...register('password')}
         />
@@ -94,7 +91,7 @@ export function LoginForm({ locale }: LoginFormProps) {
         variant="primary"
         size="lg"
         loading={isSubmitting || loginMutation.isPending}
-        className="w-full mt-6 hover:brightness-80 uppercase text-black"
+        className="w-full mt-6"
       >
         {t('submit')}
       </Button>
