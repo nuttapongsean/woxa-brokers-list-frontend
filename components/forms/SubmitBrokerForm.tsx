@@ -122,6 +122,7 @@ export function SubmitBrokerForm({ locale }: SubmitBrokerFormProps) {
           placeholder={t("fields.slugPlaceholder")}
           error={errors.slug?.message}
           required
+          disabled
           {...register("slug")}
         />
       </div>
