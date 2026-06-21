@@ -8,7 +8,10 @@ const intlMiddleware = createMiddleware(routing);
 
 function isPublicPath(pathname: string): boolean {
   const withoutLocale = pathname.replace(/^\/(en|th)/, '') || '/';
-  return publicPaths.has(withoutLocale);
+  if (publicPaths.has(withoutLocale)) return true;
+  // broker detail pages are public; /brokers/submit is protected
+  if (withoutLocale.startsWith('/brokers/') && withoutLocale !== '/brokers/submit') return true;
+  return false;
 }
 
 function getLocale(pathname: string): string {

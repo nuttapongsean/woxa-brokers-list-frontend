@@ -20,14 +20,14 @@ export async function ContactCard({ address, email, website }: ContactCardProps)
         {address && (
           <div className="flex items-center gap-2.5 text-[13px]">
             <MapPin size={14} className="text-ink-dim flex-shrink-0" aria-hidden="true" />
-            {address}
+            <p>{address}</p>
           </div>
         )}
         {email && (
           <div className="flex items-center gap-2.5 text-[13px]">
             <Mail size={14} className="text-ink-dim flex-shrink-0" aria-hidden="true" />
-            <a href={`mailto:${email}`} className="hover:text-accent transition-colors">
-              {email}
+            <a href={`mailto:${email}`} className="text-ink-muted hover:text-accent transition-colors">
+              <p>{email}</p>
             </a>
           </div>
         )}
@@ -38,9 +38,9 @@ export async function ContactCard({ address, email, website }: ContactCardProps)
               href={website}
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-accent transition-colors"
+              className="hover:text-accent transition-colors text-ink-muted"
             >
-              {website.replace(/^https?:\/\//, '')}
+             <p>{website.replace(/^https?:\/\//, '')}</p>
             </a>
           </div>
         )}
